@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  margin: 0 auto;
+  max-width: 1040px;
+}
+
+.if {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}

@@ -1,0 +1,30 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "volumes": [{
+    "name": "ubuntu-desktop-lxde-vnc",
+    "host": {
+      "sourcePath": "/var/local/ubuntu-desktop-lxde-vnc"
+    }
+  }],
+  "containerDefinitions": [{
+    "name": "ubuntu-desktop-lxde-vnc",
+    "image": "dorowu/ubuntu-desktop-lxde-vnc",
+    "essential": true,
+    "environment": [{
+      "name": "HTTP_PASSWORD",
+      "value": "Asdf1234"
+    }],
+    "memory": 1024,
+    "portMappings": [{
+      "hostPort": 80,
+      "containerPort": 80
+    }],
+    "mountPoints": [{
+      "sourceVolume": "ubuntu-desktop-lxde-vnc",
+      "containerPath": "/root"
+    }],
+    "linuxParameters": {
+      "sharedMemorySize": 512
+    }
+  }]
+}
