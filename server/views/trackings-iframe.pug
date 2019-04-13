@@ -1,0 +1,13 @@
+include libs/lib
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    +lib(tracking)
+    script
+      include libs/chitika.js
+  body
+    script.
+      rt.generalTrack('iframeloaded');
+      renderChitika('chitikaiframe');

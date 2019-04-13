@@ -1,0 +1,15 @@
+app:
+  port: 5001
+  keys:
+  - XUNotxeDX7ukFIsNVC8iiug79m7BUMcA
+  cors:
+  - http://localhost:5000
+
+mongodb:
+  address: mongodb://127.0.0.1:27017/yamroot
+
+frontend:
+  host: http://localhost:5000
+
+pug:
+  viewPath: ./dist/server/views

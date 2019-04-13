@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd bin/HitLeap\ Viewer
+./HitLeap-Viewer.desktop &

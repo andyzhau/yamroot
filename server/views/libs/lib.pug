@@ -1,0 +1,9 @@
+mixin lib(tracking)
+  script.
+    window.rt = {};
+
+    rt.generalTrack = function generalTrack(type) {
+      var req = new XMLHttpRequest();
+      req.open("GET", "/trackings/general?type=" + type + "&!{tracking.params}");
+      req.send();
+    }

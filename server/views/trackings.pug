@@ -1,0 +1,32 @@
+include libs/lib
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    link(rel="stylesheet", type="text/css", href!="/trackings/styles.css?type=styles&" + tracking.params)
+
+    +lib(tracking)
+
+    // General performance tracking
+    script(src!="/trackings/script.js?type=headerscript&" + tracking.params)
+    script.
+      rt.generalTrack('headerscript2');
+
+    // Propeller Native Subscription
+    script
+      include libs/propeller-native-subscription.js
+
+    script
+      include libs/chitika.js
+
+    //- script
+      //- include libs/popcash.js
+
+  body
+    // General performance tracking
+    //- img(src!="/trackings/pixel.gif?type=pixel&" + tracking.params)
+
+    //- iframe(src!="/trackings/iframe?type=iframe&" + tracking.params)
+    script.
+      renderChitika('chitika');

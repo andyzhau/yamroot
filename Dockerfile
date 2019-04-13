@@ -1,5 +1,15 @@
-FROM dorowu/ubuntu-desktop-lxde-vnc
+FROM node:11
 
-ENV HTTP_PASSWORD Asdf1234
+WORKDIR /usr/src/app
 
-EXPOSE 80
+COPY package*.json ./
+
+RUN npm install
+
+COPY dist/server ./
+
+EXPOSE 5001
+
+ENV NODE_ENV=production
+
+CMD [ "node", "server.js" ]

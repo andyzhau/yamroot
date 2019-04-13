@@ -1,0 +1,5 @@
+#!/bin/bash
+
+zip -r packs/aws-server.zip dist/server
+zip -r packs/aws-server.zip package*
+zip -r packs/aws-server.zip Dockerfile

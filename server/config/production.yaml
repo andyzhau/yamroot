@@ -1,0 +1,16 @@
+app:
+  port: 5001
+  keys:
+  - XUNotxeDX7ukFIsNVC8iiug79m7BUMcA
+  cors:
+  - http://track.yamroot.com
+  - http://track.yamroot.com
+
+mongodb:
+  address: mongodb://user1:Asdf1234@ds239206.mlab.com:39206/yamroot
+
+frontend:
+  host: http://track.yamroot.com
+
+pug:
+  viewPath: ./views

@@ -1,0 +1,10 @@
+#!/usr/bin/env ./app/HitLeap-Viewer
+
+[Desktop Entry]
+Type=Application
+Name=HitLeap Viewer
+GenericName=Traffic Exchange Application
+Comment=HitLeap is a Traffic Exchange service, which automatically delivers free traffic to your website.
+Categories=Network;WebBrowser;Viewer;
+Exec=sh -c '"$(dirname "$*")"/app/HitLeap-Viewer' dummy %k
+Icon=applications-internet

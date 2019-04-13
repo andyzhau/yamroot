@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Types=("styles" "styles2" "headerscript")
+# Types=(
+# "styles" "styles2" "headerscript" "headerscript2" "pixel" "iframe"
+# "iframepixel" "chitika" "chitikaiframe" "pushlaram" "chitikaloaded"
+# "chitikanotloaded")
+Types=(
+"styles" "headerscript" "headerscript2"
+"chitika" "chitika_rendered"
+)
+
+field=_id,te,ip,createdAt,time,detailsCount
+
+for t in "${Types[@]}"; do
+  field=$field,types.$t
+done
+
+for t in "${Types[@]}"; do
+  field=$field,"delays."${t}"Delay"
+done
+
+mongoexport --uri=mongodb://user1:Asdf1234@ds239206.mlab.com:39206/yamroot \
+  --collection=agg.details --type=csv \
+  --fields="$field" \
+  --out /tmp/1.csv

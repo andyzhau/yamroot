@@ -1,11 +1,18 @@
 {
   "AWSEBDockerrunVersion": "2",
   "volumes": [{
-    "name": "ubuntu-desktop-lxde-vnc",
-    "host": {
-      "sourcePath": "/var/local/ubuntu-desktop-lxde-vnc"
+      "name": "ubuntu-desktop-lxde-vnc",
+      "host": {
+        "sourcePath": "/var/local/ubuntu-desktop-lxde-vnc"
+      }
+    },
+    {
+      "name": "binaries",
+      "host": {
+        "sourcePath": "/var/app/current/binaries"
+      }
     }
-  }],
+  ],
   "containerDefinitions": [{
     "name": "ubuntu-desktop-lxde-vnc",
     "image": "dorowu/ubuntu-desktop-lxde-vnc",
@@ -22,6 +29,9 @@
     "mountPoints": [{
       "sourceVolume": "ubuntu-desktop-lxde-vnc",
       "containerPath": "/root"
+    }, {
+      "sourceVolume": "binaries",
+      "containerPath": "/root/bin"
     }],
     "linuxParameters": {
       "sharedMemorySize": 512

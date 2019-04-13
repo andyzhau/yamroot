@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd aws-instance
+
+zip -r ../packs/aws-instance.zip .
