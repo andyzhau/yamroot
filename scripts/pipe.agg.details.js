@@ -1,7 +1,7 @@
 db.trackings.requests.aggregate([{
   $match: {
     createdAt: {
-      $gte: ISODate('2019-04-13T16:00:00.000+00:00')
+      $gte: ISODate('2019-04-13T23:50:00.000+00:00')
     },
     te: {
       $not: {

@@ -33,6 +33,24 @@ class TrackingController extends A7Controller {
     noBody: true,
   });
 
+  @Get('/injector.js')
+  @Overrides(
+    'request.query.te->doc.te',
+    'request.query.zone->doc.zone',
+    'request.ip->doc.ip',
+  )
+  @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
+    await next();
+    const tracking: models.Requests = ctx.trackingModel;
+    ctx.render('injector', { tracking });
+    ctx.body = ctx.body.replace(/<script>/g, '').replace(/<\/script>/g, '');
+    ctx.type = 'text/javascript';
+  })
+  getInjectorScript = models.Requests.createMiddleware({
+    target: 'trackingModel',
+    noBody: true,
+  });
+
   async handleDetails(ctx: Router.IRouterContext, next: () => void) {
     const { te, type, zone, rid } = ctx.request.query;
     await models.Details.create({
