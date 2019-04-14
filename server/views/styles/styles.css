@@ -1,0 +1,39 @@
+body {
+  background: #292a2b;
+}
+
+.chitAds {
+  opacity: 0.0;
+  max-height: 250px;
+  overflow: auto;
+}
+
+.page-container {
+  max-width: 1440px;
+  height: 100%;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: flex-start space-around;
+  align-items: flex-start;
+
+  margin: 0 auto;
+  padding-top: 48px;
+}
+
+.page-content {
+  width: 800px;
+}
+
+.quote {
+  padding: 36px;
+  color: #e64848;
+  border: 1px solid #e64747;
+  border-radius: 12px;
+}
+
+.subtitle {
+  color: white;
+  text-align: right;
+  font-size: 30px;
+}

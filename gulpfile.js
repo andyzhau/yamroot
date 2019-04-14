@@ -45,7 +45,9 @@ gulp.task('build', ['resources'], () => {
 
 gulp.task('resources', ['clean'], () => {
   gulp
-    .src(['server/**/*.json', 'server/**/*.pug', 'server/**/*.js', 'server/**/*.yaml'])
+    .src(['server/**/*.json', 'server/**/*.pug', 'server/**/*.js',
+      'server/**/*.yaml', 'server/**/*.css',
+    ])
     .pipe(gulp.dest('dist/server'));
 });
 

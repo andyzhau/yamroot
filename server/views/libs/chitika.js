@@ -1,7 +1,7 @@
 var chitikaDNS = {
-  cdn: '151.139.242.30',
-  mm: '52.3.103.10',
-  image: 'images-tnfdwtqajaq1wsartb.stackpathdns.com',
+  cdn: "151.139.242.30",
+  mm: "52.3.103.10",
+  image: "images-tnfdwtqajaq1wsartb.stackpathdns.com"
 };
 
 try {
@@ -59,7 +59,9 @@ if (
           var o = a.createElement("a");
           (o.href = "#chitika_close_button"),
             (o.style.background =
-              "url(//" + chitikaDNS.image + "/buttons/close_round_white_on_red.png)"),
+              "url(//" +
+              chitikaDNS.image +
+              "/buttons/close_round_white_on_red.png)"),
             (o.style["background-repeat"] = "no-repeat"),
             (o.style.height = "14px"),
             (o.style.position = "absolute"),
@@ -1015,7 +1017,8 @@ if (
             boxShadow: "0px 0px 10px 5px #a2a2a2",
             cid: void 0,
             close_config: {
-              background: "url(//" + chitikaDNS.image + "/buttons/close_metro.png)",
+              background:
+                "url(//" + chitikaDNS.image + "/buttons/close_metro.png)",
               height: "18px",
               right: "5px",
               top: "5px",
@@ -1049,49 +1052,50 @@ if (
                   /^([^\|]*)\|?([\s\S]*)/
                 ),
                 o = a[1],
-                r = a[2].replace('images.chitika.net', chitikaDNS.image);
-              rt.generalTrack('chitika_rendered');
-              if ("close" == o)
-                try {
-                  t.close();
-                } catch (e) {}
-              else if ("script" == o && r) {
-                var s = t.getElementsByTagName("head")[0];
-                if (!s) return;
-                var c = t.createElement("script");
-                (c.src = r), s.appendChild(c);
-              } else if ("write" == o && r) {
-                for (
-                  var d = [
-                      "CHITIKA",
-                      "CHITIKA_ADS",
-                      "handle_message",
-                      "lightbox",
-                      "lightbox_config",
-                      "render_ad"
-                    ],
-                    l = {},
-                    _ = 0;
-                  _ < d.length;
-                  _++
-                )
-                  l[(u = d[_])] = e[u];
-                t.write(r);
-                try {
-                  
-                  0 == t.body.innerHTML.length &&
-                    e.parent.CHITIKA_ADS.rewrite_iframe(e.frameElement.id, r);
-                } catch (e) {}
-                for (_ = 0; _ < d.length; _++) {
-                  var u = d[_];
-                  e[u] = l[u];
+                r = a[2];
+              rt.generalTrack("chitika_rendered");
+              rt.replaceLinks(r, function(r) {
+                if ("close" == o)
+                  try {
+                    t.close();
+                  } catch (e) {}
+                else if ("script" == o && r) {
+                  var s = t.getElementsByTagName("head")[0];
+                  if (!s) return;
+                  var c = t.createElement("script");
+                  (c.src = r), s.appendChild(c);
+                } else if ("write" == o && r) {
+                  for (
+                    var d = [
+                        "CHITIKA",
+                        "CHITIKA_ADS",
+                        "handle_message",
+                        "lightbox",
+                        "lightbox_config",
+                        "render_ad"
+                      ],
+                      l = {},
+                      _ = 0;
+                    _ < d.length;
+                    _++
+                  )
+                    l[(u = d[_])] = e[u];
+                  t.write(r);
+                  try {
+                    0 == t.body.innerHTML.length &&
+                      e.parent.CHITIKA_ADS.rewrite_iframe(e.frameElement.id, r);
+                  } catch (e) {}
+                  for (_ = 0; _ < d.length; _++) {
+                    var u = d[_];
+                    e[u] = l[u];
+                  }
+                  void 0 === e.postMessage
+                    ? (e.postMessage = l.handle_message)
+                    : e.addEventListener
+                    ? e.addEventListener("message", e.handle_message, !1)
+                    : e.attachEvent("onmessage", e.handle_message);
                 }
-                void 0 === e.postMessage
-                  ? (e.postMessage = l.handle_message)
-                  : e.addEventListener
-                  ? e.addEventListener("message", e.handle_message, !1)
-                  : e.attachEvent("onmessage", e.handle_message);
-              }
+              });
             }
           };
         };

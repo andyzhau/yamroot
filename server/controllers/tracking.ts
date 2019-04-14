@@ -1,4 +1,5 @@
 import * as Router from 'koa-router';
+import * as dns from 'dns';
 import {
   A7Controller,
   Config,
@@ -13,10 +14,37 @@ import {
 import * as models from '../models';
 import { configs } from '../configs';
 
+const randomQuotes = require('random-quotes');
+
 @Config({
   prefix: '/trackings',
 })
 class TrackingController extends A7Controller {
+  @Get('/dns')
+  async dns(ctx: Router.IRouterContext) {
+    const host = ctx.request.query.host;
+
+    const d = await new Promise((resolve) => {
+      dns.resolveCname(host, (err, result) => {
+        if (err && err.code === 'ENODATA') {
+          dns.resolve4(host, (err2, result2) => {
+            if (err2) {
+              resolve(host);
+            } else {
+              resolve(result2[0]);
+            }
+          });
+        } else if (err) {
+          resolve(host);
+        } else {
+          resolve(result[0]);
+        }
+      });
+    });
+
+    ctx.body = d;
+  }
+
   @Get('/')
   @Overrides(
     'request.query.te->doc.te',
@@ -26,7 +54,7 @@ class TrackingController extends A7Controller {
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
     await next();
     const tracking: models.Requests = ctx.trackingModel;
-    ctx.render('trackings', { tracking });
+    ctx.render('trackings', { tracking, quote: randomQuotes.default() });
   })
   create = models.Requests.createMiddleware({
     target: 'trackingModel',

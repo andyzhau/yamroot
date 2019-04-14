@@ -7,7 +7,7 @@
 # "chitikanotloaded")
 Types=(
 "styles" "headerscript" "headerscript2"
-"chitika" "chitika_rendered"
+"chitika" "chitika_rendered" "chitika_iframe_rendered"
 "propeller_native_subscription_installer_loaded"
 "propeller_native_subscription_installer_loaderror"
 )
