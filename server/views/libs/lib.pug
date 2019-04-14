@@ -1,10 +1,10 @@
-mixin lib(tracking)
+mixin lib(tracking, prefix)
   script.
     window.rt = {};
 
     rt.generalTrack = function generalTrack(type) {
       var req = new XMLHttpRequest();
-      req.open("GET", "/trackings/general?type=" + type + "&!{tracking.params}");
+      req.open("GET", "!{prefix}/trackings/general?type=" + type + "&!{tracking.params}");
       req.send();
     };
 
@@ -21,9 +21,9 @@ mixin lib(tracking)
           return cb(dnsMap[host]);
         }
       }
-      req.open("GET", "/trackings/dns?host=" + host);
+      req.open("GET", "!{prefix}/trackings/dns?host=" + host);
       req.send();
-    }
+    };
 
     rt.replaceLinks = function replaceLinks(text, cb) {
       var x = /\/\/[-a-zA-Z0-9@:%._\+~#=]+\//g,
@@ -59,4 +59,4 @@ mixin lib(tracking)
       for (var key in at) {
         resolve(key);
       }
-    }
+    };

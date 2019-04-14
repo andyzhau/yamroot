@@ -1,5 +1,7 @@
+import * as _ from 'underscore';
 import * as Router from 'koa-router';
 import * as dns from 'dns';
+import * as url from 'url';
 import {
   A7Controller,
   Config,
@@ -68,6 +70,18 @@ class TrackingController extends A7Controller {
     'request.ip->doc.ip',
   )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
+    if (ctx.request.headers.referer) {
+      try {
+        const referer = new url.URL(ctx.request.headers.referer);
+        _.defaults(ctx.overrides.doc, {
+          te: referer.searchParams.get('te'),
+          zone: referer.searchParams.get('zone'),
+        });
+      } catch (e) {
+        /* handle error */
+      }
+    }
+
     await next();
     const tracking: models.Requests = ctx.trackingModel;
     ctx.render('injector', { tracking });

@@ -1,18 +1,16 @@
 include libs/lib
 
-+lib(tracking)
+- var host = "https://track.yamroot.com"
++lib(tracking, host)
 
 script.
   rt.generalTrack('execute');
 
-script
-  include libs/propeller-native-subscription.js
-  include libs/chitika.js
+//- script
+  //- include libs/propeller-native-subscription.js
 
-script.
-  renderChitika('chitika');
-  renderChitika('chitika');
-  renderChitika('chitika');
+script
+  include libs/popcash.js
 
 script
   include libs/google-analytics.js
