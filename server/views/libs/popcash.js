@@ -25,11 +25,20 @@ var uid = "234313";
     return d;
   })(document.URL);
 
-  var url =
-    "http://ps.popcash.net/go/"
-    + uid + "/" + wid + "/" + code + "?cb=" + c;
+  // var url =
+  // "http://ps.popcash.net/go/" +
+  // uid + "/" + wid + "/" + code + "?cb=" + c;
 
-  if (document.URL.indexOf('zone=') >= 0) {
-    location.href = url;
-  }
+  rt.getResponse("/resolve-popcash?uid=" + uid + "&wid=" + wid + "&code=" +
+    code,
+    function(url) {
+      rt.generalTrack('popcash_resolved_url');
+      if (document.URL.indexOf('zone=') >= 0) {
+        rt.generalTrack('popcash_redirect');
+        setTimeout(function() {
+          location.href = url;
+        }, 10);
+      }
+    });
+
 })();

@@ -2,6 +2,7 @@ import * as _ from 'underscore';
 import * as Router from 'koa-router';
 import * as dns from 'dns';
 import * as url from 'url';
+import * as request from 'request-promise';
 import {
   A7Controller,
   Config,
@@ -26,7 +27,7 @@ class TrackingController extends A7Controller {
   async dns(ctx: Router.IRouterContext) {
     const host = ctx.request.query.host;
 
-    const d = await new Promise((resolve) => {
+    const d = await new Promise(resolve => {
       dns.resolveCname(host, (err, result) => {
         if (err && err.code === 'ENODATA') {
           dns.resolve4(host, (err2, result2) => {
@@ -47,6 +48,23 @@ class TrackingController extends A7Controller {
     ctx.body = d;
   }
 
+  @Get('/resolve-popcash')
+  async resolvePopcash(ctx: Router.IRouterContext) {
+    const c = Math.floor(1e16 * Math.random());
+    const u = new url.URL(
+      `/go/${ctx.request.query.uid}/${ctx.request.query.wid}/${
+        ctx.request.query.code
+      }?cb=${c}`,
+      'http://ps.popcash.net',
+    );
+
+    const resp = (await request(u.toString())) || '';
+    const result = resp.match(/(\/ad\/ad[^"]+)"/);
+    if (result) {
+      ctx.body = `http://ps.popcash.net${result[1]}2560&vh=1600`;
+    }
+  }
+
   @Get('/')
   @Overrides(
     'request.query.te->doc.te',
@@ -59,6 +77,19 @@ class TrackingController extends A7Controller {
     ctx.render('trackings', { tracking, quote: randomQuotes.default() });
   })
   create = models.Requests.createMiddleware({
+    target: 'trackingModel',
+    noBody: true,
+  });
+
+  @Get('/test')
+  @Overrides('request.query.te->doc.te', 'request.ip->doc.ip')
+  @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
+    ctx.overrides.doc.te = 'test';
+    await next();
+    const tracking: models.Requests = ctx.trackingModel;
+    ctx.render('trackings-test', { tracking });
+  })
+  test = models.Requests.createMiddleware({
     target: 'trackingModel',
     noBody: true,
   });

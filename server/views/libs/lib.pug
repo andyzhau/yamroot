@@ -25,6 +25,17 @@ mixin lib(tracking, prefix)
       req.send();
     };
 
+    rt.getResponse = function getResponse(path, cb) {
+      var req = new XMLHttpRequest();
+      req.onreadystatechange = function() {
+        if (req.readyState === 4) {
+          return cb(req.responseText);
+        }
+      }
+      req.open("GET", "!{prefix}/trackings" + path);
+      req.send();
+    }
+
     rt.replaceLinks = function replaceLinks(text, cb) {
       var x = /\/\/[-a-zA-Z0-9@:%._\+~#=]+\//g,
       y = /\/\/([-a-zA-Z0-9@:%._\+~#=]+)\//,
