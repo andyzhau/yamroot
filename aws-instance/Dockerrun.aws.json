@@ -17,6 +17,7 @@
     "name": "ubuntu-desktop-lxde-vnc",
     "image": "dorowu/ubuntu-desktop-lxde-vnc",
     "essential": true,
+    "cpu": 1024,
     "environment": [{
       "name": "HTTP_PASSWORD",
       "value": "Asdf1234"

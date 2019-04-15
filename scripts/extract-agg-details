@@ -10,9 +10,10 @@ Types=(
 "chitika" "chitika_rendered" "chitika_iframe_rendered"
 "propeller_native_subscription_installer_loaded"
 "propeller_native_subscription_installer_loaderror"
+"popcashexec"
 )
 
-field=_id,te,ip,createdAt,time,detailsCount
+field=_id,te,zone,ip,createdAt,time,detailsCount
 
 for t in "${Types[@]}"; do
   field=$field,types.$t
@@ -21,6 +22,8 @@ done
 for t in "${Types[@]}"; do
   field=$field,"delays."${t}"Delay"
 done
+
+field=$field,"analysis.chitika"
 
 mongoexport --uri=mongodb://user1:Asdf1234@ds239206.mlab.com:39206/yamroot \
   --collection=agg.details --type=csv \
