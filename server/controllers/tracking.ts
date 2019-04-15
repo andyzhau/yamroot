@@ -159,9 +159,20 @@ class TrackingController extends A7Controller {
     'request.ip->doc.ip',
   )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
+    const options = {
+      chitika: ctx.request.query.chitika !== 'false',
+      revenuehits: ctx.request.query.revenuehits !== 'false',
+      bidvertiser: ctx.request.query.bidvertiser !== 'false',
+      popads: ctx.request.query.popads !== 'false',
+    };
+
     await next();
     const tracking: models.Requests = ctx.trackingModel;
-    ctx.render('trackings', { tracking, quote: randomQuotes.default() });
+    ctx.render('trackings', {
+      tracking,
+      quote: randomQuotes.default(),
+      options,
+    });
   })
   create = models.Requests.createMiddleware({
     target: 'trackingModel',

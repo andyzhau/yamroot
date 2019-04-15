@@ -3,7 +3,7 @@ body {
 }
 
 .chitAds {
-  opacity: 0.0;
+  opacity: 1.0;
   max-height: 250px;
   overflow: auto;
 }
