@@ -71,8 +71,8 @@ html(lang="en")
             })(document);
 
       div.chitAds
-        if options.chitika
+        - var n = 0;
+        while n < options.chitikaCount
+          - n++
           script.
-            renderChitika('chitika');
-            renderChitika('chitika');
             renderChitika('chitika');
