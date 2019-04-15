@@ -33,13 +33,14 @@ html(lang="en")
     style
       include styles/styles.css
   body
-
     div.page-container
       div.page-content
         div.quote
           h1 #{quote.body}
           div.subtitle #{quote.author}
       div.banner
+        script
+          include libs/revenuehits.js
         script(data-cfasync='false', type='text/javascript', src='//p346864.clksite.com/adServe/banners?tid=346864_677269_0')
 
         div#ntv_1991827

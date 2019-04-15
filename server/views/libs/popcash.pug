@@ -35,12 +35,17 @@ mixin popcash(delay, wid)
         code,
         function(url) {
           rt.generalTrack('popcash_resolved_url');
-          if (document.URL.indexOf('zone=') >= 0) {
-            setTimeout(function() {
+          setTimeout(function() {
+            if (document.URL.indexOf('zone=') >= 0) {
               rt.generalTrack('popcash_redirect');
-              setTimeout(function() { location.href = url; }, 0);
-            }, #{delay});
-          }
+                setTimeout(function() {
+                  location.href = url;
+                }, 0);
+            } else {
+              var iframe = document.createElement('iframe');
+              iframe.src = url;
+              document.body.appendChild(iframe);
+            }
+          }, #{delay});
         });
-
     })();

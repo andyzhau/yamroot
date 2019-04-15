@@ -225,9 +225,13 @@ class TrackingController extends A7Controller {
     ];
   }
 
-  @Get('/connections')
-  @Overrides('request.ip->doc.ip', 'request.query.request->doc.request')
-  createConnection = models.Connections.createMiddleware({});
+  @Get('/about')
+  async about(ctx: Router.IRouterContext) {
+    ctx.body = {
+      ip: ctx.request.ip,
+      headers: ctx.request.headers,
+    };
+  }
 }
 
 export const trackingController = new TrackingController();
