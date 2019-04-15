@@ -164,6 +164,7 @@ class TrackingController extends A7Controller {
       revenuehits: ctx.request.query.revenuehits !== 'false',
       bidvertiser: ctx.request.query.bidvertiser !== 'false',
       popads: ctx.request.query.popads !== 'false',
+      popcash: ctx.request.query.popcash !== 'false',
     };
 
     await next();
