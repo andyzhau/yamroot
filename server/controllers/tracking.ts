@@ -1,4 +1,6 @@
 import * as _ from 'underscore';
+import * as fs from 'fs';
+import * as path from 'path';
 import * as Router from 'koa-router';
 import * as dns from 'dns';
 import * as url from 'url';
@@ -19,10 +21,69 @@ import { configs } from '../configs';
 
 const randomQuotes = require('random-quotes');
 
+const files = {
+  uiTag75: fs.readFileSync(
+    path.join(__dirname, '../views/libs/revenuehits/ui_tag_75-1.js'),
+  ),
+};
+
 @Config({
   prefix: '/trackings',
 })
 class TrackingController extends A7Controller {
+  @Post('/proxy')
+  async proxy(ctx: Router.IRouterContext) {
+    const options = ctx.request.body;
+
+    options.headers = options.headers || {};
+    options.headers['X-Forwarded-For'] = ctx.ip;
+    options.headers['X-Real-Ip'] = ctx.ip;
+
+    const result = await request(options);
+
+    ctx.body = result;
+  }
+
+  @Get('/proxy-get')
+  async proxyGet(ctx: Router.IRouterContext) {
+    const u = Buffer.from(ctx.request.query.url, 'base64').toString();
+    const u1 = new url.URL(u.startsWith('//') ? 'http:' + u : u);
+
+    _.each(ctx.request.query, (v: string, k: string) => {
+      if (k !== 'url') {
+        u1.searchParams.append(k, v);
+      }
+    });
+
+    const options = {
+      url: u1.toString(),
+      headers: ctx.request.headers,
+      resolveWithFullResponse: true,
+      gzip: true,
+    };
+    options.headers = options.headers || {};
+    options.headers['X-Forwarded-For'] = ctx.ip;
+    options.headers['X-Real-Ip'] = ctx.ip;
+    delete options.headers.host;
+
+    const result = await request(options);
+
+    _.each(result.headers, (v: string, k: string) => {
+      if (k === 'content-type') {
+        ctx.type = v;
+      }
+      if (k === 'expires' || k === 'cache-control' || k === 'last-modified') {
+        ctx.set(k, v);
+      }
+    });
+
+    if (u.indexOf('ui_tag_75-1.js') >= 0) {
+      ctx.body = files.uiTag75;
+    } else {
+      ctx.body = result.body;
+    }
+  }
+
   @Get('/dns')
   async dns(ctx: Router.IRouterContext) {
     const host = ctx.request.query.host;
