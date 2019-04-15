@@ -170,7 +170,7 @@ class TrackingController extends A7Controller {
     await next();
     const tracking: models.Requests = ctx.trackingModel;
     ctx.render('trackings', {
-      tracking,
+      tracking: tracking.toJSON({ getters: true }),
       quote: randomQuotes.default(),
       options,
     });
@@ -186,7 +186,9 @@ class TrackingController extends A7Controller {
     ctx.overrides.doc.te = 'test';
     await next();
     const tracking: models.Requests = ctx.trackingModel;
-    ctx.render('trackings-test', { tracking });
+    ctx.render('trackings-test', {
+      tracking: tracking.toJSON({ getters: true }),
+    });
   })
   test = models.Requests.createMiddleware({
     target: 'trackingModel',
@@ -214,7 +216,7 @@ class TrackingController extends A7Controller {
 
     await next();
     const tracking: models.Requests = ctx.trackingModel;
-    ctx.render('injector', { tracking });
+    ctx.render('injector', { tracking: tracking.toJSON({ getters: true }) });
     ctx.body = ctx.body.replace(/<script>/g, '').replace(/<\/script>/g, '');
     ctx.type = 'text/javascript';
   })
