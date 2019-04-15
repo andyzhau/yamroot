@@ -1,5 +1,6 @@
 - var host = ""
 include libs/lib
+include libs/popcash
 
 doctype html
 html(lang="en")
@@ -27,8 +28,7 @@ html(lang="en")
     script
       include libs/google-analytics.js
 
-    //- script
-      //- include libs/popcash.js
+    +popcash(10000)
 
     style
       include styles/styles.css

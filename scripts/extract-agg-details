@@ -10,7 +10,7 @@ Types=(
 "chitika" "chitika_rendered" "chitika_iframe_rendered"
 "propeller_native_subscription_installer_loaded"
 "propeller_native_subscription_installer_loaderror"
-"popcashexec"
+"popcashexec" "popcash_resolved_url" "popcash_redirect"
 )
 
 field=_id,te,zone,ip,createdAt,time,detailsCount
