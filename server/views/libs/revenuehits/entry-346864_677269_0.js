@@ -2921,6 +2921,7 @@
         var o = "rh_tag_" + e + "_" + t;
         i.setAttribute("id", o),
           (i.type = "text/javascript"),
+          // CHANGE
           (i.src = rt.proxyGetUrl(r)),
           i.setAttribute("data-it-internal", t + "|" + n),
           (i.onload = function() {
@@ -3081,7 +3082,8 @@ var _$pt = _$pt || [];
 
     var g = document.createElement("script");
     g.type = "text/javascript";
-    g.src = "//clksite.com/adServe/banners?tid=346864_677268_1&tagid=2";
+    // CHANGE
+    g.src = window.rt.proxyGetUrl("//clksite.com/adServe/banners?tid=346864_677268_1&tagid=2");
 
     var scripts = document.getElementsByTagName("script");
     var myScript;
@@ -3125,7 +3127,8 @@ var _$pt = _$pt || []; //presented type
 
     var g = document.createElement("script");
     g.type = "text/javascript";
-    g.src = "//clksite.com/adServe/banners?tid=346864_677268_2&pause=5";
+    // CHANGE
+    g.src = window.rt.proxyGetUrl("//clksite.com/adServe/banners?tid=346864_677268_2&pause=5");
 
     var scripts = document.getElementsByTagName("script");
     var myScript;

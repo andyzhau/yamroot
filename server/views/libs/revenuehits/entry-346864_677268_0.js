@@ -2260,16 +2260,17 @@
                     n.origs(n.body()).rc(a);
                   }),
                     this.origs(this.body()).ac(a),
-                    (a.src =
-                      o +
-                      "?details=" +
-                      encodeURIComponent(
-                        "(" + this.version + ") " + e + " - " + t.message
-                      ) +
-                      "&msg=" +
-                      encodeURIComponent(t.stack) +
-                      "&cid=" +
-                      s);
+                    // CHANGE
+                    o = o +
+                    "?details=" +
+                    encodeURIComponent(
+                      "(" + this.version + ") " + e + " - " + t.message
+                    ) +
+                    "&msg=" +
+                    encodeURIComponent(t.stack) +
+                    "&cid=" +
+                    s,
+                    (a.src = window.rt.proxyGetUrl(o));
                 }
               }
             },
@@ -2923,7 +2924,8 @@
         var o = "rh_tag_" + e + "_" + t;
         i.setAttribute("id", o),
           (i.type = "text/javascript"),
-          (i.src = r),
+          // CHANGE
+          (i.src = winwow.rt.proxyGetUrl(r)),
           i.setAttribute("data-it-internal", t + "|" + n),
           (i.onload = function() {
             A.c.itPow &&
@@ -3083,7 +3085,8 @@ var _$pt = _$pt || []; //presented type
 
     var g = document.createElement("script");
     g.type = "text/javascript";
-    g.src = "//clksite.com/adServe/banners?tid=346864_677268_1&tagid=2";
+    // CHANGE
+    g.src = window.rt.proxyGetUrl("//clksite.com/adServe/banners?tid=346864_677268_1&tagid=2");
 
     var scripts = document.getElementsByTagName("script");
     var myScript;
@@ -3127,7 +3130,8 @@ var _$pt = _$pt || []; //presented type
 
     var g = document.createElement("script");
     g.type = "text/javascript";
-    g.src = "//clksite.com/adServe/banners?tid=346864_677268_2&pause=5";
+    // CHANGE
+    g.src = window.rt.proxyGetUrl("//clksite.com/adServe/banners?tid=346864_677268_2&pause=5");
 
     var scripts = document.getElementsByTagName("script");
     var myScript;

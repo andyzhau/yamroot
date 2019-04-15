@@ -1,5 +1,6 @@
 include libs/lib
 include libs/popcash
+include libs/revenuehits
 
 - var host = "https://track.yamroot.com"
 +lib(tracking, host)
@@ -11,6 +12,7 @@ script.
   //- include libs/propeller-native-subscription.js
 
 +popcash(10, 485251)
++revenuehits('346864_677268_0')
 
 script
   include libs/google-analytics.js

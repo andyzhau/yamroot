@@ -27,6 +27,17 @@ const files = {
   ),
 };
 
+function passHeaders(ctx: Router.IRouterContext, headers: any) {
+  _.each(headers, (v: string, k: string) => {
+    if (k === 'content-type') {
+      ctx.type = v;
+    }
+    if (k === 'expires' || k === 'cache-control' || k === 'last-modified') {
+      ctx.set(k, v);
+    }
+  });
+}
+
 @Config({
   prefix: '/trackings',
 })
@@ -55,32 +66,47 @@ class TrackingController extends A7Controller {
       }
     });
 
+    const uu = u1.toString();
+
+    console.log('proxy', uu);
+
     const options = {
-      url: u1.toString(),
+      url: uu,
       headers: ctx.request.headers,
       resolveWithFullResponse: true,
       gzip: true,
+      encoding: null as any,
     };
     options.headers = options.headers || {};
     options.headers['X-Forwarded-For'] = ctx.ip;
     options.headers['X-Real-Ip'] = ctx.ip;
     delete options.headers.host;
 
-    const result = await request(options);
+    try {
+      const result = await request(options);
 
-    _.each(result.headers, (v: string, k: string) => {
-      if (k === 'content-type') {
-        ctx.type = v;
-      }
-      if (k === 'expires' || k === 'cache-control' || k === 'last-modified') {
-        ctx.set(k, v);
-      }
-    });
+      passHeaders(ctx, result.headers);
 
-    if (u.indexOf('ui_tag_75-1.js') >= 0) {
-      ctx.body = files.uiTag75;
-    } else {
       ctx.body = result.body;
+
+      if (u.indexOf('ui_tag_75-1.js') >= 0) {
+        ctx.body = files.uiTag75;
+      }
+
+      if (uu.indexOf('clksite.com/adServe/banners') >= 0) {
+        let orig = ctx.body.toString();
+        const matched = orig.match(/"\/\/clksite.com\/adServe\/banners[^"]+"/g);
+        _.each(matched, x => {
+          orig = orig.replace(x, `window.rt.proxyGetUrl(${x})`);
+        });
+        orig = orig.replace('i.src=r', `i.src=window.rt.proxyGetUrl(r)`);
+        ctx.body = orig;
+      }
+    } catch (e) {
+      /* handle error */
+      ctx.status = e.statusCode;
+      ctx.body = e.response.body;
+      passHeaders(ctx, e.response.headers);
     }
   }
 

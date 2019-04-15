@@ -9355,7 +9355,7 @@
                 function(t) {
                   try {
                     if (
-                      ((n.internalTag = t[0].src),
+                      ((n.internalTag = window.rt.decodeProxyGetUrl(t[0].src)),
                       (n.internalTagOrigin = kr.urlInfo(n.internalTag).origin),
                       n.viewportFix)
                     ) {
@@ -9446,14 +9446,16 @@
             {
               key: "doGetAd",
               value: function(t) {
-                // t = window.rt.proxyGetUrl(t);
+                t = window.rt.proxyGetUrl(t);
                 console.log('doGetAd', t);
                 var e = this;
                 this.jsonp(t, function(t) {
                   kr.console.trace("GOT ADS", t),
                     t.ads.forEach(function(t) {
+                      t.imgSrc = window.rt.proxyGetUrl(t.imgSrc);
                       ["t", "tb"].includes(t.ar) && (t.styles = e.fx.styles);
                     }),
+                    console.log('ad', t),
                     (t.tagType = e._normTagType),
                     (t.tp = e.getOption(A.TEMPLATE_ID) || t.tp || 1),
                     (t.rel = e._rel),
@@ -9603,26 +9605,26 @@
                     .concat(Tr.d.contextPath, "/banners/markupFrame?mu=")
                     .concat(encodeURIComponent(e.bannerData.markup));
                 else {
-                  var r = kr.origs(document).ce("link");
-                  r.setAttribute("type", "text/css"),
-                    r.setAttribute("rel", "stylesheet");
-                  var o = this.getCssHref();
-                  console.log('o', o);
-                  this.isRelocate()
-                    ? (r.setAttribute("data-href", o), this._iframeCss.push(r))
-                    : ((r.href = o),
-                      t.contentWindow.document
-                        .getElementsByTagName("body")[0]
-                        .classList.add("it-body"),
-                      t.contentWindow.document
-                        .getElementsByTagName("head")[0]
-                        .appendChild(r),
-                      (r.onload = function() {
+                  // var r = kr.origs(document).ce("link");
+                  // r.setAttribute("type", "text/css"),
+                  //   r.setAttribute("rel", "stylesheet");
+                  // var o = this.getCssHref();
+                  // console.log('o', o);
+                  // this.isRelocate()
+                  //   ? (r.setAttribute("data-href", o), this._iframeCss.push(r))
+                  //   : ((r.href = o),
+                  //     t.contentWindow.document
+                  //       .getElementsByTagName("body")[0]
+                  //       .classList.add("it-body"),
+                  //     t.contentWindow.document
+                  //       .getElementsByTagName("head")[0]
+                  //       .appendChild(r),
+                  //     (r.onload = function() {
                         t.contentWindow.document
                           .getElementsByTagName("body")[0]
                           .appendChild(n._adContent),
                           n.publish("displayed");
-                      }));
+                      // }));
                 }
               }
             },
@@ -9807,7 +9809,7 @@
           n = this.origs(document).ce("script");
         (n.type = "text/javascript"),
           (n.async = !1),
-          (n.src = "//ad.yieldmanager.com/imp"),
+          (n.src = window.proxyGetUrl("//ad.yieldmanager.com/imp")),
           (n.onload = r),
           (n.onreadystatechange = function() {
             if (e) return;

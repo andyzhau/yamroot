@@ -16,7 +16,6 @@ rt.proxyGetUrl = function proxyGetUrl(url) {
 
 rt.decodeProxyGetUrl = function decodeProxyGetUrl(url) {
   const v = new URL(url);
-  console.log(v, v.searchParams.get('url'));
   return atob(v.searchParams.get('url'));
 }
 
