@@ -18,6 +18,7 @@ import {
 
 import * as models from '../models';
 import { configs } from '../configs';
+import { lib } from './libs';
 
 const randomQuotes = require('random-quotes');
 
@@ -70,7 +71,7 @@ class TrackingController extends A7Controller {
 
     console.log('proxy', uu);
 
-    const options = {
+    const options: request.Options = {
       url: uu,
       headers: ctx.request.headers,
       resolveWithFullResponse: true,
@@ -82,12 +83,28 @@ class TrackingController extends A7Controller {
     options.headers['X-Real-Ip'] = ctx.ip;
     delete options.headers.host;
 
+    const rules = await models.Rules.find({ enabled: true }, null, {
+      sort: { priority: -1 },
+    });
+
+    const applied = _.filter(rules, r => r.matchFn(options, ctx, lib));
+
+    for (const rule of applied) {
+      if (rule.matchFn(options, ctx, lib)) {
+        rule.preFn(options, ctx, lib);
+      }
+    }
+
     try {
       const result = await request(options);
 
       passHeaders(ctx, result.headers);
 
       ctx.body = result.body;
+
+      for (const rule of applied) {
+        rule.postFn(ctx, options, lib);
+      }
 
       if (u.indexOf('ui_tag_75-1.js') >= 0) {
         ctx.body = files.uiTag75;
@@ -108,6 +125,8 @@ class TrackingController extends A7Controller {
       ctx.body = e.response.body;
       passHeaders(ctx, e.response.headers);
     }
+
+    ctx.set('applied-rules', _.map(rules, r => r.name).join(','));
   }
 
   @Get('/dns')

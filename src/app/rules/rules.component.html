@@ -1,0 +1,18 @@
+<h1>Rules</h1>
+
+<button [routerLink]="['/rules/new']">Create</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Links</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rule of rules">
+      <td>{{rule.name}}</td>
+      <td><a [routerLink]="['/rules', rule._id]">Edit</a></td>
+    </tr>
+  </tbody>
+</table>

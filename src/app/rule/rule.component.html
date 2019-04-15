@@ -1,0 +1,43 @@
+<div *ngIf="rule">
+  <h1>{{rule._id == null ? 'New' : rule.name}} (<a [routerLink]="['/rules']">Back</a>)</h1>
+
+  <mat-checkbox>Enabled</mat-checkbox>
+
+  <div>
+    <mat-form-field class="full-width">
+      <input matInput
+             placeholder="Name"
+             [(ngModel)]="rule.name">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput
+             placeholder="Priority"
+             [(ngModel)]="rule.priority">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <h2>Match</h2>
+    <ngx-monaco-editor [options]="editorOptions"
+                       [(ngModel)]="rule.match">
+    </ngx-monaco-editor>
+  </div>
+
+  <div>
+    <h2>Pre</h2>
+    <ngx-monaco-editor [options]="editorOptions"
+                       [(ngModel)]="rule.pre">
+    </ngx-monaco-editor>
+  </div>
+
+  <div>
+    <h2>Post</h2>
+    <ngx-monaco-editor [options]="editorOptions"
+                       [(ngModel)]="rule.post">
+    </ngx-monaco-editor>
+  </div>
+
+  <button mat-button
+          (click)="save()">Save</button>
+</div>
