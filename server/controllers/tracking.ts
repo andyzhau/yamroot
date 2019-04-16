@@ -259,6 +259,22 @@ class TrackingController extends A7Controller {
     noBody: true,
   });
 
+  @Get('/lib.js')
+  async getLibScript(ctx: Router.IRouterContext) {
+    ctx.render('lib-script', {
+      tracking: {
+        te: ctx.request.query.te,
+        zone: ctx.request.query.zone,
+        rid: ctx.request.query.rid,
+        params: `rid=${ctx.request.query.rid}&te=${ctx.request.query.te}&zone=${ctx.request.query.zone}`,
+      },
+      configs,
+    });
+    ctx.body = ctx.body.replace(/<script>/g, '').replace(/<\/script>/g, '');
+    ctx.type = 'text/javascript';
+  }
+
+
   async handleDetails(ctx: Router.IRouterContext, next: () => void) {
     const { te, type, zone, rid } = ctx.request.query;
     await models.Details.create({
