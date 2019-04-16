@@ -342,4 +342,4 @@ rt.replaceLinks = function replaceLinks(text, cb) {
   }
 };
 
-rt.generalTrack('_adserve.');
+rt.generalTrack('_adskin_');
