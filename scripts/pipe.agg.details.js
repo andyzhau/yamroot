@@ -2,7 +2,7 @@ db.trackings.requests.aggregate(
   [{
     $match: {
       createdAt: {
-        $gte: ISODate('2019-04-15T00:00:00.000+00:00')
+        $gte: ISODate('2019-04-16T18:00:00.000+00:00')
       },
       te: {
         $not: {
@@ -76,9 +76,15 @@ db.trackings.requests.aggregate(
           $switch: {
             branches: [{
                 case: {
+                  $eq: ['$types.chitika_clicked', true],
+                },
+                then: '4. Clicked',
+              },
+              {
+                case: {
                   $eq: ['$types.chitika_rendered', true],
                 },
-                then: '4. Success',
+                then: '4. Rendered',
               },
               {
                 case: {

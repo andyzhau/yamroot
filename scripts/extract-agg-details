@@ -7,10 +7,12 @@
 # "chitikanotloaded")
 Types=(
 "styles" "headerscript" "headerscript2"
-"chitika" "chitika_rendered" "chitika_iframe_rendered"
-"propeller_native_subscription_installer_loaded"
-"propeller_native_subscription_installer_loaderror"
-"popcashexec" "popcash_resolved_url" "popcash_redirect"
+"chitika" "chitika_rendered" "chitika_iframe_rendered" "chitika_clicked"
+# "propeller_native_subscription_installer_loaded"
+# "propeller_native_subscription_installer_loaderror"
+# "popcashexec" "popcash_resolved_url" "popcash_redirect"
+"revenuehits_adrendered" "revenuehits_adclicked"
+"_adskin_"
 )
 
 field=_id,te,zone,ip,createdAt,time,detailsCount
@@ -19,9 +21,9 @@ for t in "${Types[@]}"; do
   field=$field,types.$t
 done
 
-for t in "${Types[@]}"; do
-  field=$field,"delays."${t}"Delay"
-done
+# for t in "${Types[@]}"; do
+  # field=$field,"delays."${t}"Delay"
+# done
 
 field=$field,"analysis.chitika"
 

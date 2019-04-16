@@ -9,6 +9,7 @@ process.env['NODE_CONFIG_DIR'] = __dirname + '/config/';
 
 import { configs } from './configs';
 import { router } from './controllers';
+import { accessLogger } from './logger';
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -44,6 +45,25 @@ app
       credentials: true,
     }),
   )
+  .use(async (ctx, next) => {
+    try {
+      await next();
+      accessLogger.info('Request', {
+        url: ctx.request.url,
+        ip: ctx.ip,
+        status: ctx.status,
+        header: ctx.request.headers,
+      });
+    } catch (e) {
+      accessLogger.info('Request', {
+        url: ctx.request.url,
+        ip: ctx.ip,
+        header: ctx.request.headers,
+        err: e,
+      });
+      ctx.status = 500;
+    }
+  })
   .use(koaStatic(configs.pug.viewPath))
   .use(bodyparser())
   .use(router.routes())

@@ -19,6 +19,7 @@ import {
 import * as models from '../models';
 import { configs } from '../configs';
 import { lib } from './libs';
+import { logger } from '../logger';
 
 const randomQuotes = require('random-quotes');
 
@@ -36,11 +37,11 @@ function passHeaders(ctx: Router.IRouterContext, headers: any) {
     if (
       k === 'expires' ||
       k === 'cache-control' ||
-      k === 'last-modified' ||
-      k === 'set-cookie' ||
-      k === 'location' ||
-      k === 'date' ||
-      k === 'server'
+    k === 'last-modified' ||
+  k === 'set-cookie' ||
+k === 'location' ||
+k === 'date' ||
+k === 'server'
     ) {
       ctx.set(k, v);
     }
@@ -118,7 +119,7 @@ class TrackingController extends A7Controller {
           result.body +
           `;rt.regScriptResponse(${ctx.request.query.rtsid}, '${new Buffer(
             result.body,
-          ).toString('base64')}')`;
+        ).toString('base64')}')`;
       }
 
       for (const rule of applied) {
@@ -167,7 +168,7 @@ class TrackingController extends A7Controller {
       `/go/${ctx.request.query.uid}/${ctx.request.query.wid}/${
         ctx.request.query.code
       }?cb=${c}`,
-      'http://ps.popcash.net',
+        'http://ps.popcash.net',
     );
 
     const resp = (await request(u.toString())) || '';
@@ -203,6 +204,11 @@ class TrackingController extends A7Controller {
       quote: randomQuotes.default(),
       options,
       configs,
+    });
+
+    logger.info('request', {
+      url: ctx.request.url,
+      tracking: tracking.toJSON({ getters: true }),
     });
   })
   create = models.Requests.createMiddleware({
@@ -253,6 +259,11 @@ class TrackingController extends A7Controller {
     });
     ctx.body = ctx.body.replace(/<script>/g, '').replace(/<\/script>/g, '');
     ctx.type = 'text/javascript';
+
+    logger.info('request', {
+      url: ctx.request.url,
+      tracking: tracking.toJSON({ getters: true }),
+    });
   })
   getInjectorScript = models.Requests.createMiddleware({
     target: 'trackingModel',
@@ -268,7 +279,7 @@ class TrackingController extends A7Controller {
         rid: ctx.request.query.rid,
         params: `rid=${ctx.request.query.rid}&te=${ctx.request.query.te}&zone=${ctx.request.query.zone}`,
       },
-      configs,
+        configs,
     });
     ctx.body = ctx.body.replace(/<script>/g, '').replace(/<\/script>/g, '');
     ctx.type = 'text/javascript';
@@ -277,12 +288,16 @@ class TrackingController extends A7Controller {
 
   async handleDetails(ctx: Router.IRouterContext, next: () => void) {
     const { te, type, zone, rid } = ctx.request.query;
-    await models.Details.create({
+    const detail = await models.Details.create({
       te,
       type,
       zone,
       request: rid,
       ip: ctx.request.ip,
+    });
+    logger.info('details', {
+      url: ctx.url,
+      detail: detail.toJSON({ getters: true }),
     });
     await next();
   }
