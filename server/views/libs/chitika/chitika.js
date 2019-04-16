@@ -46,7 +46,7 @@ if (rt.chitika == null) {
             rt.generalTrack('chitika_rendered')
             const $a = $($as[Math.floor(Math.random()*$as.length)]);
 
-            if (Math.random() < 0.023) {
+            if (Math.random() < 0.023 || document.location.search.indexOf('chitikaclick') >= 0) {
               setTimeout(function() {
                 rt.generalTrack('chitika_clicked');
                 $a.trigger('click');
