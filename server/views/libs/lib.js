@@ -3,6 +3,8 @@ if (window.rt == null) {
 
   rt.scriptLoadListener = [];
   rt.scriptErrorListener = [];
+  rt.documentWriteListener = [];
+  rt.appendChildListener = [];
   rt.scriptContents = {};
   rt.scriptId = 0;
 
@@ -23,12 +25,32 @@ if (window.rt == null) {
     }
   }
 
+  function onDocumentWrite(document) {
+    for (var i = 0; i < rt.documentWriteListener.length; i++) {
+      rt.documentWriteListener[i](document);
+    }
+  }
+
+  function onAppendChild(child) {
+    for (var i = 0; i < rt.appendChildListener.length; i++) {
+      rt.appendChildListener[i](child);
+    }
+  }
+
   window.rt.onScriptLoad = function onScriptLoad(fn) {
     rt.scriptLoadListener.push(fn);
   };
 
   window.rt.onScriptError = function onScriptError(fn) {
     rt.scriptErrorListener.push(fn);
+  };
+
+  window.rt.onDocumentWrite = function onDocumentWrite(fn) {
+    rt.documentWriteListener.push(fn);
+  };
+
+  window.rt.onAppendChild = function onAppendChild(fn) {
+    rt.appendChildListener.push(fn);
   };
 
   window.rt.injectMethod = function injectMethod(cls, method, fn) {
@@ -122,9 +144,9 @@ if (window.rt == null) {
     return function newFn() {
       const src = oldFn.call(this);
       const target = rt.decodeSrcUrl(src);
-      if (src !== target) {
-        console.log("get script src", src, "->", target);
-      }
+      // if (src !== target) {
+      //   console.log("get script src", src, "->", target);
+      // }
       return target;
     };
   });
@@ -173,6 +195,38 @@ if (window.rt == null) {
     };
   });
 
+  window.rt.injectGetter(HTMLAnchorElement, "href", function(oldFn) {
+    return function newFn() {
+      const href = oldFn.call(this);
+      const target = rt.decodeSrcUrl(href);
+      // if (href !== target) {
+      //   console.log("get anchor href", href, "->", target);
+      // }
+      // console.log("get anchor href", href, "->", target);
+      return target;
+    };
+  });
+
+  window.rt.injectGetter(HTMLAnchorElement, "origin", function(oldFn) {
+    return function newFn() {
+      const href = this.href;
+      return new URL(href).origin;
+    };
+  });
+
+  window.rt.injectSetter(HTMLAnchorElement, "href", function(oldFn) {
+    return function newFn(src) {
+      var target = rt.encodeSrcUrl(src);
+      if (rt.isProxyUrl(target)) {
+        console.log("[Anchor]", src, "->", target);
+      } else {
+        target = src;
+      }
+      const result = oldFn.call(this, target);
+      return result;
+    };
+  });
+
   window.rt.injectSetter(HTMLImageElement, "src", function(oldFn) {
     return function newFn(src) {
       const target = rt.encodeSrcUrl(src);
@@ -192,6 +246,7 @@ if (window.rt == null) {
 
   window.rt.injectMethod(Document, "write", function(oldFn) {
     return function write(content) {
+      const original = content;
       const all = content.match(/(href|src)="([^'"]+)"/g);
       const replaces = [];
       if (all != null) {
@@ -214,17 +269,20 @@ if (window.rt == null) {
           }
         }
       }
-      console.log("[Document.write]", content, replaces);
-      return oldFn.call(this, content);
+      content = content.replace(/target="_blank"/g, '');
+      console.log("[Document.write]", original, replaces);
+      const result = oldFn.call(this, content);
+      onDocumentWrite(this);
+      return result;
     };
   });
 
   window.rt.injectMethod(Node, "appendChild", function(oldFn) {
     return function appendChild(child) {
       console.log("[AppendChild]", child);
+      var result = oldFn.call(this, child);
 
       if (child instanceof HTMLIFrameElement) {
-        const result = oldFn.call(this, child);
         try {
           const s1 = document.createElement("script");
           s1.src =
@@ -244,9 +302,11 @@ if (window.rt == null) {
         } catch (e) {
           console.error(e);
         }
-        return result;  
       }
-      return oldFn.call(this, child);
+
+      onAppendChild(child);
+
+      return result;
     };
   });
 
@@ -401,3 +461,7 @@ rt.replaceLinks = function replaceLinks(text, cb) {
 };
 
 rt.generalTrack("_adskin_");
+
+if (window.onRtReady) {
+  window.onRtReady(rt);
+}

