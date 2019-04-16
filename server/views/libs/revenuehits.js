@@ -22,7 +22,7 @@ if (rt.revenuehits == null) {
     for (var i = 0; i < rt.revenuehits.ads.length; i++) {
       rt.generalTrack('revenuehits_adrendered');
       const ad = rt.revenuehits.ads[i];
-      if (Math.random() < 0.023) {
+      if (Math.random() < 0.023 ||  document.location.search.indexOf('revenuehitsclick') >= 0) {
         console.log('click ad', ad.url);
         rt.generalTrack('revenuehits_adclicked');
         rt.createIFrame(ad.url);
