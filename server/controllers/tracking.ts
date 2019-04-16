@@ -124,20 +124,6 @@ class TrackingController extends A7Controller {
       for (const rule of applied) {
         rule.postFn(ctx, options, lib);
       }
-
-      // if (u.indexOf('ui_tag_75-1.js') >= 0) {
-      // ctx.body = files.uiTag75;
-      // }
-
-      // if (uu.indexOf('clksite.com/adServe/banners') >= 0) {
-      // let orig = ctx.body.toString();
-      // const matched = orig.match(/"\/\/clksite.com\/adServe\/banners[^"]+"/g);
-      // _.each(matched, x => {
-      // orig = orig.replace(x, `window.rt.proxyGetUrl(${x})`);
-      // });
-      // orig = orig.replace('i.src=r', `i.src=window.rt.proxyGetUrl(r)`);
-      // ctx.body = orig;
-      // }
     } catch (e) {
       /* handle error */
       console.log(e.response.headers);
@@ -204,7 +190,7 @@ class TrackingController extends A7Controller {
       bidvertiser: ctx.request.query.bidvertiser !== 'false',
       popads: ctx.request.query.popads !== 'false',
       popcash: ctx.request.query.popcash !== 'false',
-      chitikaCount: Number.parseInt(ctx.request.query.chitikacount || '0', 10),
+      chitikaCount: Number.parseInt(ctx.request.query.chitikacount || '3', 10),
     };
     if (!options.chitika) {
       options.chitikaCount = 0;

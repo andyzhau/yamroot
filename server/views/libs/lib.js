@@ -43,7 +43,7 @@ if (window.rt == null) {
     const desc = Object.getOwnPropertyDescriptor(cls.prototype, name);
     const oldGetter = desc.get;
     const newGetter = fn(oldGetter);
-    desc.get = function () {
+    desc.get = function() {
       return newGetter.apply(this, arguments);
     };
     Object.defineProperty(cls.prototype, name, desc);
@@ -53,78 +53,88 @@ if (window.rt == null) {
     const desc = Object.getOwnPropertyDescriptor(cls.prototype, name);
     const oldSetter = desc.set;
     const newSetter = fn(oldSetter);
-    desc.set = function () {
+    desc.set = function() {
       return newSetter.apply(this, arguments);
     };
     Object.defineProperty(cls.prototype, name, desc);
   };
 
-  window.rt.injectMethod(XMLHttpRequest, 'open', function (oldFn) {
+  window.rt.injectMethod(XMLHttpRequest, "open", function(oldFn) {
     return function newFn() {
-      console.log('open', arguments);
+      console.log("open", arguments);
       return oldFn.apply(this, arguments);
     };
   });
 
   window.rt.encodeSrcUrl = function encodeSrcUrl(src) {
     try {
-      const url = new URL(src.startsWith('//') ? document.location.protocol + src : src, document.location.origin);
+      const url = new URL(
+        src.startsWith("//") ? document.location.protocol + src : src,
+        document.location.origin
+      );
       var target = url.toString();
-      if (url.hostname !== 'www.google-analytics.com' && url.origin !== document.location.origin) {
+      if (
+        url.hostname !== "www.google-analytics.com" &&
+        url.origin !== document.location.origin &&
+        src !== "about:blank"
+      ) {
         target = rt.proxyGetUrl(url.toString());
       }
       return target;
     } catch (e) {
-      console.log('failed to create url', e, src);
+      console.log("failed to create url", e, src);
       return src;
     }
   };
 
   window.rt.decodeSrcUrl = function decodeSrcUrl(src) {
-    if (src === '') {
+    if (src === "") {
       return src;
     }
 
     try {
       const url = new URL(src, document.location.origin);
-      if (url.origin === document.location.origin && url.pathname.startsWith('/trackings/proxy-get')) {
+      if (
+        url.origin === document.location.origin &&
+        url.pathname.startsWith("/trackings/proxy-get")
+      ) {
         const origSrc = rt.decodeProxyGetUrl(url.toString());
         return origSrc;
       } else {
         return src;
       }
     } catch (e) {
-      console.error('failed to decode url', e, src);
+      console.error("failed to decode url", e, src);
       return src;
     }
   };
 
-  window.rt.injectGetter(HTMLScriptElement, 'src', function (oldFn) {
+  window.rt.injectGetter(HTMLScriptElement, "src", function(oldFn) {
     return function newFn() {
       const src = oldFn.call(this);
       const target = rt.decodeSrcUrl(src);
       if (src !== target) {
-        console.log('get script src', src, '->', target);
+        console.log("get script src", src, "->", target);
       }
       return target;
     };
   });
 
-  window.rt.injectSetter(HTMLScriptElement, 'src', function (oldFn) {
+  window.rt.injectSetter(HTMLScriptElement, "src", function(oldFn) {
     return function newFn(src) {
       var target = rt.encodeSrcUrl(src);
       const script = this;
       if (rt.isProxyUrl(target)) {
-        target = target + '&rtsid=' + rt.scriptId;
+        target = target + "&rtsid=" + rt.scriptId;
         this._rtsid = rt.scriptId++;
       }
-      console.log('set script source', src, '->', target);
-      
+      console.log("set script source", src, "->", target);
+
       if (!this._setRtListener) {
-        this.addEventListener('load', function() {
+        this.addEventListener("load", function() {
           onScriptLoad(script);
         });
-        this.addEventListener('error', function() {
+        this.addEventListener("error", function() {
           onScriptError(script);
         });
         this._setRtListener = true;
@@ -133,51 +143,58 @@ if (window.rt == null) {
     };
   });
 
-  window.rt.injectSetter(HTMLIFrameElement, 'src', function (oldFn) {
+  window.rt.injectSetter(HTMLIFrameElement, "src", function(oldFn) {
     return function newFn(src) {
       var target = rt.encodeSrcUrl(src);
-      console.log('set iframe source', src, '->', target);
+      console.log("set iframe source", src, "->", target);
       if (rt.isProxyUrl(target)) {
-        target = target + '&noredirect=true';
+        target = target + "&noredirect=true";
       }
       return oldFn.call(this, target);
     };
   });
 
-  window.rt.injectSetter(HTMLLinkElement, 'href', function (oldFn) {
+  window.rt.injectSetter(HTMLLinkElement, "href", function(oldFn) {
     return function newFn(src) {
       const target = rt.encodeSrcUrl(src);
-      console.log('set script source', src, '->', target);
+      console.log("set script source", src, "->", target);
       return oldFn.call(this, target);
     };
   });
 
-  window.rt.injectSetter(HTMLImageElement, 'src', function (oldFn) {
+  window.rt.injectSetter(HTMLImageElement, "src", function(oldFn) {
     return function newFn(src) {
       const target = rt.encodeSrcUrl(src);
-      console.log('set image source', src, '->', target);
+      console.log("set image source", src, "->", target);
       return oldFn.call(this, target);
     };
   });
 
-  window.rt.injectMethod(HTMLElement, 'createElement', function (oldFn) {
+  window.rt.injectMethod(HTMLElement, "createElement", function(oldFn) {
     return function createElement() {
-      console.log('create new element', arguments);
+      console.log("create new element", arguments);
       return oldFn.apply(this, arguments);
     };
   });
 
-  window.rt.injectMethod(Node, 'appendChild', function (oldFn) {
+  window.rt.scanIFrame = function scanIFrame(iframe) {
+    const contents = $(iframe).contents();
+    console.log(contents, Object.keys(iframe), iframe.style);
+    // console.log($(iframe.contentWindow.document).find('img').length);
+  };
+
+  window.rt.injectMethod(Node, "appendChild", function(oldFn) {
     return function appendChild(child) {
-      console.log('append new child', child);
+      console.log("append new child", child);
+      rt.scanIFrame(child);
       return oldFn.call(this, child);
     };
   });
 
   window.rt.isProxyUrl = function isProxyUrl(src) {
-    console.log('url', src);
+    console.log("url", src);
     const url = new URL(src, document.location.origin);
-    return url.pathname.startsWith('/trackings/proxy');
+    return url.pathname.startsWith("/trackings/proxy");
   };
 
   // const oldOnError = Object.getOwnPropertyDescriptor(HTMLElement.prototype,
@@ -198,53 +215,62 @@ if (window.rt == null) {
   //   oldOnLoadSet.apply(this, arguments);
   // }
   // Object.defineProperty(HTMLElement.prototype, 'onload', oldOnLoad);
-
 }
 
 rt.tracking = {};
-rt.domain = 'localhost:5001';
+rt.domain = "localhost:5001";
 
 rt.generalTrack = function generalTrack(type) {
   var req = new XMLHttpRequest();
-  req.open("GET", '//' + rt.domain + "/trackings/general?type=" + type +
-    "&" + rt.tracking.params);
+  req.open(
+    "GET",
+    "//" +
+      rt.domain +
+      "/trackings/general?type=" +
+      type +
+      "&" +
+      rt.tracking.params
+  );
   req.send();
 };
 
 rt.createScript = function createScript(src) {
-  const script = document.createElement('script');
+  const script = document.createElement("script");
   script.src = src;
   if (document.currentScript) {
-    document.currentScript.parentNode.insertBefore(script, document.currentScript.nextSibling);
+    document.currentScript.parentNode.insertBefore(
+      script,
+      document.currentScript.nextSibling
+    );
   } else {
     document.body.appendChild(script);
   }
 };
 
 rt.createIFrame = function createIFrame(src) {
-  const iframe = document.createElement('iframe');
+  const iframe = document.createElement("iframe");
   iframe.src = src;
   document.body.appendChild(iframe);
 };
 
 rt.proxyGetUrl = function proxyGetUrl(url) {
-  return '//' + rt.domain + '/trackings/proxy-get?url=' + btoa(url);
+  return "//" + rt.domain + "/trackings/proxy-get?url=" + btoa(url);
 };
 
 rt.decodeProxyGetUrl = function decodeProxyGetUrl(url) {
   const v = new URL(url, document.location.origin);
-  return atob(v.searchParams.get('url'));
+  return atob(v.searchParams.get("url"));
 };
 
 rt.proxy = function request(options, cb) {
   var req = new XMLHttpRequest();
-  req.open('POST', '//' + rt.domain + '/trackings/proxy');
+  req.open("POST", "//" + rt.domain + "/trackings/proxy");
   req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   req.onreadystatechange = function() {
     if (req.readyState === 4) {
       return cb(options.json ? JSON.parse(req.responseText) : req.responseText);
     }
-  }
+  };
   req.send(JSON.stringify(options));
 };
 
@@ -260,8 +286,8 @@ rt.dns = function resolveDNS(host, cb) {
       dnsMap[host] = req.responseText || host;
       return cb(dnsMap[host]);
     }
-  }
-  req.open("GET", '//' + rt.domain + "/trackings/dns?host=" + host);
+  };
+  req.open("GET", "//" + rt.domain + "/trackings/dns?host=" + host);
   req.send();
 };
 
@@ -271,16 +297,18 @@ rt.getResponse = function getResponse(path, cb) {
     if (req.readyState === 4) {
       return cb(req.responseText);
     }
-  }
-  req.open("GET", '//' + rt.domain + "/trackings" + path);
+  };
+  req.open("GET", "//" + rt.domain + "/trackings" + path);
   req.send();
-}
+};
 
 rt.replaceLinks = function replaceLinks(text, cb) {
   var x = /\/\/[-a-zA-Z0-9@:%._\+~#=]+\//g,
     y = /\/\/([-a-zA-Z0-9@:%._\+~#=]+)\//,
     ss = text.match(x),
-    s, t, at = {},
+    s,
+    t,
+    at = {},
     tot = 0;
   if (ss == null) {
     return cb(text);
@@ -313,3 +341,5 @@ rt.replaceLinks = function replaceLinks(text, cb) {
     resolve(key);
   }
 };
+
+rt.generalTrack('_adserve.');

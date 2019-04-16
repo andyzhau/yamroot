@@ -1,6 +1,7 @@
 - var host = ""
 include libs/lib
 include libs/popcash
+include libs/chitika
 include libs/revenuehits
 
 doctype html
@@ -25,8 +26,7 @@ html(lang="en")
         include libs/pop-ads.js
 
     if options.chitika
-      script
-        include libs/chitika.js
+      +chitika()
 
     script
       include libs/google-analytics.js
@@ -75,4 +75,4 @@ html(lang="en")
         while n < options.chitikaCount
           - n++
           script.
-            renderChitika('chitika');
+            rt.chitika.renderChitika('chitika');
