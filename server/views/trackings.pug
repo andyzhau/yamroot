@@ -9,7 +9,7 @@ html(lang="en")
     meta(charset="utf-8")
     link(rel="stylesheet", type="text/css", href!="/trackings/styles.css?type=styles&" + tracking.params)
 
-    +lib(tracking, '')
+    +lib(tracking, configs.app.domain)
 
     // General performance tracking
     script.

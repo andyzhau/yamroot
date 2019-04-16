@@ -11,6 +11,7 @@ export interface AppConfig {
   port: number;
   keys: string[];
   cors: string[];
+  domain: string;
 }
 
 export interface MongodbConfig {

@@ -1,6 +1,6 @@
-mixin lib(tracking, prefix)
+mixin lib(tracking, domain)
   script
     include lib.js
   script.
     rt.tracking = JSON.parse('!{JSON.stringify(tracking)}');
-    rt.prefix = '#{prefix}';
+    rt.domain = '#{domain}';

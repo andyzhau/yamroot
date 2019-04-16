@@ -33,7 +33,15 @@ function passHeaders(ctx: Router.IRouterContext, headers: any) {
     if (k === 'content-type') {
       ctx.type = v;
     }
-    if (k === 'expires' || k === 'cache-control' || k === 'last-modified') {
+    if (
+      k === 'expires' ||
+      k === 'cache-control' ||
+      k === 'last-modified' ||
+      k === 'set-cookie' ||
+      k === 'location' ||
+      k === 'date' ||
+      k === 'server'
+    ) {
       ctx.set(k, v);
     }
   });
@@ -62,7 +70,7 @@ class TrackingController extends A7Controller {
     const u1 = new url.URL(u.startsWith('//') ? 'http:' + u : u);
 
     _.each(ctx.request.query, (v: string, k: string) => {
-      if (k !== 'url') {
+      if (k !== 'url' && k !== 'rtsid' && k !== 'noredirect') {
         u1.searchParams.append(k, v);
       }
     });
@@ -78,6 +86,9 @@ class TrackingController extends A7Controller {
       gzip: true,
       encoding: null as any,
     };
+    if (ctx.request.query.noredirect) {
+      options.followRedirect = false;
+    }
     options.headers = options.headers || {};
     options.headers['X-Forwarded-For'] = ctx.ip;
     options.headers['X-Real-Ip'] = ctx.ip;
@@ -102,25 +113,34 @@ class TrackingController extends A7Controller {
 
       ctx.body = result.body;
 
+      if (ctx.request.query.rtsid != null) {
+        ctx.body =
+          result.body +
+          `;rt.regScriptResponse(${ctx.request.query.rtsid}, '${new Buffer(
+            result.body,
+          ).toString('base64')}')`;
+      }
+
       for (const rule of applied) {
         rule.postFn(ctx, options, lib);
       }
 
-      if (u.indexOf('ui_tag_75-1.js') >= 0) {
-        ctx.body = files.uiTag75;
-      }
+      // if (u.indexOf('ui_tag_75-1.js') >= 0) {
+      // ctx.body = files.uiTag75;
+      // }
 
-      if (uu.indexOf('clksite.com/adServe/banners') >= 0) {
-        let orig = ctx.body.toString();
-        const matched = orig.match(/"\/\/clksite.com\/adServe\/banners[^"]+"/g);
-        _.each(matched, x => {
-          orig = orig.replace(x, `window.rt.proxyGetUrl(${x})`);
-        });
-        orig = orig.replace('i.src=r', `i.src=window.rt.proxyGetUrl(r)`);
-        ctx.body = orig;
-      }
+      // if (uu.indexOf('clksite.com/adServe/banners') >= 0) {
+      // let orig = ctx.body.toString();
+      // const matched = orig.match(/"\/\/clksite.com\/adServe\/banners[^"]+"/g);
+      // _.each(matched, x => {
+      // orig = orig.replace(x, `window.rt.proxyGetUrl(${x})`);
+      // });
+      // orig = orig.replace('i.src=r', `i.src=window.rt.proxyGetUrl(r)`);
+      // ctx.body = orig;
+      // }
     } catch (e) {
       /* handle error */
+      console.log(e.response.headers);
       ctx.status = e.statusCode;
       ctx.body = e.response.body;
       passHeaders(ctx, e.response.headers);
@@ -196,6 +216,7 @@ class TrackingController extends A7Controller {
       tracking: tracking.toJSON({ getters: true }),
       quote: randomQuotes.default(),
       options,
+      configs,
     });
   })
   create = models.Requests.createMiddleware({
@@ -211,6 +232,7 @@ class TrackingController extends A7Controller {
     const tracking: models.Requests = ctx.trackingModel;
     ctx.render('trackings-test', {
       tracking: tracking.toJSON({ getters: true }),
+      configs,
     });
   })
   test = models.Requests.createMiddleware({
@@ -239,7 +261,10 @@ class TrackingController extends A7Controller {
 
     await next();
     const tracking: models.Requests = ctx.trackingModel;
-    ctx.render('injector', { tracking: tracking.toJSON({ getters: true }) });
+    ctx.render('injector', {
+      tracking: tracking.toJSON({ getters: true }),
+      configs,
+    });
     ctx.body = ctx.body.replace(/<script>/g, '').replace(/<\/script>/g, '');
     ctx.type = 'text/javascript';
   })
@@ -330,7 +355,7 @@ class TrackingController extends A7Controller {
   @Middleware(TrackingController.prototype.handleDetails)
   async getIframe(ctx: Router.IRouterContext) {
     const tracking = await models.Requests.findById(ctx.request.query.rid);
-    ctx.render('trackings-iframe', { tracking });
+    ctx.render('trackings-iframe', { tracking, configs });
   }
 
   @Get('/ads')

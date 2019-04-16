@@ -1,8 +1,7 @@
 include libs/lib
 include libs/popcash
 
-- var host = "https://track.yamroot.com"
-+lib(tracking, host)
++lib(tracking, configs.app.domain)
 
 script.
   rt.generalTrack('execute');
