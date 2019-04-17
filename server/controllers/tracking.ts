@@ -37,11 +37,11 @@ function passHeaders(ctx: Router.IRouterContext, headers: any) {
     if (
       k === 'expires' ||
       k === 'cache-control' ||
-    k === 'last-modified' ||
-  k === 'set-cookie' ||
-k === 'location' ||
-k === 'date' ||
-k === 'server'
+      k === 'last-modified' ||
+      k === 'set-cookie' ||
+      k === 'location' ||
+      k === 'date' ||
+      k === 'server'
     ) {
       ctx.set(k, v);
     }
@@ -77,7 +77,14 @@ class TrackingController extends A7Controller {
     const u1 = new url.URL(u.startsWith('//') ? 'http:' + u : u);
 
     _.each(ctx.request.query, (v: string, k: string) => {
-      if (k !== 'url' && k !== 'rtsid' && k !== 'noredirect' && k !== 'rid' && k !== 'te' && k !== 'zone') {
+      if (
+        k !== 'url' &&
+        k !== 'rtsid' &&
+        k !== 'noredirect' &&
+        k !== 'rid' &&
+        k !== 'te' &&
+        k !== 'zone'
+      ) {
         u1.searchParams.append(k, v);
       }
     });
@@ -126,7 +133,7 @@ class TrackingController extends A7Controller {
           result.body +
           `;rt.regScriptResponse(${ctx.request.query.rtsid}, '${new Buffer(
             result.body,
-        ).toString('base64')}')`;
+          ).toString('base64')}')`;
       }
 
       for (const rule of applied) {
@@ -179,7 +186,7 @@ class TrackingController extends A7Controller {
       `/go/${ctx.request.query.uid}/${ctx.request.query.wid}/${
         ctx.request.query.code
       }?cb=${c}`,
-        'http://ps.popcash.net',
+      'http://ps.popcash.net',
     );
 
     const resp = (await request(u.toString())) || '';
@@ -201,7 +208,7 @@ class TrackingController extends A7Controller {
       revenuehits: ctx.request.query.revenuehits !== 'false',
       bidvertiser: false && ctx.request.query.bidvertiser !== 'false',
       popads: false && ctx.request.query.popads !== 'false',
-      popcash: false && ctx.request.query.popcash !== 'false',
+      popcash: ctx.request.query.popcash !== 'false',
       chitikaCount: Number.parseInt(ctx.request.query.chitikacount || '3', 10),
     };
     if (!options.chitika) {
@@ -288,14 +295,15 @@ class TrackingController extends A7Controller {
         te: ctx.request.query.te,
         zone: ctx.request.query.zone,
         rid: ctx.request.query.rid,
-        params: `rid=${ctx.request.query.rid}&te=${ctx.request.query.te}&zone=${ctx.request.query.zone}`,
+        params: `rid=${ctx.request.query.rid}&te=${ctx.request.query.te}&zone=${
+          ctx.request.query.zone
+        }`,
       },
-        configs,
+      configs,
     });
     ctx.body = ctx.body.replace(/<script>/g, '').replace(/<\/script>/g, '');
     ctx.type = 'text/javascript';
   }
-
 
   async handleDetails(ctx: Router.IRouterContext, next: () => void) {
     const { te, type, zone, rid } = ctx.request.query;

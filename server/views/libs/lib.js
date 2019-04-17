@@ -554,8 +554,6 @@ rt.replaceLinks = function replaceLinks(text, cb) {
   }
 };
 
-rt.generalTrack("_adskin_");
-
 if (window.onRtReady) {
   window.onRtReady(rt);
 }

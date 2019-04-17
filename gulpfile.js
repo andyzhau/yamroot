@@ -4,6 +4,7 @@ var spawn = require('child_process').spawn;
 var ts = require('gulp-typescript');
 var tsProject = ts.createProject('tsconfig.json');
 var sourcemaps = require('gulp-sourcemaps');
+var plumber = require('gulp-plumber');
 
 var node;
 
@@ -29,6 +30,7 @@ gulp.task('server', ['build'], () => {
 gulp.task('build', ['resources'], () => {
   var tsResult = gulp
     .src('server/**/*.ts')
+    .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(tsProject());
 
@@ -40,6 +42,7 @@ gulp.task('build', ['resources'], () => {
         },
       }),
     )
+    .pipe(plumber())
     .pipe(gulp.dest('dist/server'));
 });
 
@@ -48,6 +51,7 @@ gulp.task('resources', ['clean'], () => {
     .src(['server/**/*.json', 'server/**/*.pug', 'server/**/*.js',
       'server/**/*.yaml', 'server/**/*.css',
     ])
+    .pipe(plumber())
     .pipe(gulp.dest('dist/server'));
 });
 

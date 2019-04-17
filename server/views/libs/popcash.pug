@@ -42,6 +42,7 @@ mixin popcash(delay, wid)
                   location.href = url;
                 }, 0);
             } else {
+              rt.generalTrack('popcash_iframeappended');
               var iframe = document.createElement('iframe');
               iframe.src = url;
               document.body.appendChild(iframe);
