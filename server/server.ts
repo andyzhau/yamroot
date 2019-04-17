@@ -46,23 +46,22 @@ app
     }),
   )
   .use(async (ctx, next) => {
+    ctx.logInfo = {
+      url: ctx.request.url,
+      query: ctx.request.query,
+      host: ctx.request.host,
+      path: ctx.request.path,
+      ip: ctx.ip,
+      header: ctx.request.headers,
+    };
     try {
       await next();
-      accessLogger.info('Request', {
-        url: ctx.request.url,
-        ip: ctx.ip,
-        status: ctx.status,
-        header: ctx.request.headers,
-      });
     } catch (e) {
-      accessLogger.info('Request', {
-        url: ctx.request.url,
-        ip: ctx.ip,
-        header: ctx.request.headers,
-        err: e,
-      });
+      ctx.logInfo.err = e;
       ctx.status = 500;
     }
+    ctx.logInfo.status = ctx.status;
+    accessLogger.info('Request', ctx.logInfo);
   })
   .use(koaStatic(configs.pug.viewPath))
   .use(bodyparser())

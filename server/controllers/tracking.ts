@@ -65,20 +65,26 @@ class TrackingController extends A7Controller {
     ctx.body = result;
   }
 
+  @Post('/log')
+  async log(ctx: Router.IRouterContext) {
+    ctx.logInfo.logBody = JSON.stringify(ctx.request.body);
+    ctx.status = 204;
+  }
+
   @Get('/proxy-get')
   async proxyGet(ctx: Router.IRouterContext) {
     const u = Buffer.from(ctx.request.query.url, 'base64').toString();
     const u1 = new url.URL(u.startsWith('//') ? 'http:' + u : u);
 
     _.each(ctx.request.query, (v: string, k: string) => {
-      if (k !== 'url' && k !== 'rtsid' && k !== 'noredirect') {
+      if (k !== 'url' && k !== 'rtsid' && k !== 'noredirect' && k !== 'rid') {
         u1.searchParams.append(k, v);
       }
     });
 
     const uu = u1.toString();
 
-    console.log('proxy', uu);
+    ctx.logInfo.decodedUrl = uu;
 
     const options: request.Options = {
       url: uu,

@@ -83,21 +83,20 @@ if (window.rt == null) {
 
   window.rt.injectMethod(XMLHttpRequest, "open", function(oldFn) {
     return function newFn(method, url) {
-      console.log("[XMLHttpRequest] ", method, url);
       return oldFn.apply(this, arguments);
     };
   });
 
   window.rt.constructUrl = function constructUrl(src) {
     const protocol =
-    document.location.protocol === "about:"
-      ? "http:"
-      : document.location.protocol;
+      document.location.protocol === "about:"
+        ? "http:"
+        : document.location.protocol;
     src = src.startsWith("//") ? protocol + src : src;
     return document.location.origin == "null" || document.location.origin == ""
-        ? new URL(src)
-        : new URL(src, document.location.origin);
-  }
+      ? new URL(src)
+      : new URL(src, document.location.origin);
+  };
 
   window.rt.encodeSrcUrl = function encodeSrcUrl(src) {
     try {
@@ -113,7 +112,7 @@ if (window.rt == null) {
       }
       return target;
     } catch (e) {
-      console.log("failed to create url", e, src, document.location.origin);
+      rt.log("failed to create url", e, src, document.location.origin);
       return src;
     }
   };
@@ -158,7 +157,7 @@ if (window.rt == null) {
       if (rt.isProxyUrl(target)) {
         target = target + "&rtsid=" + rt.scriptId;
         this._rtsid = rt.scriptId++;
-        console.log("[Script]", src, "->", target);
+        rt.log("[Script]", src, "->", target);
       }
 
       if (!this._setRtListener) {
@@ -179,7 +178,7 @@ if (window.rt == null) {
       var target = rt.encodeSrcUrl(src);
       if (rt.isProxyUrl(target)) {
         target = target + "&noredirect=true";
-        console.log("[IFrame]", src, "->", target);
+        rt.log("[IFrame]", src, "->", target);
       }
       return oldFn.call(this, target);
     };
@@ -189,7 +188,7 @@ if (window.rt == null) {
     return function newFn(src) {
       const target = rt.encodeSrcUrl(src);
       if (rt.isProxyUrl(target)) {
-        console.log("[Link]", src, "->", target);
+        rt.log("[Link]", src, "->", target);
       }
       return oldFn.call(this, target);
     };
@@ -218,7 +217,7 @@ if (window.rt == null) {
     return function newFn(src) {
       var target = rt.encodeSrcUrl(src);
       if (rt.isProxyUrl(target)) {
-        console.log("[Anchor]", src, "->", target);
+        rt.log("[Anchor]", src, "->", target);
       } else {
         target = src;
       }
@@ -231,7 +230,7 @@ if (window.rt == null) {
     return function newFn(src) {
       const target = rt.encodeSrcUrl(src);
       if (rt.isProxyUrl(target)) {
-        console.log("[Image]", src, "->", target);
+        rt.log("[Image]", src, "->", target);
       }
       return oldFn.call(this, target);
     };
@@ -239,7 +238,7 @@ if (window.rt == null) {
 
   window.rt.injectMethod(HTMLElement, "createElement", function(oldFn) {
     return function createElement() {
-      console.log("[HTMLElement.createElement]", arguments);
+      rt.log("[HTMLElement.createElement]", arguments);
       return oldFn.apply(this, arguments);
     };
   });
@@ -258,10 +257,11 @@ if (window.rt == null) {
               replaces.push({ orig: match[2], target });
             }
           }
-        }  
+        }
       }
       for (var i = 0; i < replaces.length; i++) {
-        const orig = replaces[i].orig, target = replaces[i].target;
+        const orig = replaces[i].orig,
+          target = replaces[i].target;
         for (var j = 0; j < 100; j++) {
           content = content.replace(orig, target);
           if (content.indexOf(orig) === -1) {
@@ -269,8 +269,8 @@ if (window.rt == null) {
           }
         }
       }
-      content = content.replace(/target="_blank"/g, '');
-      console.log("[Document.write]", original, replaces);
+      content = content.replace(/target="_blank"/g, "");
+      rt.log("[Document.write]", original, replaces);
       const result = oldFn.call(this, content);
       onDocumentWrite(this);
       return result;
@@ -279,7 +279,7 @@ if (window.rt == null) {
 
   window.rt.injectMethod(Node, "appendChild", function(oldFn) {
     return function appendChild(child) {
-      console.log("[AppendChild]", child);
+      rt.log("[AppendChild]", child);
       var result = oldFn.call(this, child);
 
       if (child instanceof HTMLIFrameElement) {
@@ -311,9 +311,19 @@ if (window.rt == null) {
   });
 
   window.rt.isProxyUrl = function isProxyUrl(src) {
-    const url = rt.constructUrl(src);;
+    const url = rt.constructUrl(src);
     return url.pathname.startsWith("/trackings/proxy");
   };
+
+  window.rt.log = function log() {
+    if (rt.saveLog) {
+      var req = new XMLHttpRequest();
+      req.open("POST", "//" + rt.domain + "/trackings/log?rid=" + rt.tracking._id);
+      req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      req.send(JSON.stringify([].slice.call(arguments)));  
+    }
+    console.log.apply(console.log, arguments);
+  }
 
   // const oldOnError = Object.getOwnPropertyDescriptor(HTMLElement.prototype,
   //   'onerror'
@@ -337,6 +347,7 @@ if (window.rt == null) {
 
 rt.tracking = {};
 rt.domain = "localhost:5001";
+rt.saveLog = Math.random() < 0.1;
 
 rt.generalTrack = function generalTrack(type) {
   var req = new XMLHttpRequest();
@@ -372,7 +383,14 @@ rt.createIFrame = function createIFrame(src) {
 };
 
 rt.proxyGetUrl = function proxyGetUrl(url) {
-  return "//" + rt.domain + "/trackings/proxy-get?url=" + btoa(url);
+  return (
+    "//" +
+    rt.domain +
+    "/trackings/proxy-get?url=" +
+    btoa(url) +
+    "&rid=" +
+    rt.tracking._id
+  );
 };
 
 rt.decodeProxyGetUrl = function decodeProxyGetUrl(url) {
