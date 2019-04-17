@@ -77,7 +77,7 @@ class TrackingController extends A7Controller {
     const u1 = new url.URL(u.startsWith('//') ? 'http:' + u : u);
 
     _.each(ctx.request.query, (v: string, k: string) => {
-      if (k !== 'url' && k !== 'rtsid' && k !== 'noredirect' && k !== 'rid') {
+      if (k !== 'url' && k !== 'rtsid' && k !== 'noredirect' && k !== 'rid' && k !== 'te' && k !== 'zone') {
         u1.searchParams.append(k, v);
       }
     });

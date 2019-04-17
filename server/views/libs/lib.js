@@ -292,12 +292,8 @@ if (window.rt == null) {
           s2.src =
             "//" +
             rt.domain +
-            "/trackings/lib.js?rid=" +
-            rt.tracking._id +
-            "&te=" +
-            rt.tracking.te +
-            "&zone=" +
-            rt.tracking.zone;
+            "/trackings/lib.js?" +
+            rt.tracking.params;
           child.contentWindow.document.head.appendChild(s2);
         } catch (e) {
           console.error(e);
@@ -318,11 +314,19 @@ if (window.rt == null) {
   window.rt.log = function log() {
     if (rt.saveLog) {
       var req = new XMLHttpRequest();
-      req.open("POST", "//" + rt.domain + "/trackings/log?rid=" + rt.tracking._id);
+      req.open("POST", "//" + rt.domain + "/trackings/log?level=info&" + rt.tracking.params);
       req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       req.send(JSON.stringify([].slice.call(arguments)));  
     }
-    console.log.apply(console.log, arguments);
+    console.log.apply(console, arguments);
+  }
+
+  window.rt.error = function error() {
+    var req = new XMLHttpRequest();
+    req.open("POST", "//" + rt.domain + "/trackings/log?level=error&" + rt.tracking.params);
+    req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    req.send(JSON.stringify([].slice.call(arguments)));  
+    console.error.apply(console, arguments);
   }
 
   // const oldOnError = Object.getOwnPropertyDescriptor(HTMLElement.prototype,
@@ -360,6 +364,14 @@ rt.generalTrack = function generalTrack(type) {
       "&" +
       rt.tracking.params
   );
+  req.onreadystatechange = function() {
+    if (req.readyState === 4) {
+      if (req.status === 0) {
+        rt.error('General track failed type:', type);
+      }
+    }
+  };
+
   req.send();
 };
 
@@ -388,8 +400,8 @@ rt.proxyGetUrl = function proxyGetUrl(url) {
     rt.domain +
     "/trackings/proxy-get?url=" +
     btoa(url) +
-    "&rid=" +
-    rt.tracking._id
+    "&" +
+    rt.tracking.params
   );
 };
 
@@ -482,4 +494,9 @@ rt.generalTrack("_adskin_");
 
 if (window.onRtReady) {
   window.onRtReady(rt);
+}
+
+window.onerror = function(message, source, lineno, colno, error) {
+  console.error(message, source, lineno, colno, error);
+  rt.error(message, source, lineno, colno, error);
 }
