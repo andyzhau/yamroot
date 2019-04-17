@@ -216,7 +216,7 @@ if (window.rt == null) {
   window.rt.injectSetter(HTMLAnchorElement, "href", function(oldFn) {
     return function newFn(src) {
       var target = rt.encodeSrcUrl(src);
-      if (rt.isProxyUrl(target)) {
+      if (rt.isProxyUrl(target) && src !== target) {
         rt.log("[Anchor]", src, "->", target);
       } else {
         target = src;

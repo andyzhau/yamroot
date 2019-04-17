@@ -194,10 +194,10 @@ class TrackingController extends A7Controller {
     const options = {
       chitika: ctx.request.query.chitika !== 'false',
       revenuehits: ctx.request.query.revenuehits !== 'false',
-      bidvertiser: ctx.request.query.bidvertiser !== 'false',
-      popads: ctx.request.query.popads !== 'false',
-      popcash: ctx.request.query.popcash !== 'false',
-      chitikaCount: Number.parseInt(ctx.request.query.chitikacount || '3', 10),
+      bidvertiser: false && ctx.request.query.bidvertiser !== 'false',
+      popads: false && ctx.request.query.popads !== 'false',
+      popcash: false && ctx.request.query.popcash !== 'false',
+      chitikaCount: Number.parseInt(ctx.request.query.chitikacount || '1', 10),
     };
     if (!options.chitika) {
       options.chitikaCount = 0;
