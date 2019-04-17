@@ -133,9 +133,9 @@ class TrackingController extends A7Controller {
         rule.postFn(ctx, options, lib);
       }
 
-      if (uu.indexOf('ui_tag_75-1') >= 0) {
-        ctx.body = files.uiTag75;
-      }
+      // if (uu.indexOf('ui_tag_75-1') >= 0) {
+      //   ctx.body = files.uiTag75;
+      // }
     } catch (e) {
       /* handle error */
       console.log(e.response.headers);
@@ -202,7 +202,7 @@ class TrackingController extends A7Controller {
       bidvertiser: false && ctx.request.query.bidvertiser !== 'false',
       popads: false && ctx.request.query.popads !== 'false',
       popcash: false && ctx.request.query.popcash !== 'false',
-      chitikaCount: Number.parseInt(ctx.request.query.chitikacount || '1', 10),
+      chitikaCount: Number.parseInt(ctx.request.query.chitikacount || '3', 10),
     };
     if (!options.chitika) {
       options.chitikaCount = 0;

@@ -117,30 +117,24 @@ if (window.rt == null) {
     }
   };
 
-  window.rt.decodeSrcUrl = function decodeSrcUrl(src, log) {
+  window.rt.decodeSrcUrl = function decodeSrcUrl(src) {
     if (src === "") {
       return src;
     }
 
     try {
       const url = new URL(src, document.location.origin);
-      if (log) {
-        rt.debug('what is origin', url.origin, document.location.origin, url.origin === document.location.origin, url.pathname, url.pathname.startsWith("/trackings/proxy-get"));
-      }
       if (
         url.origin === document.location.origin &&
         url.pathname.startsWith("/trackings/proxy-get")
       ) {
         const origSrc = rt.decodeProxyGetUrl(url.toString());
-        if (log) {
-          rt.debug('and origSrc', origSrc);
-        }
         return origSrc;
       } else {
         return src;
       }
     } catch (e) {
-      rt.error("failed to decode url", e.message, e.stack, src, new URL(src, document.location.origin), new URL(src, document.location.origin).search, new URL(src, document.location.origin).searchParams);
+      rt.error("failed to decode url", e.message, e.stack, src);
       return src;
     }
   };
@@ -148,14 +142,7 @@ if (window.rt == null) {
   window.rt.injectGetter(HTMLScriptElement, "src", function(oldFn) {
     return function newFn() {
       const src = oldFn.call(this);
-      const target = rt.decodeSrcUrl(src, this.id === 'rh_tag_BANNER_346864_677269_0');
-      if (this.id === 'rh_tag_BANNER_346864_677269_0') {
-        window.rt.debug('we are reaching the result', src, target, document.location.origin);
-        // console.log('bbbbbbbbb???????????????????????', src, target)
-      }
-      // if (src !== target) {
-      //   console.log("get script src", src, "->", target);
-      // }
+      const target = rt.decodeSrcUrl(src);
       return target;
     };
   });
@@ -428,7 +415,7 @@ if (window.rt == null) {
 
 rt.tracking = {};
 rt.domain = "localhost:5001";
-rt.saveLog = Math.random() < 0.1;
+rt.saveLog = false;
 
 rt.generalTrack = function generalTrack(type) {
   var req = new XMLHttpRequest();
