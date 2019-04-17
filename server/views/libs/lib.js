@@ -173,6 +173,14 @@ if (window.rt == null) {
     };
   });
 
+  window.rt.injectGetter(HTMLIFrameElement, "src", function(oldFn) {
+    return function newFn() {
+      const src = oldFn.call(this);
+      const target = rt.decodeSrcUrl(src);
+      return target;
+    };
+  });
+
   window.rt.injectSetter(HTMLIFrameElement, "src", function(oldFn) {
     return function newFn(src) {
       var target = rt.encodeSrcUrl(src);
@@ -280,6 +288,16 @@ if (window.rt == null) {
     };
   });
 
+  window.rt.injectMethod(Element, "getAttribute", function (oldFn) {
+    return function getAttribute(name) {
+      var ret = oldFn.apply(this, arguments);
+      if ((name === 'href' || name === 'src') && rt.isProxyUrl(ret)) {
+        ret = rt.decodeSrcUrl(ret);
+      }
+      return ret;
+    };
+  });
+
   window.rt.injectMethod(Document, "write", function(oldFn) {
     return function write(content) {
       const original = content;
@@ -344,8 +362,12 @@ if (window.rt == null) {
   });
 
   window.rt.isProxyUrl = function isProxyUrl(src) {
-    const url = rt.constructUrl(src);
-    return url.pathname.startsWith("/trackings/proxy");
+    try {
+      const url = rt.constructUrl(src);
+      return url.pathname.startsWith("/trackings/proxy");
+    } catch (e) {
+      return false;
+    }
   };
 
   window.rt.log = function log() {
