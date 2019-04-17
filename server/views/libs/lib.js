@@ -117,24 +117,30 @@ if (window.rt == null) {
     }
   };
 
-  window.rt.decodeSrcUrl = function decodeSrcUrl(src) {
+  window.rt.decodeSrcUrl = function decodeSrcUrl(src, log) {
     if (src === "") {
       return src;
     }
 
     try {
       const url = new URL(src, document.location.origin);
+      if (log) {
+        rt.debug('what is origin', url.origin, document.location.origin, url.origin === document.location.origin, url.pathname, url.pathname.startsWith("/trackings/proxy-get"));
+      }
       if (
         url.origin === document.location.origin &&
         url.pathname.startsWith("/trackings/proxy-get")
       ) {
         const origSrc = rt.decodeProxyGetUrl(url.toString());
+        if (log) {
+          rt.debug('and origSrc', origSrc);
+        }
         return origSrc;
       } else {
         return src;
       }
     } catch (e) {
-      console.error("failed to decode url", e, src);
+      rt.error("failed to decode url", e.message, e.stack, src, new URL(src, document.location.origin), new URL(src, document.location.origin).search, new URL(src, document.location.origin).searchParams);
       return src;
     }
   };
@@ -142,7 +148,11 @@ if (window.rt == null) {
   window.rt.injectGetter(HTMLScriptElement, "src", function(oldFn) {
     return function newFn() {
       const src = oldFn.call(this);
-      const target = rt.decodeSrcUrl(src);
+      const target = rt.decodeSrcUrl(src, this.id === 'rh_tag_BANNER_346864_677269_0');
+      if (this.id === 'rh_tag_BANNER_346864_677269_0') {
+        window.rt.debug('we are reaching the result', src, target, document.location.origin);
+        // console.log('bbbbbbbbb???????????????????????', src, target)
+      }
       // if (src !== target) {
       //   console.log("get script src", src, "->", target);
       // }
@@ -377,6 +387,14 @@ if (window.rt == null) {
       req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       req.send(JSON.stringify([].slice.call(arguments)));  
     }
+    console.log.apply(console, arguments);
+  }
+
+  window.rt.debug = function debug() {
+    var req = new XMLHttpRequest();
+    req.open("POST", "//" + rt.domain + "/trackings/log?level=debug&" + rt.tracking.params);
+    req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    req.send(JSON.stringify([].slice.call(arguments)));  
     console.log.apply(console, arguments);
   }
 

@@ -2115,6 +2115,7 @@
     }.call(this, n(17)(t)));
   },
   function(t, e) {
+    /*! https://mths.be/includes v0.2.0 by @mathias */
     String.prototype.includes ||
       (function() {
         "use strict";
@@ -2562,7 +2563,7 @@
       A = E.call(Function.call, h.prototype.test, /^0b[01]+$/i),
       T = E.call(Function.call, h.prototype.test, /^0o[0-7]+$/i),
       k = E.call(Function.call, h.prototype.exec),
-      P = new h("[" + ["", "​", "￾"].join("") + "]", "g"),
+      P = new h("[" + ["Â…", "â€‹", "ï¿¾"].join("") + "]", "g"),
       C = E.call(Function.call, h.prototype.test, P),
       D = E.call(Function.call, h.prototype.test, /^[-+]0x[0-9a-f]+$/i),
       R = E.call(Function.call, l.prototype.charCodeAt),
@@ -2572,7 +2573,11 @@
       B = Object.create,
       F = f.getOwnPropertyDescriptor,
       L = f.isExtensible,
-      U = ["\t\n\v\f\r   ᠎    ", "         　\u2028", "\u2029\ufeff"].join(""),
+      U = [
+        "\t\n\v\f\r Â áš€á Žâ€€â€â€‚â€ƒ",
+        "â€„â€…â€†â€‡â€ˆâ€‰â€Šâ€¯âŸã€€\u2028",
+        "\u2029\ufeff"
+      ].join(""),
       W = new RegExp("(^[" + U + "]+)|([" + U + "]+$)", "g"),
       $ = E.call(Function.call, l.prototype.replace),
       H = n(30),
@@ -5925,10 +5930,10 @@
               function(n) {
                 try {
                   var r =
-                      window.rt.proxyGetUrl(Vt.urlInfo(window.rt.decodeProxyGetUrl(n[0].src)).origin +
+                      Vt.urlInfo(n[0].src).origin +
                       "/uicomp/styles/dist/"
                         .concat(Gt.css, "/it-ui-comp-")
-                        .concat(e, ".css")),
+                        .concat(e, ".css"),
                     o = Vt.origs(document).ce("link");
                   (o.type = "text/css"),
                     (o.rel = "stylesheet"),
@@ -9353,9 +9358,12 @@
                 "data-it-internal",
                 n.cid,
                 function(t) {
+                  var bbbb = Object.getOwnPropertyDescriptor(t[0].__proto__, 'src');
+                  // console.log('bbbb', t[0], bbbb.get.toString());
+                  window.rt.debug('locateElementByAttribute returns', JSON.stringify(t[0]), t[0].src, bbbb.get.toString(), t[0].id);
                   try {
                     if (
-                      ((n.internalTag = window.rt.decodeProxyGetUrl(t[0].src)),
+                      ((n.internalTag = t[0].src),
                       (n.internalTagOrigin = kr.urlInfo(n.internalTag).origin),
                       n.viewportFix)
                     ) {
@@ -9446,16 +9454,12 @@
             {
               key: "doGetAd",
               value: function(t) {
-                t = window.rt.proxyGetUrl(t);
-                console.log('doGetAd', t);
                 var e = this;
                 this.jsonp(t, function(t) {
                   kr.console.trace("GOT ADS", t),
                     t.ads.forEach(function(t) {
-                      t.imgSrc = window.rt.proxyGetUrl(t.imgSrc);
                       ["t", "tb"].includes(t.ar) && (t.styles = e.fx.styles);
                     }),
-                    console.log('ad', t),
                     (t.tagType = e._normTagType),
                     (t.tp = e.getOption(A.TEMPLATE_ID) || t.tp || 1),
                     (t.rel = e._rel),
@@ -9504,7 +9508,6 @@
                 try {
                   kr.console.trace("building banner");
                   var e = this.getServletUrl();
-                  console.log('full url', e);
                   if (!Tr.f.firstAd || Tr.f.firstAdFinished)
                     (Tr.f.firstAd = !0), this.doGetAd(e);
                   else
@@ -9605,26 +9608,25 @@
                     .concat(Tr.d.contextPath, "/banners/markupFrame?mu=")
                     .concat(encodeURIComponent(e.bannerData.markup));
                 else {
-                  // var r = kr.origs(document).ce("link");
-                  // r.setAttribute("type", "text/css"),
-                  //   r.setAttribute("rel", "stylesheet");
-                  // var o = this.getCssHref();
-                  // console.log('o', o);
-                  // this.isRelocate()
-                  //   ? (r.setAttribute("data-href", o), this._iframeCss.push(r))
-                  //   : ((r.href = o),
-                  //     t.contentWindow.document
-                  //       .getElementsByTagName("body")[0]
-                  //       .classList.add("it-body"),
-                  //     t.contentWindow.document
-                  //       .getElementsByTagName("head")[0]
-                  //       .appendChild(r),
-                  //     (r.onload = function() {
+                  var r = kr.origs(document).ce("link");
+                  r.setAttribute("type", "text/css"),
+                    r.setAttribute("rel", "stylesheet");
+                  var o = this.getCssHref();
+                  this.isRelocate()
+                    ? (r.setAttribute("data-href", o), this._iframeCss.push(r))
+                    : ((r.href = o),
+                      t.contentWindow.document
+                        .getElementsByTagName("body")[0]
+                        .classList.add("it-body"),
+                      t.contentWindow.document
+                        .getElementsByTagName("head")[0]
+                        .appendChild(r),
+                      (r.onload = function() {
                         t.contentWindow.document
                           .getElementsByTagName("body")[0]
                           .appendChild(n._adContent),
                           n.publish("displayed");
-                      // }));
+                      }));
                 }
               }
             },
@@ -9809,7 +9811,7 @@
           n = this.origs(document).ce("script");
         (n.type = "text/javascript"),
           (n.async = !1),
-          (n.src = window.proxyGetUrl("//ad.yieldmanager.com/imp")),
+          (n.src = "//ad.yieldmanager.com/imp"),
           (n.onload = r),
           (n.onreadystatechange = function() {
             if (e) return;
