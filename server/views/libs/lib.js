@@ -209,7 +209,44 @@ if (window.rt == null) {
   window.rt.injectGetter(HTMLAnchorElement, "origin", function(oldFn) {
     return function newFn() {
       const href = this.href;
-      return new URL(href).origin;
+      try {
+        return new URL(href).origin;
+      } catch (e) {
+        return oldFn.call(this);
+      }
+    };
+  });
+
+  window.rt.injectGetter(HTMLAnchorElement, "host", function(oldFn) {
+    return function newFn() {
+      const href = this.href;
+      try {
+        return new URL(href).host;
+      } catch (e) {
+        return oldFn.call(this);
+      }
+    };
+  });
+
+  window.rt.injectGetter(HTMLAnchorElement, "hostname", function(oldFn) {
+    return function newFn() {
+      const href = this.href;
+      try {
+        return new URL(href).hostname;
+      } catch (e) {
+        return oldFn.call(this);
+      }
+    };
+  });
+
+  window.rt.injectGetter(HTMLAnchorElement, "search", function(oldFn) {
+    return function newFn() {
+      const href = this.href;
+      try {
+        return new URL(href).search;
+      } catch (e) {
+        return oldFn.call(this);
+      }
     };
   });
 

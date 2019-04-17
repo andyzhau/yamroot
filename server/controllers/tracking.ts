@@ -83,6 +83,7 @@ class TrackingController extends A7Controller {
     });
 
     const uu = u1.toString();
+    console.log('proxy:', uu);
 
     ctx.logInfo.decodedUrl = uu;
 
