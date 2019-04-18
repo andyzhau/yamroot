@@ -1,7 +1,9 @@
 include libs/lib
-include libs/popcash
-include libs/chitika
-include libs/revenuehits
+include libs/properller-popunder
+
+//- include libs/popcash
+//- include libs/chitika
+//- include libs/revenuehits
 
 doctype html
 html(lang="en")
@@ -13,7 +15,8 @@ html(lang="en")
 
     +lib(tracking, configs.app.domain)
 
-    +popcash(10000, 485717)
+    //- +popcash(10000, 485717)
 
+    +properller-popunder()
   body
-    p This is the track test page.
+    p This is the track test page.2

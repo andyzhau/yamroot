@@ -58,6 +58,7 @@ app
       await next();
     } catch (e) {
       ctx.logInfo.err = e;
+      console.error(e);
       ctx.status = 500;
     }
     ctx.logInfo.status = ctx.status;

@@ -1053,7 +1053,7 @@ if (
                 ),
                 o = a[1],
                 r = a[2];
-              rt.generalTrack("chitika_rendered");
+              // rt.generalTrack("chitika_rendered");
               rt.replaceLinks(r, function(r) {
                 if ("close" == o)
                   try {

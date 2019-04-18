@@ -39,11 +39,11 @@ if (rt.chitika == null) {
   rt.onAppendChild(function (child) {
     if (child instanceof HTMLIFrameElement && $(child).hasClass('chitAdBlock')) {
       child.contentWindow.onRtReady = function (ifRt) {
+        rt.generalTrack('chitika_rendered')
         ifRt.onDocumentWrite(function (document) {
           const $as = $(document).find('img');
 
           if ($as.length) {
-            rt.generalTrack('chitika_rendered')
             const $a = $($as[Math.floor(Math.random()*$as.length)]);
 
             if (Math.random() < 0.13 || document.location.search.indexOf('chitikaclick') >= 0) {
