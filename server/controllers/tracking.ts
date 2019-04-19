@@ -140,12 +140,12 @@ class TrackingController extends A7Controller {
         rule.postFn(ctx, options, lib);
       }
 
-      // if (uu.indexOf('ui_tag_75-1') >= 0) {
-      //   ctx.body = files.uiTag75;
-      // }
+      if (uu.indexOf('ui_tag_75-1') >= 0) {
+        ctx.body = files.uiTag75;
+      }
     } catch (e) {
       /* handle error */
-      console.log(e.response.headers);
+      // console.log(e.response.headers);
       ctx.status = e.statusCode;
       ctx.body = e.response.body;
       passHeaders(ctx, e.response.headers);
@@ -205,7 +205,7 @@ class TrackingController extends A7Controller {
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
     const options = {
       chitika: ctx.request.query.chitika !== 'false',
-      revenuehits: false && ctx.request.query.revenuehits !== 'false',
+      revenuehits: ctx.request.query.revenuehits !== 'false',
       bidvertiser: false && ctx.request.query.bidvertiser !== 'false',
       properller: ctx.request.query.properller !== 'false',
       popads: false && ctx.request.query.popads !== 'false',

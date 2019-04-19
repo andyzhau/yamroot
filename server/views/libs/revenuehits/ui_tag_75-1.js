@@ -8672,6 +8672,7 @@
                   (e.style.display = "inline-block"),
                   (e.style.cursor = "pointer"),
                   Hn.origs(e).ael("click", function() {
+                    console.log('clicked', Hn.origs(e));
                     t._itAd.tc();
                   }),
                   this.callback(e);

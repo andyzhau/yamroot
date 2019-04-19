@@ -1,5 +1,7 @@
 include libs/lib
+include libs/ad-maven
 include libs/properller-popunder
+include libs/revenuehits
 
 //- include libs/popcash
 //- include libs/chitika
@@ -9,6 +11,8 @@ doctype html
 html(lang="en")
   head
     meta(charset="utf-8")
+    style
+      include styles/styles.css
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js")
     script
       include libs/patches.js
@@ -17,6 +21,8 @@ html(lang="en")
 
     //- +popcash(10000, 485717)
 
-    +properller-popunder()
+    //- +properller-popunder()
+    //- +ad-maven()
   body
     p This is the track test page.2
+    +revenuehits('346864_677269_0')

@@ -233,9 +233,12 @@ if (window.rt == null) {
     }
   };
 
-  rt.createIFrame = function createIFrame(src) {
+  rt.createIFrame = function createIFrame(src, classes) {
     const iframe = document.createElement("iframe");
     iframe.src = src;
+    if (classes != null) {
+      $$(iframe).addClass(classes);
+    }
     document.body.appendChild(iframe);
   };
 
@@ -256,20 +259,24 @@ if (window.rt == null) {
         u.hostname === "remtoaku.net" ||
         u.hostname === "wachipho.net" ||
         u.hostname === "e2ertt.com" ||
-        u.hostname === 'deloplen.com' ||
-        u.hostname === 'www.google.com'
+        u.hostname === "deloplen.com" ||
+        u.hostname === "www.google.com" ||
+        u.hostname === "agreensdistra.info"
       ) {
         return url;
       }
+      if (url.indexOf("adServe") >= 0 || url.indexOf("mycdn.co") >= 0) {
+        return (
+          "//" +
+          rt.domain +
+          "/trackings/proxy-get?url=" +
+          btoa(url) +
+          "&" +
+          rt.tracking.params
+        );
+      }
     } catch (e) {}
-    return (
-      "//" +
-      rt.domain +
-      "/trackings/proxy-get?url=" +
-      btoa(url) +
-      "&" +
-      rt.tracking.params
-    );
+    return url;
   };
 
   rt.decodeProxyGetUrl = function decodeProxyGetUrl(url) {
@@ -376,7 +383,7 @@ if (window.rt == null) {
         return target;
       };
     });
-  
+
     rt.injectSetter(win.HTMLScriptElement, "src", function(oldFn) {
       return function newFn(src) {
         var target = rt.encodeSrcUrl(src);
@@ -386,7 +393,7 @@ if (window.rt == null) {
           this._rtsid = rt.scriptId++;
           rt.log("[Script]", src, "->", target);
         }
-  
+
         if (!this._setRtListener) {
           this.addEventListener("load", function() {
             onScriptLoad(script);
@@ -399,7 +406,7 @@ if (window.rt == null) {
         return oldFn.call(this, target);
       };
     });
-  
+
     rt.injectGetter(win.HTMLIFrameElement, "src", function(oldFn) {
       return function newFn() {
         const src = oldFn.call(this);
@@ -407,7 +414,7 @@ if (window.rt == null) {
         return target;
       };
     });
-  
+
     rt.injectSetter(win.HTMLIFrameElement, "src", function(oldFn) {
       return function newFn(src) {
         var target = rt.encodeSrcUrl(src);
@@ -418,7 +425,7 @@ if (window.rt == null) {
         return oldFn.call(this, target);
       };
     });
-  
+
     rt.injectSetter(win.HTMLLinkElement, "href", function(oldFn) {
       return function newFn(src) {
         const target = rt.encodeSrcUrl(src);
@@ -428,7 +435,7 @@ if (window.rt == null) {
         return oldFn.call(this, target);
       };
     });
-  
+
     rt.injectGetter(win.HTMLAnchorElement, "href", function(oldFn) {
       return function newFn() {
         const href = oldFn.call(this);
@@ -440,7 +447,7 @@ if (window.rt == null) {
         return target;
       };
     });
-  
+
     rt.injectGetter(win.HTMLAnchorElement, "origin", function(oldFn) {
       return function newFn() {
         const href = this.href;
@@ -451,7 +458,7 @@ if (window.rt == null) {
         }
       };
     });
-  
+
     rt.injectGetter(win.HTMLAnchorElement, "host", function(oldFn) {
       return function newFn() {
         const href = this.href;
@@ -462,7 +469,7 @@ if (window.rt == null) {
         }
       };
     });
-  
+
     rt.injectGetter(win.HTMLAnchorElement, "hostname", function(oldFn) {
       return function newFn() {
         const href = this.href;
@@ -473,7 +480,7 @@ if (window.rt == null) {
         }
       };
     });
-  
+
     rt.injectGetter(win.HTMLAnchorElement, "search", function(oldFn) {
       return function newFn() {
         const href = this.href;
@@ -484,7 +491,7 @@ if (window.rt == null) {
         }
       };
     });
-  
+
     rt.injectSetter(win.HTMLAnchorElement, "href", function(oldFn) {
       return function newFn(src) {
         var target = rt.encodeSrcUrl(src);
@@ -497,7 +504,7 @@ if (window.rt == null) {
         return result;
       };
     });
-  
+
     rt.injectSetter(win.HTMLImageElement, "src", function(oldFn) {
       return function newFn(src) {
         const target = rt.encodeSrcUrl(src);
@@ -507,14 +514,14 @@ if (window.rt == null) {
         return oldFn.call(this, target);
       };
     });
-  
+
     rt.injectMethod(win.HTMLElement, "createElement", function(oldFn) {
       return function createElement() {
         rt.log("[HTMLElement.createElement]", arguments);
         return oldFn.apply(this, arguments);
       };
     });
-  
+
     rt.injectMethod(win.Element, "getAttribute", function(oldFn) {
       return function getAttribute(name) {
         var ret = oldFn.apply(this, arguments);
@@ -524,7 +531,7 @@ if (window.rt == null) {
         return ret;
       };
     });
-  
+
     rt.injectMethod(win.Document, "write", function(oldFn) {
       return function write(content) {
         const original = content;
@@ -558,12 +565,12 @@ if (window.rt == null) {
         return result;
       };
     });
-  
+
     rt.injectMethod(win.Node, "appendChild", function(oldFn) {
       return function appendChild(child) {
         rt.log("[AppendChild]", child);
         var result = oldFn.call(this, child);
-  
+
         if (child instanceof HTMLIFrameElement) {
           try {
             if (child.contentWindow.rt == null) {
@@ -575,9 +582,9 @@ if (window.rt == null) {
             console.error(e);
           }
         }
-  
+
         onAppendChild(child);
-  
+
         return result;
       };
     });
@@ -593,8 +600,3 @@ if (window.rt == null) {
 
   rt.setupWindow(window);
 }
-
-setTimeout(function () {
-  rt.debug('log atob', atob != null);
-  rt.debug('log ato2b', atob != null, atob('REVMSVZFUllfSlM=') != null);  
-}, 1000);
