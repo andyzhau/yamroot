@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { NgModule } from '@angular/core';
 import { RuleComponent } from './rule/rule.component';
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatTabsModule,
     FormsModule,
     RouterModule,
     RouterModule.forRoot(appRoutes),

@@ -12,6 +12,7 @@ export interface AppConfig {
   keys: string[];
   cors: string[];
   domain: string;
+  proxyHost: string;
 }
 
 export interface MongodbConfig {

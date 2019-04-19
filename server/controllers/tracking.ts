@@ -34,6 +34,9 @@ function passHeaders(ctx: Router.IRouterContext, headers: any) {
     if (k === 'content-type') {
       ctx.type = v;
     }
+    if (k === 'set-cookie') {
+      ctx.logInfo['set-cookie'] = v;
+    }
     if (
       k === 'expires' ||
       k === 'cache-control' ||
@@ -112,17 +115,26 @@ class TrackingController extends A7Controller {
     const rules = await models.Rules.find({ enabled: true }, null, {
       sort: { priority: -1 },
     });
+    const ruleErrors = [];
 
-    const applied = _.filter(rules, r => r.matchFn(options, ctx, lib));
+    const rulesApplied: models.Rules[] = [];
 
-    for (const rule of applied) {
-      if (rule.matchFn(options, ctx, lib)) {
-        rule.preFn(options, ctx, lib);
+    for (const rule of rules) {
+      try {
+        if (rule.matchFn(options, ctx, lib)) {
+          rule.preFn(options, ctx, lib);
+        }
+        rulesApplied.push(rule);
+      } catch (e) {
+        ruleErrors.push({ name: rule.name, err: e });
+        console.log('match rule failed', e);
       }
     }
 
+    let result, error;
+
     try {
-      const result = await request(options);
+      result = await request(options);
 
       passHeaders(ctx, result.headers);
 
@@ -135,23 +147,26 @@ class TrackingController extends A7Controller {
             result.body,
           ).toString('base64')}')`;
       }
-
-      for (const rule of applied) {
-        rule.postFn(ctx, options, lib);
-      }
-
-      if (uu.indexOf('ui_tag_75-1') >= 0) {
-        ctx.body = files.uiTag75;
-      }
     } catch (e) {
       /* handle error */
       // console.log(e.response.headers);
+      error = e;
       ctx.status = e.statusCode;
       ctx.body = e.response.body;
       passHeaders(ctx, e.response.headers);
     }
 
-    ctx.set('applied-rules', _.map(rules, r => r.name).join(','));
+    for (const rule of rulesApplied) {
+      try {
+        rule.postFn(result, error, ctx, options, lib);
+      } catch (e) {
+        ruleErrors.push({ name: rule.name, err: e });
+        console.log('post rule failed', e);
+      }
+    }
+
+    ctx.set('applied-rules', _.map(rulesApplied, r => r.name).join(';'));
+    ctx.set('error-rules', _.map(ruleErrors, r => r.name).join(';'));
   }
 
   @Get('/dns')

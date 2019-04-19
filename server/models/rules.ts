@@ -23,15 +23,28 @@ export class Rules extends A7Model {
   @Default(0) priority: number;
 
   get matchFn(): MatchFn {
-    return this.match == null ? _.identity : (new Function(this.match) as any);
+    return this.match == null
+      ? _.identity
+      : (new Function('options', 'ctx', 'lib', this.match) as any);
   }
 
   get preFn(): PreFn {
-    return this.pre == null ? _.identity : (new Function(this.pre) as any);
+    return this.pre == null
+      ? _.identity
+      : (new Function('options', 'ctx', 'lib', this.pre) as any);
   }
 
   get postFn(): PostFn {
-    return this.post == null ? _.identity : (new Function(this.post) as any);
+    return this.post == null
+      ? _.identity
+      : (new Function(
+          'reponse',
+          'err',
+          'ctx',
+          'options',
+          'lib',
+          this.post,
+        ) as any);
   }
 }
 
@@ -48,6 +61,8 @@ export type PreFn = (
 ) => void;
 
 export type PostFn = (
+  response: any,
+  err: any,
   ctx: Router.IRouterContext,
   options: request.Options,
   lib: any,

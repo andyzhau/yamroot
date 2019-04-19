@@ -5,6 +5,7 @@ app:
   cors:
   - http://localhost:5000
   domain: localhost:5001
+  proxyHost: localhost:5001
 
 mongodb:
   address: mongodb://127.0.0.1:27017/yamroot

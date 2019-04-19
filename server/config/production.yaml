@@ -6,6 +6,7 @@ app:
   - http://track.yamroot.com
   - http://track.yamroot.com
   domain: track.yamroot.com
+  proxyHost: p.yamroot.com
 
 mongodb:
   address: mongodb://user1:Asdf1234@ds239206.mlab.com:39206/yamroot

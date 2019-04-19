@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import * as _ from 'underscore';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
@@ -40,10 +41,18 @@ export class RuleComponent implements OnInit {
           enabled: false,
           match: `// (options, ctx, lib) => boolean\n`,
           pre: `// (options, ctx, lib) => void\n`,
-          post: `// (ctx, options, lib) => void\n`,
+          post: `// (response, err, ctx, options, lib) => void\n`,
         };
       }
     });
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeyPress(event: KeyboardEvent) {
+    if (event.key === 's' && event.metaKey) {
+      this.save();
+      event.preventDefault();
+    }
   }
 
   async save() {
@@ -56,5 +65,11 @@ export class RuleComponent implements OnInit {
         this.rule = rule;
         this.snackBar.open('Saved', '', { duration: 2000 });
       });
+  }
+
+  onIndexChange() {
+    _.defer(() => {
+      window.dispatchEvent(new Event('resize'));
+    });
   }
 }
