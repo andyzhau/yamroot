@@ -4,7 +4,7 @@ app:
   - XUNotxeDX7ukFIsNVC8iiug79m7BUMcA
   cors:
   - http://track.yamroot.com
-  - http://track.yamroot.com
+  - http://mgr.yamroot.com
   domain: track.yamroot.com
   proxyHost: p.yamroot.com
 

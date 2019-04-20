@@ -5,6 +5,7 @@ import * as Router from 'koa-router';
 import * as dns from 'dns';
 import * as url from 'url';
 import * as request from 'request-promise';
+import * as zlib from 'zlib';
 import {
   A7Controller,
   Config,
@@ -26,6 +27,9 @@ const randomQuotes = require('random-quotes');
 const files = {
   uiTag75: fs.readFileSync(
     path.join(__dirname, '../views/libs/revenuehits/ui_tag_75-1.js'),
+  ),
+  bundle: fs.readFileSync(
+    path.join(__dirname, '../views/libs/revenuehits/bundle.js'),
   ),
 };
 
@@ -84,14 +88,17 @@ class TrackingController extends A7Controller {
         k !== 'url' &&
         k !== 'rtsid' &&
         k !== 'noredirect' &&
+        k !== 'inject' &&
         k !== 'rid' &&
         k !== 'te' &&
-        k !== 'zone'
+        k !== 'zone' &&
+        k !== 'try_relative'
       ) {
         u1.searchParams.append(k, v);
       }
     });
 
+    ctx.forUrl = u1;
     const uu = u1.toString();
     console.log('proxy:', uu);
 
@@ -103,14 +110,16 @@ class TrackingController extends A7Controller {
       resolveWithFullResponse: true,
       gzip: true,
       encoding: null as any,
+      rejectUnauthorized: false,
     };
     if (ctx.request.query.noredirect) {
       options.followRedirect = false;
     }
     options.headers = options.headers || {};
-    options.headers['X-Forwarded-For'] = ctx.ip;
-    options.headers['X-Real-Ip'] = ctx.ip;
+    // options.headers['X-Forwarded-For'] = ctx.ip;
+    // options.headers['X-Real-Ip'] = ctx.ip;
     delete options.headers.host;
+    delete options.headers['accept-encoding'];
 
     const rules = await models.Rules.find({ enabled: true }, null, {
       sort: { priority: -1 },
@@ -127,7 +136,7 @@ class TrackingController extends A7Controller {
         rulesApplied.push(rule);
       } catch (e) {
         ruleErrors.push({ name: rule.name, err: e });
-        console.log('match rule failed', e);
+        console.log(`match rule [${rule.name}] failed`, e);
       }
     }
 
@@ -151,18 +160,43 @@ class TrackingController extends A7Controller {
       /* handle error */
       // console.log(e.response.headers);
       error = e;
+
+      if (
+        e.statusCode === 404 &&
+        ctx.request.query.try_relative === 'true' &&
+        ctx.request.headers.referer
+      ) {
+        // console.log('headers', ctx.request.headers.referer);
+        const root = lib.rootFromReferer(ctx.request.headers.referer);
+        const referer = new url.URL(ctx.request.headers.referer);
+        const relative = lib.relativePath(referer, ctx.forUrl);
+        const target = new url.URL(relative, root);
+        target.search = ctx.forUrl.search;
+
+        ctx.redirect(lib.proxyGetUrl(target.toString()));
+        return;
+      }
+
       ctx.status = e.statusCode;
       ctx.body = e.response.body;
       passHeaders(ctx, e.response.headers);
     }
 
+    if (ctx.type === 'text/html') {
+      ctx.$body = lib.cheerio.load(ctx.body);
+    }
+
     for (const rule of rulesApplied) {
       try {
-        rule.postFn(result, error, ctx, options, lib);
+        rule.postFn(result, error, ctx, options, lib, ctx.$body, _);
       } catch (e) {
         ruleErrors.push({ name: rule.name, err: e });
-        console.log('post rule failed', e);
+        console.log(`post rule [${rule.name}] failed`, e);
       }
+    }
+
+    if (ctx.$body) {
+      ctx.body = ctx.$body.html();
     }
 
     ctx.set('applied-rules', _.map(rulesApplied, r => r.name).join(';'));

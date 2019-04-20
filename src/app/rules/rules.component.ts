@@ -19,7 +19,7 @@ export class RulesComponent implements OnInit {
     this.httpClient
       .get(environment.apiHost + '/rules')
       .subscribe((rules: Rule[]) => {
-        this.rules = rules;
+        this.rules = _.sortBy(rules, 'priority').reverse();
       });
   }
 }

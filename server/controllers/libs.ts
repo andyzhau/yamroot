@@ -1,4 +1,5 @@
 import * as url from 'url';
+import * as cheerio from 'cheerio';
 import { configs } from '../configs';
 
 export class Lib {
@@ -25,7 +26,47 @@ export class Lib {
     return nUrl.toString();
   }
 
+  cheerio = cheerio;
+
   libUrl = `http://${configs.app.domain}/trackings/lib.js`;
+
+  url = url;
+
+  isTrackingUrl(link: string) {
+    try {
+      const linkUrl = new url.URL(link);
+      return linkUrl.pathname === '/trackings/proxy-get';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  rootFromReferer(referer: string) {
+    try {
+      return new url.URL(
+        Buffer.from(
+          new url.URL(referer).searchParams.get('url'),
+          'base64',
+        ).toString(),
+      );
+    } catch (e) {
+      /* handle error */
+      return null;
+    }
+  }
+
+  relativePath(path1: url.Url, path2: url.Url) {
+    const parts1 = path1.pathname.split('/');
+    const parts2 = path2.pathname.split('/');
+    while (parts1.length > 1 && parts2.length > 1 && parts1[0] === parts2[0]) {
+      parts1.splice(0, 1);
+      parts2.splice(0, 1);
+    }
+    for (let i = 1; i < parts1.length; i++) {
+      parts2.splice(0, 0, '..');
+    }
+    return parts2.join('/');
+  }
 }
 
 export const lib = new Lib();

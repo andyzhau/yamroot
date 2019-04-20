@@ -6,7 +6,6 @@ setTimeout(function() {
 }, 3000);
 
 $(document).ready(function() {
-  console.log('reached here');
   (function() {
     var _ = document.createElement("iframe");
     _.style.width = "1px";

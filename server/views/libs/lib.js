@@ -1,3 +1,8 @@
+if (window.top != window.self && window.top.rt) {
+  console.log('[Setup RT Within IFrame]', window.self);
+  window.rt = window.top.rt;
+  window.rt.setupWindow(window);
+}
 if (window.rt == null) {
   rt = {};
 
@@ -6,6 +11,7 @@ if (window.rt == null) {
   rt.documentWriteListener = [];
   rt.appendChildListener = [];
   rt.windowOpenListener = [];
+  rt.setAttributesListener = [];
   rt.scriptContents = {};
   rt.scriptId = 0;
 
@@ -44,6 +50,12 @@ if (window.rt == null) {
     }
   }
 
+  function onSetAttributes(target, options) {
+    for (var i = 0; i < rt.setAttributesListener.length; i++) {
+      rt.setAttributesListener[i](target, options);
+    }
+  }
+
   rt.onScriptLoad = function onScriptLoad(fn) {
     rt.scriptLoadListener.push(fn);
   };
@@ -62,6 +74,10 @@ if (window.rt == null) {
 
   rt.onWindowOpen = function onWindowOpen(fn) {
     rt.windowOpenListener.push(fn);
+  };
+
+  rt.onSetAttributes = function onSetAttributes(fn) {
+    rt.setAttributesListener.push(fn);
   };
 
   rt.injectMethod = function injectMethod(cls, method, fn) {
@@ -100,16 +116,20 @@ if (window.rt == null) {
 
   rt.constructUrl = function constructUrl(src) {
     const protocol =
-      document.location.protocol === "about:"
-        ? "http:"
-        : document.location.protocol;
+      document.location.protocol === "about:" ?
+      "http:" :
+      document.location.protocol;
     src = src.startsWith("//") ? protocol + src : src;
-    return document.location.origin == "null" || document.location.origin == ""
-      ? new URL(src)
-      : new URL(src, document.location.origin);
+    return document.location.origin == "null" || document.location.origin ==
+      "" ?
+      new URL(src) :
+      new URL(src, document.location.origin);
   };
 
-  rt.encodeSrcUrl = function encodeSrcUrl(src) {
+  rt.encodeSrcUrl = function encodeSrcUrl(src, force) {
+    if (rt.isProxyUrl(src)) {
+      return src;
+    }
     try {
       const url = rt.constructUrl(src);
       var target = url.toString();
@@ -119,7 +139,7 @@ if (window.rt == null) {
         url.origin !== document.location.origin &&
         src !== "about:blank"
       ) {
-        target = rt.proxyGetUrl(url.toString());
+        target = rt.proxyGetUrl(url.toString(), force);
       }
       return target;
     } catch (e) {
@@ -197,17 +217,23 @@ if (window.rt == null) {
   rt.tracking = {};
   rt.domain = "localhost:5001";
   rt.saveLog = false;
+  rt.tracked = {};
 
-  rt.generalTrack = function generalTrack(type) {
+  rt.generalTrack = function generalTrack(type, singleton) {
+    if (singleton && rt.tracked[type]) {
+      return;
+    }
+    rt.tracked[type] = true;
+
     var req = new XMLHttpRequest();
     req.open(
       "GET",
       "//" +
-        rt.domain +
-        "/trackings/general?type=" +
-        type +
-        "&" +
-        rt.tracking.params
+      rt.domain +
+      "/trackings/general?type=" +
+      type +
+      "&" +
+      rt.tracking.params
     );
     req.onreadystatechange = function() {
       if (req.readyState === 4) {
@@ -240,6 +266,7 @@ if (window.rt == null) {
       $$(iframe).addClass(classes);
     }
     document.body.appendChild(iframe);
+    return iframe;
   };
 
   rt.open = function open(src, iframe) {
@@ -250,7 +277,7 @@ if (window.rt == null) {
     }
   };
 
-  rt.proxyGetUrl = function proxyGetUrl(url) {
+  rt.proxyGetUrl = function proxyGetUrl(url, force) {
     try {
       const u = new URL(url);
       if (
@@ -262,13 +289,19 @@ if (window.rt == null) {
         u.hostname === "deloplen.com" ||
         u.hostname === "www.google.com" ||
         u.hostname === "agreensdistra.info"
+        
       ) {
         return url;
       }
-      if (url.indexOf("adServe") >= 0 || url.indexOf("mycdn.co") >= 0) {
+      if (force || url.indexOf("adServe") >= 0 || url.indexOf("mycdn.co") >=
+        0 || u.hostname === "chrome.google.com") {
+        const host = rt.domain.indexOf('localhost') === -1
+          ? u.hostname.replace(/\./g, '_').split('').reverse().join('')
+            + '.p.yamroot.com'
+          : rt.domain;
         return (
           "//" +
-          rt.domain +
+          host +
           "/trackings/proxy-get?url=" +
           btoa(url) +
           "&" +
@@ -372,10 +405,16 @@ if (window.rt == null) {
 
   window.onerror = function(message, source, lineno, colno, error) {
     console.error(message, source, lineno, colno, error);
-    rt.error(message, source, lineno, colno, error.stack);
+    // rt.error(message, source, lineno, colno, error.stack);
   };
 
   rt.setupWindow = function setupWindow(win) {
+    if (win.rtSetup) {
+      return;
+    }
+    win.rtSetup = true;
+
+    console.log('RTSetup Window', win);
     rt.injectGetter(win.HTMLScriptElement, "src", function(oldFn) {
       return function newFn() {
         const src = oldFn.call(this);
@@ -419,7 +458,7 @@ if (window.rt == null) {
       return function newFn(src) {
         var target = rt.encodeSrcUrl(src);
         if (rt.isProxyUrl(target)) {
-          target = target + "&noredirect=true";
+          target = target + "&noredirect=true&inject=true";
           rt.log("[IFrame]", src, "->", target);
         }
         return oldFn.call(this, target);
@@ -515,10 +554,26 @@ if (window.rt == null) {
       };
     });
 
+    rt.injectMethod(win.Document, "createElement", function(oldFn) {
+      return function createElement() {
+        rt.log("[Document.createElement]", arguments);
+        return oldFn.apply(this, arguments);
+      };
+    });
+
     rt.injectMethod(win.HTMLElement, "createElement", function(oldFn) {
       return function createElement() {
         rt.log("[HTMLElement.createElement]", arguments);
         return oldFn.apply(this, arguments);
+      };
+    });
+
+    rt.injectMethod(win.Element, "setAttribute", function(oldFn) {
+      return function setAttribute(name, value) {
+        var options = { name: name, value: value };
+        rt.log("[Element.setAttribute]", this, options);
+        onSetAttributes(this, options);
+        return oldFn.call(this, options.name, options.value);
       };
     });
 
@@ -543,7 +598,10 @@ if (window.rt == null) {
             if (match != null && match[2]) {
               const target = rt.encodeSrcUrl(match[2]);
               if (target != match[2]) {
-                replaces.push({ orig: match[2], target });
+                replaces.push({
+                  orig: match[2],
+                  target
+                });
               }
             }
           }
@@ -589,6 +647,26 @@ if (window.rt == null) {
       };
     });
 
+    Object.defineProperty(win.Location.prototype, 'rtHref', {
+      get: function() {
+        const href = this.href;
+        return rt.decodeSrcUrl(href);
+      },
+      set: function(href) {
+        var target = rt.encodeSrcUrl(href, true);
+        if (rt.isProxyUrl(target)) {
+          rt.log("[Location.Href]", href, "->", target);
+        }
+        if (location.href.indexOf('noredirect=true')) {
+          target += '&noredirect=true';
+        }
+        if (location.href.indexOf('inject=true')) {
+          target += '&inject=true';
+        }
+        this.href = target;
+      },
+    });
+
     const oldWindowOpen = win.open;
 
     win.open = function(url, windowName, windowFeatures) {
@@ -596,6 +674,7 @@ if (window.rt == null) {
       onWindowOpen(url, windowName, windowFeatures);
       // return oldWindowOpen.apply(window, arguments);
     };
+
   };
 
   rt.setupWindow(window);

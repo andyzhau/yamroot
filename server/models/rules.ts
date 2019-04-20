@@ -38,11 +38,13 @@ export class Rules extends A7Model {
     return this.post == null
       ? _.identity
       : (new Function(
-          'reponse',
+          'response',
           'err',
           'ctx',
           'options',
           'lib',
+          '$',
+          '_',
           this.post,
         ) as any);
   }
@@ -66,4 +68,6 @@ export type PostFn = (
   ctx: Router.IRouterContext,
   options: request.Options,
   lib: any,
+  $: any,
+  _: any,
 ) => void;

@@ -6,12 +6,14 @@
   <thead>
     <tr>
       <th>Rule</th>
+      <th>Priority</th>
       <th>Links</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let rule of rules">
       <td>{{rule.name}}</td>
+      <td>{{rule.priority}}</td>
       <td><a [routerLink]="['/rules', rule._id]">Edit</a></td>
     </tr>
   </tbody>
