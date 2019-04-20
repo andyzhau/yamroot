@@ -289,16 +289,18 @@ if (window.rt == null) {
         u.hostname === "deloplen.com" ||
         u.hostname === "www.google.com" ||
         u.hostname === "agreensdistra.info"
-        
+
       ) {
         return url;
       }
-      if (force || url.indexOf("adServe") >= 0 || url.indexOf("mycdn.co") >=
-        0 || u.hostname === "chrome.google.com") {
-        const host = rt.domain.indexOf('localhost') === -1
-          ? u.hostname.replace(/\./g, '_').split('').reverse().join('')
-            + '.p.yamroot.com'
-          : rt.domain;
+      if (force || url.indexOf("adServe") >= 0 ||
+        url.indexOf("mycdn.co") >= 0 ||
+        url.indexOf("oc_ndcym") >= 0
+      ) {
+        const host = rt.domain.indexOf('localhost') === -1 ?
+          u.hostname.replace(/\./g, '_').split('').reverse().join('') +
+          '.p.yamroot.com' :
+          rt.domain;
         return (
           "//" +
           host +
@@ -570,7 +572,10 @@ if (window.rt == null) {
 
     rt.injectMethod(win.Element, "setAttribute", function(oldFn) {
       return function setAttribute(name, value) {
-        var options = { name: name, value: value };
+        var options = {
+          name: name,
+          value: value
+        };
         rt.log("[Element.setAttribute]", this, options);
         onSetAttributes(this, options);
         return oldFn.call(this, options.name, options.value);
