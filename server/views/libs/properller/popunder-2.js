@@ -1,3 +1,4 @@
+// Decoded normal version.
 setTimeout(function() {
   console.log("prepare click");
   var clickEvent = document.createEvent ('MouseEvents');

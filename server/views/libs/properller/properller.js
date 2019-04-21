@@ -8,8 +8,12 @@ if (rt.properller == null) {
   setInterval(function () {
     if (rt.properller.seenAd) {
       rt.generalTrack("properller_punder_click");
+      var mouseDownEvent = document.createEvent("MouseEvents");
+      mouseDownEvent.initEvent("mousedown", true, true);
+      window.document.body.dispatchEvent(mouseDownEvent);  
+  
       var clickEvent = document.createEvent("MouseEvents");
-      clickEvent.initEvent("mousedown", true, true);
+      clickEvent.initEvent("click", true, true);
       window.document.body.dispatchEvent(clickEvent);  
     }
   }, 2000);

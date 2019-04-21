@@ -1,7 +1,12 @@
 if (rt.browserProperties == null) {
 
   function extractBrowserProperties(iG) {
-    const properties = {};
+    const properties = {
+      userAgent: navigator.userAgent,
+      userLanguage: navigator.language || navigator.userLanguage,
+      screenWidth: window.screen.width,
+      screenHeight: window.screen.height
+    };
     const userAgent = navigator.userAgent;
     var iN = (properties.chromeVersionChromeMatch =
       userAgent.match(/Chrome\/([0-9]{1,})/) || []);

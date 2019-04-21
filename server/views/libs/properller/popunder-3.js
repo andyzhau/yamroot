@@ -1,11 +1,12 @@
-var popunderFn = (function() {
+// Anti-adblock decoded.
+var popunderFn = (function () {
   var _ = document.createElement("iframe");
   _.style.width = "1px";
   _.style.height = "1px";
   _.style.opacity = 0x0;
   _.src = "about:blank";
   document.body.appendChild(_);
-  var atob = function(b) {
+  var atob = function (b) {
     for (
       var x, n, c = String(b).replace(/=+$/, ""), t = 0, e = 0, r = "";
       (n = c.charAt(e++));
@@ -558,23 +559,23 @@ var popunderFn = (function() {
     ];
   (c = a),
     (d = 166),
-    (function(b) {
-      for (; --b; ) c.push(c.shift());
+    (function (b) {
+      for (; --b;) c.push(c.shift());
     })(++d);
-  var b = function(x, n) {
+  var b = function (x, n) {
     var t = a[(x -= 0)];
     void 0 === b.TgUBaU &&
-      ((b.yoTWmu = function(b) {
+      ((b.yoTWmu = function (b) {
         for (var x = atob(b), n = [], c = 0, t = x.length; c < t; c++)
           n += "%" + ("00" + x.charCodeAt(c).toString(16)).slice(-2);
         return decodeURIComponent(n);
       }),
-      (b.JrRTpw = {}),
-      (b.TgUBaU = !0));
+        (b.JrRTpw = {}),
+        (b.TgUBaU = !0));
     var e = b.JrRTpw[x];
     return void 0 === e ? ((t = b.yoTWmu(t)), (b.JrRTpw[x] = t)) : (t = e), t;
   };
-  !(function(c) {
+  !(function (c) {
     var t = {};
     function e(x) {
       if (t[x]) return t[x]["exports"];
@@ -590,7 +591,7 @@ var popunderFn = (function() {
     }
     (e.m = c),
       (e.c = t),
-      (e.d = function(x, n, c) {
+      (e.d = function (x, n, c) {
         e.o(x, n) ||
           Object["defineProperty"](x, n, {
             configurable: !1,
@@ -598,25 +599,25 @@ var popunderFn = (function() {
             get: c
           });
       }),
-      (e.n = function(x) {
+      (e.n = function (x) {
         var n =
           x && x["__esModule"]
-            ? function() {
-                return x["default"];
-              }
-            : function() {
-                return x;
-              };
+            ? function () {
+              return x["default"];
+            }
+            : function () {
+              return x;
+            };
         return e.d(n, "a", n), n;
       }),
-      (e.o = function(x, n) {
+      (e.o = function (x, n) {
         return Object["prototype"]["hasOwnProperty"]["call"](x, n);
       }),
       (e.p = ""),
       e((e.s = 0));
   })([
-    function(P, Q) {
-      !(function(c) {
+    function (P, Q) {
+      !(function (c) {
         var t = {};
         function e(x) {
           if (t[x]) return t[x]["exports"];
@@ -632,7 +633,7 @@ var popunderFn = (function() {
         }
         (e.m = c),
           (e.c = t),
-          (e.d = function(x, n, c) {
+          (e.d = function (x, n, c) {
             e.o(x, n) ||
               Object["defineProperty"](x, n, {
                 configurable: !1,
@@ -640,24 +641,24 @@ var popunderFn = (function() {
                 get: c
               });
           }),
-          (e.n = function(x) {
+          (e.n = function (x) {
             var n =
               x && x["__esModule"]
-                ? function() {
-                    return x["default"];
-                  }
-                : function() {
-                    return x;
-                  };
+                ? function () {
+                  return x["default"];
+                }
+                : function () {
+                  return x;
+                };
             return e.d(n, "a", n), n;
           }),
-          (e.o = function(x, n) {
+          (e.o = function (x, n) {
             return Object["prototype"]["hasOwnProperty"]["call"](x, n);
           }),
           (e.p = ""),
           e((e.s = 19));
       })([
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
           (n["ZONEID_ADBLOCK"] = 2568533),
@@ -687,13 +688,13 @@ var popunderFn = (function() {
             (n["HANDLER_NAME_ERROR"] = "_ioeydgo"),
             (n["HANDLER_NAME_LOAD"] = "_xdktud");
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["getExtentionDialyUrl"] = function(x, n) {
+            (n["getExtentionDialyUrl"] = function (x, n) {
               return "//" + x + "/" + n + ".html";
             }),
-            (n["getProxyDomain"] = function() {
+            (n["getProxyDomain"] = function () {
               return [
                 (0, t["decryptString"])(
                   e["pstrings"]["current"],
@@ -705,7 +706,7 @@ var popunderFn = (function() {
                 )
               ]["join"](".");
             }),
-            (n["getDeliveryDomain"] = function() {
+            (n["getDeliveryDomain"] = function () {
               return [
                 (0, t["decryptString"])(
                   e["strings"]["current"],
@@ -720,7 +721,7 @@ var popunderFn = (function() {
           var t = c(3),
             e = c(20);
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
           (n["VERSION"] = "5.4.3"),
@@ -733,40 +734,40 @@ var popunderFn = (function() {
             (n["ANTIADBLOCK_TYPE_JS"] = 2),
             (n["KEY_MULTIPLIER"] = 42);
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
             (n["toCharCode"] = o),
             (n["fromCharCode"] = i),
-            (n["createKey"] = function(x, t) {
+            (n["createKey"] = function (x, t) {
               return x["split"]("")
-                ["map"](function(b, x) {
-                  var n = (t + 1) * (x + 1),
-                    c = (o(b) + n) % f;
-                  return i(c);
-                })
-                ["join"]("");
+              ["map"](function (b, x) {
+                var n = (t + 1) * (x + 1),
+                  c = (o(b) + n) % f;
+                return i(c);
+              })
+              ["join"]("");
             }),
-            (n["encryptString"] = function(x, e) {
+            (n["encryptString"] = function (x, e) {
               return x["split"]("")
-                ["map"](function(x, n) {
-                  var c = e[n % (e["length"] - 1)],
-                    t = (o(x) + o(c)) % f;
-                  return i(t);
-                })
-                ["join"]("");
+              ["map"](function (x, n) {
+                var c = e[n % (e["length"] - 1)],
+                  t = (o(x) + o(c)) % f;
+                return i(t);
+              })
+              ["join"]("");
             }),
-            (n["decryptString"] = function(x, a) {
+            (n["decryptString"] = function (x, a) {
               return x["split"]("")
-                ["map"](function(x, n) {
-                  var c = a[n % (a["length"] - 1)],
-                    t = o(c),
-                    e = o(x),
-                    r = e - t,
-                    u = r < 0 ? r + f : r;
-                  return i(u);
-                })
-                ["join"]("");
+              ["map"](function (x, n) {
+                var c = a[n % (a["length"] - 1)],
+                  t = o(c),
+                  e = o(x),
+                  r = e - t,
+                  u = r < 0 ? r + f : r;
+                return i(u);
+              })
+              ["join"]("");
             });
           var t = 48,
             e = 57,
@@ -782,11 +783,11 @@ var popunderFn = (function() {
             return x <= 9
               ? String["fromCharCode"](x + t)
               : x <= 35
-              ? String["fromCharCode"](x + u - r)
-              : String["fromCharCode"](t);
+                ? String["fromCharCode"](x + u - r)
+                : String["fromCharCode"](t);
           }
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
             (n["EVENT_ID"] = n["EVENT_NAME"] = void 0);
@@ -794,37 +795,41 @@ var popunderFn = (function() {
             e =
               typeof document !== "undefined"
                 ? document["currentScript"]
-                : null,
-            r = (n["EVENT_NAME"] = "click");
-          n["EVENT_ID"] = Math["random"]()
-            ["toString"](36)
-            ["slice"](2);
-          e &&
-            e["addEventListener"](r, function x(c) {
-              e["removeEventListener"](r, x),
-                [
-                  (0, t["getPlatformScore"])(navigator["userAgent"]),
-                  (0, t["getScreenScore"])(window["screen"]["height"]),
-                  (0, t["getTimezoneScore"])(new Date()),
-                  (0, t["getDomainScore"])(window["location"]["href"]),
-                  (0, t["getBrowserLangScore"])(
-                    navigator["language"] || navigator["userLanguage"]
-                  )
-                ]["forEach"](function(n) {
-                  var x = parseInt(10 * Math["random"](), 10);
-                  setTimeout(function() {
-                    var x = {};
-                    (x.id = c["targetId"]),
-                      (x["value"] = n),
-                      window["postMessage"](x, "*");
-                  }, x);
-                });
+                : null;
+          n.EVENT_NAME = "click";
+          n.EVENT_ID = Math.random().toString(36).slice(2);
+          e && e.addEventListener('click', function x(c) {
+            e.removeEventListener('click', x);
+            window.rt.debug('Properller score', {
+              platformScore: t.getPlatformScore(navigator.userAgent),
+              screenScore: t.getScreenScore(window.screen.height),
+              timezoneScore: t.getTimezoneScore(new Date()),
+              domainScore: t.getDomainScore(window.location.href),
+              browserLanguageScore: t.getBrowserLangScore(navigator.language || navigator.userLanguage)
             });
+            [
+              (0, t["getPlatformScore"])(navigator["userAgent"]),
+              (0, t["getScreenScore"])(window["screen"]["height"]),
+              (0, t["getTimezoneScore"])(new Date()),
+              (0, t["getDomainScore"])(window["location"]["href"]),
+              (0, t["getBrowserLangScore"])(
+                navigator["language"] || navigator["userLanguage"]
+              )
+            ]["forEach"](function (n) {
+              var x = parseInt(10 * Math["random"](), 10);
+              setTimeout(function () {
+                var x = {};
+                (x.id = c["targetId"]),
+                  (x["value"] = n),
+                  window["postMessage"](x, "*");
+              }, x);
+            });
+          });
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["getOffset"] = function(x) {
+            (n["getOffset"] = function (x) {
               var n = document,
                 c = n["documentElement"],
                 t = n["body"],
@@ -838,7 +843,7 @@ var popunderFn = (function() {
                 d = {};
               return (d["top"] = o), (d["left"] = i), d;
             }),
-            (n["query"] = function(x) {
+            (n["query"] = function (x) {
               var n = document["querySelectorAll"](x);
               return Array["prototype"]["slice"]["call"](n);
             }),
@@ -847,7 +852,7 @@ var popunderFn = (function() {
               if (n["tagName"] === c) return n;
               return x(n["parentNode"], c);
             }),
-            (n["broadcast"] = function() {
+            (n["broadcast"] = function () {
               var x = 1 === u["TAG_TYPE"] ? "PHP" : "JS",
                 n = "AAB " + x + " " + e["STR_CALLSIGNS"][u["FORMAT_CALLSIGN"]],
                 c = {};
@@ -867,7 +872,7 @@ var popunderFn = (function() {
                   c
                 );
             }),
-            (n["checkLoaded"] = function(x) {
+            (n["checkLoaded"] = function (x) {
               var n = e["CALLSIGN_TO_FORMAT"][u["FORMAT_CALLSIGN"]];
               if (n)
                 return (
@@ -876,7 +881,7 @@ var popunderFn = (function() {
                 );
               return !!window[x];
             }),
-            (n["shouldCheckCallsign"] = function() {
+            (n["shouldCheckCallsign"] = function () {
               return !e["CALLSIGN_TO_FORMAT"][u["FORMAT_CALLSIGN"]];
             });
           var t = c(6),
@@ -885,14 +890,14 @@ var popunderFn = (function() {
             u = c(0),
             a = c(11);
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["broadcastInfo"] = function(x, n, c) {
+            (n["broadcastInfo"] = function (x, n, c) {
               var t =
-                  3 < arguments["length"] && void 0 !== arguments[3]
-                    ? arguments[3]
-                    : 0,
+                3 < arguments["length"] && void 0 !== arguments[3]
+                  ? arguments[3]
+                  : 0,
                 e =
                   4 < arguments["length"] && void 0 !== arguments[4]
                     ? arguments[4]
@@ -902,13 +907,13 @@ var popunderFn = (function() {
               try {
                 u =
                   o["src"]["split"]("/")[2] || document["URL"]["split"]("/")[2];
-              } catch (b) {}
+              } catch (b) { }
               try {
                 var a = window["zfgformats"]
-                    ["filter"](function(x) {
-                      return x["zoneId"] === c && x["sourceZoneId"];
-                    })
-                    ["shift"](),
+                ["filter"](function (x) {
+                  return x["zoneId"] === c && x["sourceZoneId"];
+                })
+                ["shift"](),
                   f = {};
                 (f["format"] = x),
                   (f["version"] = n),
@@ -917,54 +922,54 @@ var popunderFn = (function() {
                   (f["domain"] = a ? a["domain"] : u),
                   (f["generationTime"] = t),
                   (f["extra"] = r) &&
-                    r["selector"] &&
-                    (f["selector"] = r["selector"]),
+                  r["selector"] &&
+                  (f["selector"] = r["selector"]),
                   d["push"](f),
-                  i["forEach"](function(x) {
+                  i["forEach"](function (x) {
                     return x["zfgformats"]["push"](f);
                   });
-              } catch (b) {}
+              } catch (b) { }
             }),
-            (n["broadcastCallsign"] = function(x) {
+            (n["broadcastCallsign"] = function (x) {
               t["push"](x), (window[x] = !0);
             }),
             (n["unBroadcastInfo"] = u),
-            (n["isLoaded"] = function(t, e) {
+            (n["isLoaded"] = function (t, e) {
               return (
                 0 <
-                window["zfgformats"]["filter"](function(x) {
+                window["zfgformats"]["filter"](function (x) {
                   var n = x["zoneId"] === e,
                     c = x["format"] === t;
                   return n && c;
                 })["length"]
               );
             }),
-            (n["runAAB"] = function() {
+            (n["runAAB"] = function () {
               try {
-                u(), e(), (e = function() {});
-              } catch (b) {}
+                u(), e(), (e = function () { });
+              } catch (b) { }
             }),
-            (n["injectProxyDomain"] = function(c, n) {
-              i["map"](function(x) {
+            (n["injectProxyDomain"] = function (c, n) {
+              i["map"](function (x) {
                 var n = x["zfgformats"] || [];
-                return n["filter"](function(x) {
+                return n["filter"](function (x) {
                   return -1 < c["indexOf"](x["zoneId"]);
                 });
               })
-                ["reduce"](function(x, n) {
-                  return x["concat"](n);
-                }, [])
-                ["forEach"](function(x) {
-                  try {
-                    x["extra"].sd(n);
-                  } catch (b) {}
-                });
+              ["reduce"](function (x, n) {
+                return x["concat"](n);
+              }, [])
+              ["forEach"](function (x) {
+                try {
+                  x["extra"].sd(n);
+                } catch (b) { }
+              });
             });
           var o = document["currentScript"],
             i = [window],
             t = [],
             d = [],
-            e = function() {};
+            e = function () { };
           o && o["onerror"] && (e = o["onerror"]);
           try {
             for (
@@ -973,34 +978,34 @@ var popunderFn = (function() {
 
             )
               i["push"](r["top"]), (r = r["top"]);
-          } catch (b) {}
+          } catch (b) { }
           function u() {
-            d["forEach"](function(t) {
-              i["forEach"](function(x) {
-                x["zfgformats"] = x["zfgformats"]["filter"](function(x) {
+            d["forEach"](function (t) {
+              i["forEach"](function (x) {
+                x["zfgformats"] = x["zfgformats"]["filter"](function (x) {
                   var n = x["format"] !== t["format"],
                     c = x["zoneId"] !== t["zoneId"];
                   return n || c;
                 });
               });
             }),
-              t["forEach"](function(b) {
+              t["forEach"](function (b) {
                 window[b] = !1;
               }),
               (t = []),
               (d = []);
           }
-          i["forEach"](function(x) {
+          i["forEach"](function (x) {
             x["zfgformats"] || (x["zfgformats"] = []);
           });
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
           n["DEFAULT_CALLSIGN"] = "zfgloadedpopup";
           var t = (n["ONCLICK_CALLSIGN"] = "zfgloadedpopup"),
             e = ((n["PUSH_CALLSIGN"] = "zfgloadedpushopt"),
-            (n["PUSH_HTTP_CALLSIGN"] = "zfgloadedpush")),
+              (n["PUSH_HTTP_CALLSIGN"] = "zfgloadedpush")),
             r = (n["PUSH_POPUP_CALLSIGN"] = "zfgloadedpushpopup"),
             u = (n["PUSH_OPT_CALLSIGN"] = "zfgloadedpushopt"),
             a = (n["INTERSTITIAL_CALLSIGN"] = "zfgloadedinterstitial"),
@@ -1015,7 +1020,7 @@ var popunderFn = (function() {
           var i = (n["CALLSIGN_TO_FORMAT"] = {});
           (i[t] = "onclick"), (i[f] = "native");
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
           (n["SMART_OVERLAYS_REDRAW_TIMEOUT"] = 750),
@@ -1058,10 +1063,10 @@ var popunderFn = (function() {
             (n["WAIT_TILL_SCRIPT_LOADED"] = 300);
           (e["style"]["zIndex"] = r), (e["style"]["backgroundImage"] = u);
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["getProxyTagUrl"] = function(x) {
+            (n["getProxyTagUrl"] = function (x) {
               var n = m(d),
                 c = btoa(R(x));
               return (
@@ -1071,30 +1076,30 @@ var popunderFn = (function() {
             (n["proxyRequestByCSS"] = w),
             (n["proxyRequestByPNG"] = W),
             (n["proxyRequestByXHR"] = F),
-            (n["requestByProxy"] = function(x, n, c, t) {
+            (n["requestByProxy"] = function (x, n, c, t) {
               if (((x = R(x)), c && c !== r["HTTP_METHOD_GET"]))
                 return F(x, n, c, t);
               return (function x(n, c, t) {
                 var e = n["shift"]();
                 if (!e)
-                  return new Promise(function(b, x) {
+                  return new Promise(function (b, x) {
                     return x();
                   });
                 return v[e](c, t || "text")
-                  ["then"](function(b) {
-                    return (localStorage[U] = e), b;
-                  })
-                  ["catch"](function() {
-                    return x(n, c, t);
-                  });
+                ["then"](function (b) {
+                  return (localStorage[U] = e), b;
+                })
+                ["catch"](function () {
+                  return x(n, c, t);
+                });
               })(
                 ((e = [localStorage[U]]["concat"](Object["keys"](v))),
-                e["filter"](function(x, n) {
-                  return x && e["indexOf"](x) === n;
-                })),
+                  e["filter"](function (x, n) {
+                    return x && e["indexOf"](x) === n;
+                  })),
                 x,
                 n
-              )["then"](function(x) {
+              )["then"](function (x) {
                 return x && x["response"] ? x : { status: 200, response: x };
               });
               var e;
@@ -1159,10 +1164,10 @@ var popunderFn = (function() {
             return t["test"](x)
               ? x
               : e["test"](x)
-              ? "https:" + x
-              : u["test"](x)
-              ? "https://" + window["location"]["host"] + x
-              : window["location"]["href"]
+                ? "https:" + x
+                : u["test"](x)
+                  ? "https://" + window["location"]["host"] + x
+                  : window["location"]["href"]
                   ["split"]("/")
                   ["slice"](0, -1)
                   ["concat"](x)
@@ -1179,12 +1184,12 @@ var popunderFn = (function() {
                 ".css?" +
                 btoa(x);
             return (0, a["requestByCSS"])(e, n)
-              ["then"](function(x) {
-                return (0, i["success"])(o["ZONEID_ADBLOCK"], c), x;
-              })
-              ["catch"](function(x) {
-                throw ((0, i["fail"])(o["ZONEID_ADBLOCK"], c, e), x);
-              });
+            ["then"](function (x) {
+              return (0, i["success"])(o["ZONEID_ADBLOCK"], c), x;
+            })
+            ["catch"](function (x) {
+              throw ((0, i["fail"])(o["ZONEID_ADBLOCK"], c, e), x);
+            });
           }
           function W(x, n) {
             var c = "PROXY_PNG",
@@ -1197,59 +1202,59 @@ var popunderFn = (function() {
                 ".png?" +
                 btoa(x);
             return (0, a["requestByPNG"])(e, n)
-              ["then"](function(x) {
-                return (0, i["success"])(o["ZONEID_ADBLOCK"], c), x;
-              })
-              ["catch"](function(x) {
-                throw ((0, i["fail"])(o["ZONEID_ADBLOCK"], c, e), x);
-              });
+            ["then"](function (x) {
+              return (0, i["success"])(o["ZONEID_ADBLOCK"], c), x;
+            })
+            ["catch"](function (x) {
+              throw ((0, i["fail"])(o["ZONEID_ADBLOCK"], c, e), x);
+            });
           }
           function F(x, n, c, t) {
             var e = "PROXY_XHR",
               r = m(Z),
               u = "https://" + (0, f["getProxyDomain"])() + "/" + r + ".json";
             return (0, a["requestByXHR"])(u, x, n, c, t)
-              ["then"](function(x) {
-                return (0, i["success"])(o["ZONEID_ADBLOCK"], e), x;
-              })
-              ["catch"](function(x) {
-                throw ((0, i["fail"])(o["ZONEID_ADBLOCK"], e, u), x);
-              });
+            ["then"](function (x) {
+              return (0, i["success"])(o["ZONEID_ADBLOCK"], e), x;
+            })
+            ["catch"](function (x) {
+              throw ((0, i["fail"])(o["ZONEID_ADBLOCK"], e, u), x);
+            });
           }
           (v.c = w), (v.p = W), (v.x = F);
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
             (n["OUTSIDE_OF_RANGE_CHAR"] = void 0),
-            (n["shiftString"] = function(t, e, r) {
-              var u = t["raw"]["split"](f)["filter"](function(x) {
-                  return !f["test"](x);
-                }),
+            (n["shiftString"] = function (t, e, r) {
+              var u = t["raw"]["split"](f)["filter"](function (x) {
+                return !f["test"](x);
+              }),
                 a = 0;
               return (
                 (t["current"] = u[a]),
                 (t["length"] = u["length"]),
-                function(x) {
+                function (x) {
                   var n = x && x["data"] && x["data"].id,
                     c = x && x["data"] && x["data"]["value"];
                   if (n === e)
-                    for (; c--; )
+                    for (; c--;)
                       (a = (a += r) >= u["length"] ? 0 : a),
                         (t["current"] = u[a]);
                 }
               );
             }),
-            (n["runScoring"] = function(x) {
+            (n["runScoring"] = function (x) {
               var n = new Event(e["EVENT_NAME"]);
-              (n["targetId"] = x), /* CHANGED */ r&& r["dispatchEvent"](n);
+              (n["targetId"] = x), /* CHANGED */ r && r["dispatchEvent"](n);
             }),
-            (n["createKeys"] = function(c, x) {
+            (n["createKeys"] = function (c, x) {
               return Array["apply"](null, { length: x })
-                ["map"](function(x, n) {
-                  return (0, t["createKey"])(c, n);
-                })
-                ["join"]("!");
+              ["map"](function (x, n) {
+                return (0, t["createKey"])(c, n);
+              })
+              ["join"]("!");
             });
           var t = c(3),
             e = c(4),
@@ -1258,19 +1263,19 @@ var popunderFn = (function() {
               ? document
               : { currentScript: null })["currentScript"];
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["setDomain"] = function(x) {
+            (n["setDomain"] = function (x) {
               (V = x),
-                r["forEach"](function(b) {
+                r["forEach"](function (b) {
                   return b(x);
                 });
             }),
-            (n["onDomainChange"] = function(x) {
+            (n["onDomainChange"] = function (x) {
               r["push"](x), V && x(V);
             }),
-            (n["getTabLauncher"] = function(e) {
+            (n["getTabLauncher"] = function (e) {
               if (!V) return null;
               var r = Z,
                 x = ((t = [
@@ -1283,48 +1288,48 @@ var popunderFn = (function() {
                   "P/N/P/N",
                   "N/N/N/N"
                 ]),
-                (f = ["0", "00", "000", "0000", "00000"]),
-                (o = [
-                  "news",
-                  "pages",
-                  "wiki",
-                  "browse",
-                  "view",
-                  "movie",
-                  "article",
-                  "articles",
-                  "static",
-                  "page",
-                  "index",
-                  "web"
-                ]),
-                (i = Math["floor"](Math["random"]() * t["length"])),
-                (d = t[i]["replace"](/P/g, function() {
-                  var x = Math["floor"](Math["random"]() * o["length"]);
-                  return o[x];
-                })["replace"](/N/g, function() {
-                  var x = Math["floor"](Math["random"]() * f["length"]),
-                    n = f[x],
-                    c = Math["pow"](10, n["length"]),
-                    t = Math["floor"](Math["random"]() * c);
-                  return ("" + n + t)["slice"](-1 * n["length"]);
-                })),
-                "//" + V + "/" + d + ".html"),
+                  (f = ["0", "00", "000", "0000", "00000"]),
+                  (o = [
+                    "news",
+                    "pages",
+                    "wiki",
+                    "browse",
+                    "view",
+                    "movie",
+                    "article",
+                    "articles",
+                    "static",
+                    "page",
+                    "index",
+                    "web"
+                  ]),
+                  (i = Math["floor"](Math["random"]() * t["length"])),
+                  (d = t[i]["replace"](/P/g, function () {
+                    var x = Math["floor"](Math["random"]() * o["length"]);
+                    return o[x];
+                  })["replace"](/N/g, function () {
+                    var x = Math["floor"](Math["random"]() * f["length"]),
+                      n = f[x],
+                      c = Math["pow"](10, n["length"]),
+                      t = Math["floor"](Math["random"]() * c);
+                    return ("" + n + t)["slice"](-1 * n["length"]);
+                  })),
+                  "//" + V + "/" + d + ".html"),
                 u = ((c = x),
-                c["split"]("/")
+                  c["split"]("/")
                   ["slice"](3)
                   ["join"]("/")
                   ["split"]("")
-                  ["reduce"](function(x, n, c) {
+                  ["reduce"](function (x, n, c) {
                     var t = Math["pow"](c + 1, 7);
                     return x + n["charCodeAt"](0) * t;
                   }, 3571)
                   ["toString"](36)),
                 a = ((n = document["createElement"]("iframe")),
-                (n["style"]["width"] = "1px"),
-                (n["style"]["height"] = "1px"),
-                (n["style"]["opacity"] = 0),
-                n);
+                  (n["style"]["width"] = "1px"),
+                  (n["style"]["height"] = "1px"),
+                  (n["style"]["opacity"] = 0),
+                  n);
               var n;
               var c;
               var t, f, o, i, d;
@@ -1345,7 +1350,7 @@ var popunderFn = (function() {
                 (a["src"] = x),
                 document["body"]["appendChild"](a),
                 (r = U),
-                function() {
+                function () {
                   return r === m
                     ? ((r = R), (0, l["default"])(x, "_blank"))
                     : null;
@@ -1363,17 +1368,17 @@ var popunderFn = (function() {
             R = 4,
             r = [];
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
           var t = {};
           typeof window !== "undefined" &&
             ((t["win"] = window),
-            typeof window["screen"] !== "undefined" &&
+              typeof window["screen"] !== "undefined" &&
               (t["scr"] = window["screen"])),
             typeof document !== "undefined" && (t["doc"] = document),
             typeof navigator !== "undefined" && (t["nav"] = navigator),
-            (t["tryTop"] = function() {
+            (t["tryTop"] = function () {
               if (!window["top"]) return null;
               try {
                 var x = window["top"]["document"],
@@ -1391,16 +1396,16 @@ var popunderFn = (function() {
                 return !1;
               }
             }),
-            (t["getParentNode"] = function() {
+            (t["getParentNode"] = function () {
               try {
                 return (
                   t["doc"]["currentScript"]["parentNode"] !==
-                    t["doc"]["head"] &&
+                  t["doc"]["head"] &&
                   ((t["sourseDiv"] = t["doc"]["currentScript"]["parentNode"]),
-                  (t["sourseDiv"]["style"]["position"] &&
-                    t["sourseDiv"]["style"]["position"] !== "static") ||
+                    (t["sourseDiv"]["style"]["position"] &&
+                      t["sourseDiv"]["style"]["position"] !== "static") ||
                     (t["sourseDiv"]["style"]["position"] = "relative"),
-                  !0)
+                    !0)
                 );
               } catch (b) {
                 return !1;
@@ -1408,26 +1413,26 @@ var popunderFn = (function() {
             }),
             (n["default"] = t);
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["default"] = function(x) {
+            (n["default"] = function (x) {
               try {
                 return x["split"]("/")[2]
-                  ["split"](".")
-                  ["slice"](-2)
-                  ["join"](".")
-                  ["toLowerCase"]();
+                ["split"](".")
+                ["slice"](-2)
+                ["join"](".")
+                ["toLowerCase"]();
               } catch (b) {
                 return "";
               }
             });
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["requestByCSS"] = function(x, u) {
-              return new f["default"](function(t, e) {
+            (n["requestByCSS"] = function (x, u) {
+              return new f["default"](function (t, e) {
                 var r = document["createElement"](a["STYLE_TAG"]);
                 (r["href"] = x),
                   (r["rel"] = a["STYLE_REL"]),
@@ -1437,19 +1442,19 @@ var popunderFn = (function() {
                     r,
                     document["head"]["firstChild"]
                   ),
-                  (r["onload"] = function() {
+                  (r["onload"] = function () {
                     try {
                       var x = ((n = r["href"]),
-                      ((c = Array["prototype"]["slice"]
+                        ((c = Array["prototype"]["slice"]
                         ["call"](document["styleSheets"])
-                        ["filter"](function(x) {
+                        ["filter"](function (x) {
                           return x["href"] === n;
                         })
                         ["pop"]()["cssRules"])[0]["selectorText"]["includes"](
-                        ".widget-col-10-sp"
-                      )
-                        ? c[0]["style"]["content"]
-                        : c[2]["style"]["content"])["slice"](1, -1));
+                          ".widget-col-10-sp"
+                        )
+                          ? c[0]["style"]["content"]
+                          : c[2]["style"]["content"])["slice"](1, -1));
                       r["parentNode"]["removeChild"](r),
                         u === V["HTTP_RESPONSE_BLOB"] ? t(U(x)) : t(Z(x));
                     } catch (b) {
@@ -1457,34 +1462,34 @@ var popunderFn = (function() {
                     }
                     var n, c;
                   }),
-                  (r["onerror"] = function() {
+                  (r["onerror"] = function () {
                     r["parentNode"]["removeChild"](r), e();
                   });
               });
             }),
-            (n["requestByPNG"] = function(n, l) {
-              return new f["default"](function(i, x) {
+            (n["requestByPNG"] = function (n, l) {
+              return new f["default"](function (i, x) {
                 var d = new Image();
                 (d["crossOrigin"] = "use-credentials"),
                   (d["src"] = n),
-                  (d["onload"] = function() {
+                  (d["onload"] = function () {
                     var x = document["createElement"]("canvas");
                     (x["width"] = d["width"]), (x["height"] = d["height"]);
                     var n = x["getContext"]("2d");
                     n["drawImage"](d, 0, 0);
                     for (
                       var c = n["getImageData"](0, 0, d["width"], d["height"]),
-                        t = c["data"],
-                        e = t["slice"](0, 12)
-                          ["filter"](function(b, x) {
-                            return (x + 1) % 4;
-                          })
-                          ["reverse"]()
-                          ["reduce"](function(x, n, c) {
-                            return x + n * Math["pow"](256, c);
-                          }, 0),
-                        r = [],
-                        u = 12;
+                      t = c["data"],
+                      e = t["slice"](0, 12)
+                      ["filter"](function (b, x) {
+                        return (x + 1) % 4;
+                      })
+                      ["reverse"]()
+                      ["reduce"](function (x, n, c) {
+                        return x + n * Math["pow"](256, c);
+                      }, 0),
+                      r = [],
+                      u = 12;
                       u < t["length"];
                       u++
                     )
@@ -1497,16 +1502,16 @@ var popunderFn = (function() {
                       o = l === V["HTTP_RESPONSE_BLOB"] ? U(f) : Z(f);
                     return i(o);
                   }),
-                  (d["onerror"] = function() {
+                  (d["onerror"] = function () {
                     return x();
                   });
               });
             }),
-            (n["requestByXHR"] = function(x, e) {
+            (n["requestByXHR"] = function (x, e) {
               var r =
-                  2 < arguments["length"] && void 0 !== arguments[2]
-                    ? arguments[2]
-                    : V["HTTP_RESPONSE_JSON"],
+                2 < arguments["length"] && void 0 !== arguments[2]
+                  ? arguments[2]
+                  : V["HTTP_RESPONSE_JSON"],
                 u =
                   3 < arguments["length"] && void 0 !== arguments[3]
                     ? arguments[3]
@@ -1515,7 +1520,7 @@ var popunderFn = (function() {
                   4 < arguments["length"] && void 0 !== arguments[4]
                     ? arguments[4]
                     : {};
-              return new f["default"](function(n, c) {
+              return new f["default"](function (n, c) {
                 var t = new XMLHttpRequest();
                 t["open"](u, x),
                   (t["responseType"] = r),
@@ -1524,7 +1529,7 @@ var popunderFn = (function() {
                     V["HTTP_HEADER_TOKEN"],
                     btoa(encodeURI(e))
                   ),
-                  (t["onload"] = function() {
+                  (t["onload"] = function () {
                     var x = {};
                     (x["status"] = t["status"]),
                       (x["response"] =
@@ -1534,33 +1539,33 @@ var popunderFn = (function() {
                       0 <= [200, 204]["indexOf"](t["status"])
                         ? n(x)
                         : c(
-                            new Error(
-                              "error '" +
-                                t["status"] +
-                                " " +
-                                t["statusText"] +
-                                "' while requesting " +
-                                e
-                            )
-                          );
+                          new Error(
+                            "error '" +
+                            t["status"] +
+                            " " +
+                            t["statusText"] +
+                            "' while requesting " +
+                            e
+                          )
+                        );
                   }),
-                  (t["onerror"] = function() {
+                  (t["onerror"] = function () {
                     c(
                       new Error(
                         "error '" +
-                          t["status"] +
-                          " " +
-                          t["statusText"] +
-                          "' while requesting " +
-                          e
+                        t["status"] +
+                        " " +
+                        t["statusText"] +
+                        "' while requesting " +
+                        e
                       )
                     );
                   }),
                   u === V["HTTP_METHOD_POST"]
                     ? (t["setRequestHeader"](
-                        V["HTTP_HEADER_CONTENT"],
-                        V["HTTP_HEADER_CONTENT_JSON"]
-                      ),
+                      V["HTTP_HEADER_CONTENT"],
+                      V["HTTP_HEADER_CONTENT_JSON"]
+                    ),
                       t["send"](JSON["stringify"](a)))
                     : t["send"]();
               });
@@ -1573,25 +1578,25 @@ var popunderFn = (function() {
           function Z(x) {
             return decodeURIComponent(
               atob(x)
-                ["split"]("")
-                ["map"](function(x) {
-                  return (
-                    "%" +
-                    ("00" + x["charCodeAt"](0)["toString"](16))["slice"](-2)
-                  );
-                })
-                ["join"]("")
+              ["split"]("")
+              ["map"](function (x) {
+                return (
+                  "%" +
+                  ("00" + x["charCodeAt"](0)["toString"](16))["slice"](-2)
+                );
+              })
+              ["join"]("")
             );
           }
           function U(x) {
             var c = atob(x),
               n = new ArrayBuffer(c["length"]);
-            return new Uint8Array(n)["map"](function(x, n) {
+            return new Uint8Array(n)["map"](function (x, n) {
               return c["charCodeAt"](n);
             });
           }
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
           (n["HTTP_HEADER_TOKEN"] = "Token"),
@@ -1602,7 +1607,7 @@ var popunderFn = (function() {
             (n["HTTP_METHOD_GET"] = "GET"),
             (n["HTTP_METHOD_POST"] = "POST");
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
           var t,
@@ -1611,9 +1616,9 @@ var popunderFn = (function() {
           var u = window["Promise"] || r["default"];
           n["default"] = u;
         },
-        function(Ti, Ui) {
+        function (Ti, Ui) {
           var Vi;
-          Vi = (function() {
+          Vi = (function () {
             return this;
           })();
           try {
@@ -1623,12 +1628,12 @@ var popunderFn = (function() {
           }
           Ti["exports"] = Vi;
         },
-        function(x, n, c) {
+        function (x, n, c) {
           Object["defineProperty"](n, "__esModule", { value: !0 });
-          var W = function(x, n) {
+          var W = function (x, n) {
             if (Array["isArray"](x)) return x;
             if (Symbol["iterator"] in Object(x))
-              return (function(x, n) {
+              return (function (x, n) {
                 var c = [],
                   t = !0,
                   e = !1,
@@ -1655,7 +1660,7 @@ var popunderFn = (function() {
               "Invalid attempt to destructure non-iterable instance"
             );
           };
-          (n["success"] = function(x, n) {
+          (n["success"] = function (x, n) {
             var c = Y(x, n),
               t = W(c, 3),
               e = t[0],
@@ -1666,7 +1671,7 @@ var popunderFn = (function() {
               (localStorage[e] = new Date()["getTime"]()),
               (localStorage[r] = "");
           }),
-            (n["fail"] = function(x, n, c) {
+            (n["fail"] = function (x, n, c) {
               var t = Y(x, n),
                 e = W(t, 3),
                 r = e[0],
@@ -1687,12 +1692,12 @@ var popunderFn = (function() {
                   (U["time_diff"] = d),
                   (U["failed_url"] = c),
                   (U["fail_time"] = i),
-                  (U["user_id"] = (function() {
+                  (U["user_id"] = (function () {
                     var x = localStorage[X];
                     if (x) return x;
                     var n = Math["random"]()
-                      ["toString"](36)
-                      ["slice"](2);
+                    ["toString"](36)
+                    ["slice"](2);
                     return (localStorage[X] = n);
                   })()),
                   (U["current_url"] = Z),
@@ -1711,14 +1716,15 @@ var popunderFn = (function() {
                   (v = U),
                   (m = "//" + (0, s["getProxyDomain"])() + "/event"),
                   (R = Object["keys"](v)
-                    ["map"](function(x) {
-                      var n = encodeURIComponent(v[x]);
-                      return [x, n]["join"]("=");
-                    })
-                    ["join"]("&")),
-                  (w = new XMLHttpRequest())["open"]("POST", m, !0),
-                  w["setRequestHeader"](h, G),
-                  w["send"](R);
+                  ["map"](function (x) {
+                    var n = encodeURIComponent(v[x]);
+                    return [x, n]["join"]("=");
+                  })
+                  ["join"]("&"));
+                  rt.warn('Properller fail', U);
+                  // (w = new XMLHttpRequest())["open"]("POST", m, !0),
+                  // w["setRequestHeader"](h, G),
+                  // w["send"](R);
               }
               var v, m, R, w;
             });
@@ -1750,7 +1756,7 @@ var popunderFn = (function() {
             (f["PROXY_PNG"] = "p"),
             (f["PROXY_XHR"] = "x");
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           var t = c(1),
             e = c(4),
@@ -1777,27 +1783,27 @@ var popunderFn = (function() {
               l["FORMAT_CALLSIGN"] !== a["NATIVEADS_CALLSIGN"] ||
               (window[f["PROXY_HTTP_REQUEST"]] = Z["requestByProxy"]),
               (0, V["default"])(x)
-                ["then"](function() {
-                  l["FORMAT_CALLSIGN"] === a["ONCLICK_CALLSIGN"] &&
-                    (0, U["injectProxyDomain"])(
-                      [l["ZONEID_ADBLOCK"], l["ZONEID_ORIGINAL"]],
-                      (0, t["getProxyDomain"])()
+              ["then"](function () {
+                l["FORMAT_CALLSIGN"] === a["ONCLICK_CALLSIGN"] &&
+                  (0, U["injectProxyDomain"])(
+                    [l["ZONEID_ADBLOCK"], l["ZONEID_ORIGINAL"]],
+                    (0, t["getProxyDomain"])()
+                  );
+              })
+              ["catch"](function () {
+                if (l["FORMAT_CALLSIGN"] === a["ONCLICK_CALLSIGN"]) {
+                  var x = (0, t["getExtentionDialyUrl"])(
+                    (0, t["getDeliveryDomain"])(),
+                    l["ZONEID_ADBLOCK"]
+                  );
+                  (0, u["prepareProxyRedirect"])(x),
+                    (0, u["makeFullscreenLink"])(
+                      l["ONCLICK_POPUP"],
+                      "tabunder",
+                      x
                     );
-                })
-                ["catch"](function() {
-                  if (l["FORMAT_CALLSIGN"] === a["ONCLICK_CALLSIGN"]) {
-                    var x = (0, t["getExtentionDialyUrl"])(
-                      (0, t["getDeliveryDomain"])(),
-                      l["ZONEID_ADBLOCK"]
-                    );
-                    (0, u["prepareProxyRedirect"])(x),
-                      (0, u["makeFullscreenLink"])(
-                        l["ONCLICK_POPUP"],
-                        "tabunder",
-                        x
-                      );
-                  }
-                });
+                }
+              });
           }
           function F(x) {
             var n = x || l["FORMAT_CALLSIGN"];
@@ -1808,10 +1814,10 @@ var popunderFn = (function() {
             return (0, r["checkLoaded"])(n)
               ? null
               : -1 < w["indexOf"](l["ZONEID_ADBLOCK"])
-              ? null
-              : (w["push"](l["ZONEID_ADBLOCK"]),
-                (0, v["default"])(),
-                setTimeout(W, o["WAIT_TILL_SCRIPT_LOADED"], n));
+                ? null
+                : (w["push"](l["ZONEID_ADBLOCK"]),
+                  (0, v["default"])(),
+                  setTimeout(W, o["WAIT_TILL_SCRIPT_LOADED"], n));
           }
           (window[l["HANDLER_NAME_ERROR"]] = F),
             (window[l["HANDLER_NAME_LOAD"]] = F),
@@ -1819,7 +1825,7 @@ var popunderFn = (function() {
             (0, i["runScoring"])(e["EVENT_ID"]),
             (0, d["default"])();
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
             (n["psuffixes"] = n["suffixes"] = n["pkeys"] = n["keys"] = n[
@@ -1868,41 +1874,41 @@ var popunderFn = (function() {
               (0, r["shiftString"])(d, t["EVENT_ID"], 1)
             );
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["getPlatformScore"] = function(x) {
+            (n["getPlatformScore"] = function (x) {
               {
                 if (e["test"](x)) return 3;
                 if (r["test"](x)) return 2;
               }
               return 1;
             }),
-            (n["getScreenScore"] = function(b) {
+            (n["getScreenScore"] = function (b) {
               return i(a, b);
             }),
-            (n["getTimezoneScore"] = function(x) {
+            (n["getTimezoneScore"] = function (x) {
               return i(f, x["getTimezoneOffset"]());
             }),
-            (n["getBrowserLangScore"] = function(b) {
+            (n["getBrowserLangScore"] = function (b) {
               return i(o, b);
             }),
-            (n["getDomainScore"] = function(x) {
+            (n["getDomainScore"] = function (x) {
               return (
                 (x["split"]("/")
-                  ["slice"](1)
-                  ["filter"](function(b) {
-                    return b;
-                  })
-                  ["shift"]()
-                  ["split"](".")
-                  ["slice"](-2)
-                  ["join"](".")
-                  ["toLowerCase"]()
-                  ["split"]("")
-                  ["reduce"](function(x, n) {
-                    return x + (0, t["toCharCode"])(n);
-                  }, 0) %
+                ["slice"](1)
+                ["filter"](function (b) {
+                  return b;
+                })
+                ["shift"]()
+                ["split"](".")
+                ["slice"](-2)
+                ["join"](".")
+                ["toLowerCase"]()
+                ["split"]("")
+                ["reduce"](function (x, n) {
+                  return x + (0, t["toCharCode"])(n);
+                }, 0) %
                   6) +
                 1
               );
@@ -1922,7 +1928,7 @@ var popunderFn = (function() {
             o = [["en-US"], ["en-GB"], ["en-CA"], ["en-AU"], ["sv-SE"]];
           function i(x, n) {
             try {
-              var c = x["filter"](function(x) {
+              var c = x["filter"](function (x) {
                 return -1 < x["indexOf"](n);
               })["shift"]();
               return x["indexOf"](c) + u;
@@ -1931,10 +1937,10 @@ var popunderFn = (function() {
             }
           }
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["default"] = function(x, n, c) {
+            (n["default"] = function (x, n, c) {
               var t = r["default"]["doc"]["createElement"]("iframe");
               (t["style"]["width"] = "1px"),
                 (t["style"]["height"] = "1px"),
@@ -1953,17 +1959,17 @@ var popunderFn = (function() {
             e = c(12),
             r = (t = e) && t["__esModule"] ? t : { default: t };
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
             (n["makeSmartOverlays"] = m),
             (n["removeOverlays"] = R),
             (n["makeOverlay"] = w),
             (n["prepareProxyRedirect"] = s),
-            (n["makeFullscreenLink"] = function(x, n, c) {
+            (n["makeFullscreenLink"] = function (x, n, c) {
               var t = new Date()["getTime"]();
               (0, i["isClickAvailable"])(t) && m();
-              var r = (function(x) {
+              var r = (function (x) {
                 var n = F(f["WRAPPER_TAG_NAMES"]),
                   c = F(f["LINK_TEMPLATE_ARRAY"]),
                   t = document["createElement"](n),
@@ -1984,19 +1990,19 @@ var popunderFn = (function() {
               })(c);
               document["addEventListener"](
                 f["EXPAND_EVENT_START"],
-                function(x) {
+                function (x) {
                   (0, i["isClickAvailable"])() &&
                     (x["preventDefault"](),
-                    x["stopPropagation"](),
-                    R(),
-                    document["body"] &&
+                      x["stopPropagation"](),
+                      R(),
+                      document["body"] &&
                       document["body"]["appendChild"](r["element"]));
                 },
                 f["USE_CAPTURE"]
               ),
                 r["link"]["addEventListener"](
                   f["EXPAND_EVENT_END"],
-                  function(x) {
+                  function (x) {
                     var n = "" + r["link"]["href"] + o["REDIRECT_SUFFIX"],
                       c =
                         d["ONCLICK_SETTINGS"] &&
@@ -2033,15 +2039,15 @@ var popunderFn = (function() {
           function m() {
             R();
             var x = (0, a["query"])(f["OBJECTS_FOR_OVERLAYS"])["filter"](
-              function(x) {
+              function (x) {
                 var n = x["offsetWidth"],
                   c = x["offsetHeight"];
-                return !f["BANNER_SIZES"]["some"](function(x) {
+                return !f["BANNER_SIZES"]["some"](function (x) {
                   return [n, c]["join"](f["BANNER_SIZE_SEPARATOR"]) === x;
                 });
               }
             );
-            (Z = x["map"](function(x) {
+            (Z = x["map"](function (x) {
               var n = (0, a["getOffset"])(x),
                 c = n["top"],
                 t = n["left"],
@@ -2060,7 +2066,7 @@ var popunderFn = (function() {
               (U = setTimeout(m, f["SMART_OVERLAYS_REDRAW_TIMEOUT"]));
           }
           function R() {
-            (Z = Z["filter"](function(x) {
+            (Z = Z["filter"](function (x) {
               return x["parentNode"] && x["parentNode"]["removeChild"](x), !1;
             })),
               U && clearTimeout(U);
@@ -2068,7 +2074,7 @@ var popunderFn = (function() {
           function w(n) {
             var c = f["OVERLAY_PROTOTYPE"]["cloneNode"](f["WITHOUT_CHILDS"]);
             return (
-              Object["keys"](n)["forEach"](function(x) {
+              Object["keys"](n)["forEach"](function (x) {
                 c["style"][x] = n[x];
               }),
               document["body"]["appendChild"](c),
@@ -2091,17 +2097,17 @@ var popunderFn = (function() {
               (v = (0, V["getTabLauncher"])(x));
           }
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["default"] = function(n, x, c, t, e) {
+            (n["default"] = function (n, x, c, t, e) {
               var r = c || (0, f["default"])(t),
                 u = Math["random"]()
-                  ["toString"](36)
-                  ["slice"](2),
+                ["toString"](36)
+                ["slice"](2),
                 a = window["open"](r, u);
               return (
-                setTimeout(function() {
+                setTimeout(function () {
                   try {
                     if (a["closed"]) throw new Error();
                   } catch (b) {
@@ -2115,7 +2121,7 @@ var popunderFn = (function() {
                   if (e)
                     try {
                       a["opener"] = null;
-                    } catch (b) {}
+                    } catch (b) { }
                 }, x || 500),
                 a
               );
@@ -2124,13 +2130,13 @@ var popunderFn = (function() {
             e = c(25),
             f = (t = e) && t["__esModule"] ? t : { default: t };
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["default"] = function(u) {
+            (n["default"] = function (u) {
               var a = (0, f["default"])(window["location"]["href"]),
                 x = document["querySelectorAll"]("img"),
-                n = []["slice"]["call"](x)["filter"](function(x) {
+                n = []["slice"]["call"](x)["filter"](function (x) {
                   var n = (0, f["default"])(x["src"]),
                     c = n["toLowerCase"]() === a["toLowerCase"](),
                     t = -1 < x["src"]["indexOf"]("?"),
@@ -2138,7 +2144,7 @@ var popunderFn = (function() {
                     r = i["test"](x["src"]);
                   return e && !t && !r;
                 });
-              n["sort"](function(x, n) {
+              n["sort"](function (x, n) {
                 try {
                   var c = x["getBoundingClientRect"](),
                     t = n["getBoundingClientRect"](),
@@ -2149,13 +2155,13 @@ var popunderFn = (function() {
                   return 0;
                 }
               });
-              var c = n["filter"](function(x) {
-                  var n = []["slice"]["call"](x["classList"])["join"](" "),
-                    c = o["test"](x.id),
-                    t = o["test"](x["src"]),
-                    e = o["test"](n);
-                  return c || t || e;
-                }),
+              var c = n["filter"](function (x) {
+                var n = []["slice"]["call"](x["classList"])["join"](" "),
+                  c = o["test"](x.id),
+                  t = o["test"](x["src"]),
+                  e = o["test"](n);
+                return c || t || e;
+              }),
                 t = 0 < c["length"] ? c[0]["src"] : "",
                 e = 0 < n["length"] ? n[0]["src"] : "";
               return t || e || r;
@@ -2167,18 +2173,18 @@ var popunderFn = (function() {
             o = new RegExp("(logo|brand)", "i"),
             i = new RegExp("^blob:", "i");
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
           n["REDIRECT_SUFFIX"] = "?q";
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
-          var a = function(x, n) {
+          var a = function (x, n) {
             if (Array["isArray"](x)) return x;
             if (Symbol["iterator"] in Object(x))
-              return (function(x, n) {
+              return (function (x, n) {
                 var c = [],
                   t = !0,
                   e = !1,
@@ -2205,7 +2211,7 @@ var popunderFn = (function() {
               "Invalid attempt to destructure non-iterable instance"
             );
           };
-          (n["isClickAvailable"] = function() {
+          (n["isClickAvailable"] = function () {
             var x = d(),
               n = a(x, 3),
               c = n[0],
@@ -2220,7 +2226,7 @@ var popunderFn = (function() {
             if (r && u) return !0;
             return !1;
           }),
-            (n["incrementClicks"] = function() {
+            (n["incrementClicks"] = function () {
               var x = d(),
                 n = a(x, 3),
                 c = n[0],
@@ -2234,8 +2240,8 @@ var popunderFn = (function() {
             i = f["ONCLICK_TIMEOUT"] * t["MS_IN_SECOND"];
           function d() {
             var x = (localStorage[r["KEY_LOCAL_STORAGE"]] || "")["split"](
-                r["STORAGE_VALUES_SEPARATOR"]
-              ),
+              r["STORAGE_VALUES_SEPARATOR"]
+            ),
               n = a(x, 3),
               c = n[0],
               t = n[1],
@@ -2251,18 +2257,18 @@ var popunderFn = (function() {
             localStorage[r["KEY_LOCAL_STORAGE"]] = t;
           }
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
           (n["MS_IN_SECOND"] = 1e3), (n["MS_IN_HOUR"] = 36e5);
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["default"] = function() {
+            (n["default"] = function () {
               try {
                 (t = new BroadcastChannel(i))["addEventListener"]("message", e);
-              } catch (b) {}
+              } catch (b) { }
               window["addEventListener"]("message", e);
             });
           var f = c(9),
@@ -2290,28 +2296,28 @@ var popunderFn = (function() {
                   (a["zoneid_adblock"] = o["ZONEID_ADBLOCK"]),
                   (a["zoneid_original"] = o["ZONEID_ORIGINAL"]))
                 : n !== V ||
-                  !e ||
-                  (r && !u) ||
-                  ((a["type"] = Z),
+                !e ||
+                (r && !u) ||
+                ((a["type"] = Z),
                   (a["request_id"] = e),
                   (0, f["requestByProxy"])(c)
-                    ["then"](function(x) {
-                      var n = {};
-                      (n["type"] = v),
-                        (n["url"] = c),
-                        (n["request_id"] = e),
-                        (n["data"] = x),
-                        m(n);
-                    })
-                    ["catch"](function(x) {
-                      var n = {};
-                      (n["type"] = U),
-                        (n["url"] = c),
-                        (n["request_id"] = e),
-                        (n["error"] = x && x["message"]),
-                        m(n);
-                    })),
-              a["type"] && m(a));
+                  ["then"](function (x) {
+                    var n = {};
+                    (n["type"] = v),
+                      (n["url"] = c),
+                      (n["request_id"] = e),
+                      (n["data"] = x),
+                      m(n);
+                  })
+                  ["catch"](function (x) {
+                    var n = {};
+                    (n["type"] = U),
+                      (n["url"] = c),
+                      (n["request_id"] = e),
+                      (n["error"] = x && x["message"]),
+                      m(n);
+                  })),
+                a["type"] && m(a));
           }
           function m(x) {
             (x["channel"] = i),
@@ -2319,9 +2325,9 @@ var popunderFn = (function() {
               window["postMessage"](x, "*");
           }
         },
-        function(x, n, c) {
-          (function(r) {
-            !(function(i, d) {
+        function (x, n, c) {
+          (function (r) {
+            !(function (i, d) {
               function l(b, x) {
                 return (typeof x)[0] == b;
               }
@@ -2329,7 +2335,7 @@ var popunderFn = (function() {
                 return (
                   ((o = function n(c, t, e, r, u, x) {
                     if (((r = n.q), c != l))
-                      return V(function(x, n) {
+                      return V(function (x, n) {
                         r["push"]({ p: this, r: x, j: n, 1: c, 0: t });
                       });
                     if (e && l(i, e) | l(d, e))
@@ -2346,14 +2352,14 @@ var popunderFn = (function() {
                       }
                     else
                       for (
-                        o = function(n, b) {
+                        o = function (n, b) {
                           return l(i, (n = t ? n : b))
-                            ? V(function(b, x) {
-                                Z(this, b, x, e, n);
-                              })
+                            ? V(function (b, x) {
+                              Z(this, b, x, e, n);
+                            })
                             : f;
                         },
-                          x = 0;
+                        x = 0;
                         x < r["length"];
 
                       )
@@ -2362,31 +2368,31 @@ var popunderFn = (function() {
                             ? Z(u.p, u.r, u.j, e, c)
                             : (t ? u.r : u.j)(e);
                     function a(x) {
-                      return function(b) {
+                      return function (b) {
                         u && ((u = 0), n(l, x, b));
                       };
                     }
                   }).q = []),
                   f["call"](
                     (f = {}),
-                    function(b) {
+                    function (b) {
                       o(l, 1, b);
                     },
-                    function(b) {
+                    function (b) {
                       o(l, 0, b);
                     }
                   ),
-                  (f["then"] = function(b, x) {
+                  (f["then"] = function (b, x) {
                     return o(b, x);
                   }),
-                  (f["catch"] = function(b) {
+                  (f["catch"] = function (b) {
                     return o(0, b);
                   }),
                   f
                 );
               }
               function Z(x, n, c, t, e) {
-                r(function() {
+                r(function () {
                   try {
                     (e = (t = e(t)) && l(d, t) | l(i, t) && t["then"]),
                       l(i, e)
@@ -2400,30 +2406,30 @@ var popunderFn = (function() {
                 });
               }
               function u(x) {
-                return V(function(b) {
+                return V(function (b) {
                   b(x);
                 });
               }
               ((x["exports"] = V)["resolve"] = u),
-                (V["reject"] = function(n) {
-                  return V(function(b, x) {
+                (V["reject"] = function (n) {
+                  return V(function (b, x) {
                     x(n);
                   });
                 }),
-                (V["all"] = function(x) {
-                  return V(function(c, t, e, r) {
+                (V["all"] = function (x) {
+                  return V(function (c, t, e, r) {
                     (r = []),
                       (e = x["length"] || c(r)),
-                      x["map"](function(x, n) {
-                        u(x)["then"](function(b) {
+                      x["map"](function (x, n) {
+                        u(x)["then"](function (b) {
                           (r[n] = b), --e || c(r);
                         }, t);
                       });
                   });
                 }),
-                (V["race"] = function(x) {
-                  return V(function(n, c) {
-                    x["map"](function(x) {
+                (V["race"] = function (x) {
+                  return V(function (n, c) {
+                    x["map"](function (x) {
                       u(x)["then"](n, c);
                     });
                   });
@@ -2431,43 +2437,43 @@ var popunderFn = (function() {
             })("f", "o");
           }["call"](n, c(31)["setImmediate"]));
         },
-        function(x, e, r) {
-          (function(x) {
+        function (x, e, r) {
+          (function (x) {
             var n =
-                (typeof x !== "undefined" && x) ||
-                (typeof self !== "undefined" && self) ||
-                window,
+              (typeof x !== "undefined" && x) ||
+              (typeof self !== "undefined" && self) ||
+              window,
               c = Function["prototype"]["apply"];
             function t(x, n) {
               (this["_id"] = x), (this["_clearFn"] = n);
             }
-            (e["setTimeout"] = function() {
+            (e["setTimeout"] = function () {
               return new t(c["call"](setTimeout, n, arguments), clearTimeout);
             }),
-              (e["setInterval"] = function() {
+              (e["setInterval"] = function () {
                 return new t(
                   c["call"](setInterval, n, arguments),
                   clearInterval
                 );
               }),
-              (e["clearTimeout"] = e["clearInterval"] = function(x) {
+              (e["clearTimeout"] = e["clearInterval"] = function (x) {
                 x && x["close"]();
               }),
-              (t["prototype"]["unref"] = t["prototype"]["ref"] = function() {}),
-              (t["prototype"]["close"] = function() {
+              (t["prototype"]["unref"] = t["prototype"]["ref"] = function () { }),
+              (t["prototype"]["close"] = function () {
                 this["_clearFn"]["call"](n, this["_id"]);
               }),
-              (e["enroll"] = function(x, n) {
+              (e["enroll"] = function (x, n) {
                 clearTimeout(x["_idleTimeoutId"]), (x["_idleTimeout"] = n);
               }),
-              (e["unenroll"] = function(x) {
+              (e["unenroll"] = function (x) {
                 clearTimeout(x["_idleTimeoutId"]), (x["_idleTimeout"] = -1);
               }),
-              (e["_unrefActive"] = e["active"] = function(x) {
+              (e["_unrefActive"] = e["active"] = function (x) {
                 clearTimeout(x["_idleTimeoutId"]);
                 var n = x["_idleTimeout"];
                 0 <= n &&
-                  (x["_idleTimeoutId"] = setTimeout(function() {
+                  (x["_idleTimeoutId"] = setTimeout(function () {
                     x["_onTimeout"] && x["_onTimeout"]();
                   }, n));
               }),
@@ -2482,9 +2488,9 @@ var popunderFn = (function() {
                 (this && this["clearImmediate"]));
           }["call"](e, r(17)));
         },
-        function(x, n, c) {
-          (function(x, Z) {
-            !(function(c, t) {
+        function (x, n, c) {
+          (function (x, Z) {
+            !(function (c, t) {
               "use strict";
               if (!c["setImmediate"]) {
                 var e,
@@ -2499,64 +2505,64 @@ var popunderFn = (function() {
                   d = Object["getPrototypeOf"] && Object["getPrototypeOf"](c);
                 (d = d && d["setTimeout"] ? d : c),
                   {}["toString"]["call"](c["process"]) === "[object process]"
-                    ? (e = function(x) {
-                        Z["nextTick"](function() {
-                          V(x);
-                        });
-                      })
+                    ? (e = function (x) {
+                      Z["nextTick"](function () {
+                        V(x);
+                      });
+                    })
                     : !((function named1() {
-                        if (c["postMessage"] && !c["importScripts"]) {
-                          var x = !0,
-                            n = c["onmessage"];
-                          return (
-                            (c["onmessage"] = function() {
-                              x = !1;
-                            }),
-                            c["postMessage"]("", "*"),
-                            (c["onmessage"] = n),
-                            x
-                          );
-                        }
-                      })())
-                    ? c["MessageChannel"]
-                      ? (((n = new MessageChannel())["port1"][
+                      if (c["postMessage"] && !c["importScripts"]) {
+                        var x = !0,
+                          n = c["onmessage"];
+                        return (
+                          (c["onmessage"] = function () {
+                            x = !1;
+                          }),
+                          c["postMessage"]("", "*"),
+                          (c["onmessage"] = n),
+                          x
+                        );
+                      }
+                    })())
+                      ? c["MessageChannel"]
+                        ? (((n = new MessageChannel())["port1"][
                           "onmessage"
-                        ] = function(x) {
+                        ] = function (x) {
                           V(x["data"]);
                         }),
-                        (e = function(x) {
-                          n["port2"]["postMessage"](x);
-                        }))
-                      : i &&
-                        "onreadystatechange" in i["createElement"]("script")
-                      ? ((r = i["documentElement"]),
-                        (e = function(x) {
-                          var n = i["createElement"]("script");
-                          (n["onreadystatechange"] = function() {
-                            V(x),
-                              (n["onreadystatechange"] = null),
-                              r["removeChild"](n),
-                              (n = null);
-                          }),
-                            r["appendChild"](n);
-                        }))
-                      : (e = function(b) {
-                          setTimeout(V, 0, b);
-                        })
-                    : ((u = "setImmediate$" + Math["random"]() + "$"),
-                      (x = function(x) {
-                        x["source"] === c &&
-                          typeof x["data"] === "string" &&
-                          0 === x["data"]["indexOf"](u) &&
-                          V(+x["data"]["slice"](u["length"]));
-                      }),
-                      c["addEventListener"]
-                        ? c["addEventListener"]("message", x, !1)
-                        : c["attachEvent"]("onmessage", x),
-                      (e = function(x) {
-                        c["postMessage"](u + x, "*");
-                      })),
-                  (d["setImmediate"] = function(x) {
+                          (e = function (x) {
+                            n["port2"]["postMessage"](x);
+                          }))
+                        : i &&
+                          "onreadystatechange" in i["createElement"]("script")
+                          ? ((r = i["documentElement"]),
+                            (e = function (x) {
+                              var n = i["createElement"]("script");
+                              (n["onreadystatechange"] = function () {
+                                V(x),
+                                  (n["onreadystatechange"] = null),
+                                  r["removeChild"](n),
+                                  (n = null);
+                              }),
+                                r["appendChild"](n);
+                            }))
+                          : (e = function (b) {
+                            setTimeout(V, 0, b);
+                          })
+                      : ((u = "setImmediate$" + Math["random"]() + "$"),
+                        (x = function (x) {
+                          x["source"] === c &&
+                            typeof x["data"] === "string" &&
+                            0 === x["data"]["indexOf"](u) &&
+                            V(+x["data"]["slice"](u["length"]));
+                        }),
+                        c["addEventListener"]
+                          ? c["addEventListener"]("message", x, !1)
+                          : c["attachEvent"]("onmessage", x),
+                        (e = function (x) {
+                          c["postMessage"](u + x, "*");
+                        })),
+                  (d["setImmediate"] = function (x) {
                     typeof x !== "function" && (x = new Function("" + x));
                     for (
                       var n = new Array(arguments["length"] - 1), c = 0;
@@ -2585,7 +2591,7 @@ var popunderFn = (function() {
                   if (n) {
                     o = !0;
                     try {
-                      !(function(x) {
+                      !(function (x) {
                         var n = x["callback"],
                           c = x["args"];
                         switch (c["length"]) {
@@ -2620,7 +2626,7 @@ var popunderFn = (function() {
             );
           }["call"](n, c(17), c(33)));
         },
-        function(x, n) {
+        function (x, n) {
           var c,
             t,
             e = (x["exports"] = {});
@@ -2644,7 +2650,7 @@ var popunderFn = (function() {
               }
             }
           }
-          !(function() {
+          !(function () {
             try {
               c = typeof setTimeout === "function" ? setTimeout : r;
             } catch (b) {
@@ -2664,20 +2670,20 @@ var popunderFn = (function() {
             i &&
               f &&
               ((i = !1),
-              f["length"] ? (o = f["concat"](o)) : (d = -1),
-              o["length"] && V());
+                f["length"] ? (o = f["concat"](o)) : (d = -1),
+                o["length"] && V());
           }
           function V() {
             if (!i) {
               var x = a(l);
               i = !0;
-              for (var n = o["length"]; n; ) {
-                for (f = o, o = []; ++d < n; ) f && f[d]["run"]();
+              for (var n = o["length"]; n;) {
+                for (f = o, o = []; ++d < n;) f && f[d]["run"]();
                 (d = -1), (n = o["length"]);
               }
               (f = null),
                 (i = !1),
-                (function(n) {
+                (function (n) {
                   if (t === clearTimeout) return clearTimeout(n);
                   if ((t === u || !t) && clearTimeout)
                     return (t = clearTimeout), clearTimeout(n);
@@ -2696,15 +2702,15 @@ var popunderFn = (function() {
           function Z(x, n) {
             (this["fun"] = x), (this["array"] = n);
           }
-          function U() {}
-          (e["nextTick"] = function(x) {
+          function U() { }
+          (e["nextTick"] = function (x) {
             var n = new Array(arguments["length"] - 1);
             if (1 < arguments["length"])
               for (var c = 1; c < arguments["length"]; c++)
                 n[c - 1] = arguments[c];
             o["push"](new Z(x, n)), 1 !== o["length"] || i || a(V);
           }),
-            (Z["prototype"]["run"] = function() {
+            (Z["prototype"]["run"] = function () {
               this["fun"]["apply"](null, this["array"]);
             }),
             (e["title"] = "browser"),
@@ -2722,136 +2728,136 @@ var popunderFn = (function() {
             (e["emit"] = U),
             (e["prependListener"] = U),
             (e["prependOnceListener"] = U),
-            (e["listeners"] = function(b) {
+            (e["listeners"] = function (b) {
               return [];
             }),
-            (e["binding"] = function(x) {
+            (e["binding"] = function (x) {
               throw new Error("process.binding is not supported");
             }),
-            (e["cwd"] = function() {
+            (e["cwd"] = function () {
               return "/";
             }),
-            (e["chdir"] = function(x) {
+            (e["chdir"] = function (x) {
               throw new Error("process.chdir is not supported");
             }),
-            (e["umask"] = function() {
+            (e["umask"] = function () {
               return 0;
             });
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["default"] = function(t) {
+            (n["default"] = function (t) {
               return ((x = t),
-              (n = f["FORMAT_CALLSIGN"] === o["NATIVEADS_CALLSIGN"]),
-              (c = b(n ? "0x17a" : "0x178")),
-              (e = R()),
-              (r = n ? (0, l["getProxyTagUrl"])(e) : e),
-              ((u = r),
-              (a = x),
-              new U["default"](function(x, n) {
-                var c = document["createElement"]("script");
-                (c["src"] = u),
-                  c["addEventListener"]("load", function() {
-                    return (0, Z["checkLoaded"])(a)
-                      ? x()
-                      : (c["parentNode"]["removeChild"](c), n());
-                  }),
-                  c["addEventListener"]("error", function() {
-                    c["parentNode"]["removeChild"](c), n();
-                  });
-                try {
-                  m["parentNode"]["insertBefore"](c, m);
-                } catch (x) {
-                  document["body"]["appendChild"](c);
-                }
-              }))
-                ["then"](function(x) {
+                (n = f["FORMAT_CALLSIGN"] === o["NATIVEADS_CALLSIGN"]),
+                (c = b(n ? "0x17a" : "0x178")),
+                (e = R()),
+                (r = n ? (0, l["getProxyTagUrl"])(e) : e),
+                ((u = r),
+                  (a = x),
+                  new U["default"](function (x, n) {
+                    var c = document["createElement"]("script");
+                    (c["src"] = u),
+                      c["addEventListener"]("load", function () {
+                        return (0, Z["checkLoaded"])(a)
+                          ? x()
+                          : (c["parentNode"]["removeChild"](c), n());
+                      }),
+                      c["addEventListener"]("error", function () {
+                        c["parentNode"]["removeChild"](c), n();
+                      });
+                    try {
+                      m["parentNode"]["insertBefore"](c, m);
+                    } catch (x) {
+                      document["body"]["appendChild"](c);
+                    }
+                  }))
+                ["then"](function (x) {
                   return (0, v["success"])(f["ZONEID_ADBLOCK"], c), x;
                 })
-                ["catch"](function(x) {
+                ["catch"](function (x) {
                   throw ((0, v["fail"])(f["ZONEID_ADBLOCK"], c, r), x);
                 }))
-                ["catch"](function() {
-                  return (function() {
-                    if (f["FORMAT_CALLSIGN"] === o["NATIVEADS_CALLSIGN"])
-                      return new U["default"](function(b, x) {
-                        return x();
-                      });
-                    var n = "DELIVERY_CSS",
-                      c =
-                        "https://" +
-                        (0, d["getDeliveryDomain"])() +
-                        f["FORMAT_DELIVERY_URL_CSS"];
-                    return (0, i["requestByCSS"])(c)
-                      ["then"](function(x) {
-                        return (0, v["success"])(f["ZONEID_ADBLOCK"], n), x;
-                      })
-                      ["catch"](function(x) {
-                        throw ((0, v["fail"])(f["ZONEID_ADBLOCK"], n, c), x);
-                      });
-                  })();
-                })
-                ["catch"](function() {
-                  return (0, l["requestByProxy"])(R());
-                })
-                ["then"](function(x) {
+              ["catch"](function () {
+                return (function () {
+                  if (f["FORMAT_CALLSIGN"] === o["NATIVEADS_CALLSIGN"])
+                    return new U["default"](function (b, x) {
+                      return x();
+                    });
+                  var n = "DELIVERY_CSS",
+                    c =
+                      "https://" +
+                      (0, d["getDeliveryDomain"])() +
+                      f["FORMAT_DELIVERY_URL_CSS"];
+                  return (0, i["requestByCSS"])(c)
+                  ["then"](function (x) {
+                    return (0, v["success"])(f["ZONEID_ADBLOCK"], n), x;
+                  })
+                  ["catch"](function (x) {
+                    throw ((0, v["fail"])(f["ZONEID_ADBLOCK"], n, c), x);
+                  });
+                })();
+              })
+              ["catch"](function () {
+                return (0, l["requestByProxy"])(R());
+              })
+              ["then"](function (x) {
+                return (
+                  (x = x && x["response"] ? x["response"] : x) &&
+                  (0, V["saveCache"])(f["ZONEID_ADBLOCK"], x),
+                  x
+                );
+              })
+              ["catch"](function () {
+                return (0, V["getCache"])(f["ZONEID_ADBLOCK"]);
+              })
+              ["then"](function (x) {
+                if (x)
                   return (
-                    (x = x && x["response"] ? x["response"] : x) &&
-                      (0, V["saveCache"])(f["ZONEID_ADBLOCK"], x),
-                    x
-                  );
-                })
-                ["catch"](function() {
-                  return (0, V["getCache"])(f["ZONEID_ADBLOCK"]);
-                })
-                ["then"](function(x) {
-                  if (x)
-                    return (
-                      (x = x["replace"](
-                        /atob/g,
-                        ((c =
-                          "_" +
-                          Math["random"]()
-                            ["toString"](36)
-                            ["slice"](2)),
+                    (x = x["replace"](
+                      /atob/g,
+                      ((c =
+                        "_" +
+                        Math["random"]()
+                        ["toString"](36)
+                        ["slice"](2)),
                         (window[c] = atob),
                         c)
-                      )["replace"](
-                        /decodeURIComponent/g,
-                        ((n =
-                          "_" +
-                          Math["random"]()
-                            ["toString"](36)
-                            ["slice"](2)),
+                    )["replace"](
+                      /decodeURIComponent/g,
+                      ((n =
+                        "_" +
+                        Math["random"]()
+                        ["toString"](36)
+                        ["slice"](2)),
                         (window[n] = decodeURIComponent),
                         n)
-                      )),
-                      (e = x),
-                      (r = t),
-                      new U["default"](function(x, n) {
-                        var c = document["createElement"]("script"),
-                          t = document["createTextNode"](e);
-                        c["addEventListener"]("load", function() {
-                          return (0, Z["checkLoaded"])(r)
-                            ? x()
-                            : (c["parentNode"]["removeChild"](c), n());
+                    )),
+                    (e = x),
+                    (r = t),
+                    new U["default"](function (x, n) {
+                      var c = document["createElement"]("script"),
+                        t = document["createTextNode"](e);
+                      c["addEventListener"]("load", function () {
+                        return (0, Z["checkLoaded"])(r)
+                          ? x()
+                          : (c["parentNode"]["removeChild"](c), n());
+                      }),
+                        c["addEventListener"]("error", function () {
+                          c["parentNode"]["removeChild"](c), n();
                         }),
-                          c["addEventListener"]("error", function() {
-                            c["parentNode"]["removeChild"](c), n();
-                          }),
-                          c["appendChild"](t);
-                        try {
-                          m["parentNode"]["insertBefore"](c, m);
-                        } catch (x) {
-                          document["body"]["appendChild"](c);
-                        }
-                      })
-                    );
-                  var e, r, n, c;
-                  if (!(0, Z["checkLoaded"])(t)) throw new Error();
-                  return !0;
-                });
+                        c["appendChild"](t);
+                      try {
+                        m["parentNode"]["insertBefore"](c, m);
+                      } catch (x) {
+                        document["body"]["appendChild"](c);
+                      }
+                    })
+                  );
+                var e, r, n, c;
+                if (!(0, Z["checkLoaded"])(t)) throw new Error();
+                return !0;
+              });
               var x, n, c, e, r, u, a;
             });
           var t,
@@ -2870,17 +2876,17 @@ var popunderFn = (function() {
             return f["FORMAT_CALLSIGN"] === o["NATIVEADS_CALLSIGN"]
               ? f["FORMAT_DELIVERY_URL_JS"]
               : "https://" +
-                  (0, d["getDeliveryDomain"])() +
-                  f["FORMAT_DELIVERY_URL_JS"];
+              (0, d["getDeliveryDomain"])() +
+              f["FORMAT_DELIVERY_URL_JS"];
           }
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 });
-          var u = function(x, n) {
+          var u = function (x, n) {
             if (Array["isArray"](x)) return x;
             if (Symbol["iterator"] in Object(x))
-              return (function(x, n) {
+              return (function (x, n) {
                 var c = [],
                   t = !0,
                   e = !1,
@@ -2907,14 +2913,14 @@ var popunderFn = (function() {
               "Invalid attempt to destructure non-iterable instance"
             );
           };
-          (n["saveCache"] = function(b, x) {
+          (n["saveCache"] = function (b, x) {
             var n = f(b),
               c = u(n, 2),
               t = c[0],
               e = c[1];
             (localStorage[t] = 0), (localStorage[e] = x);
           }),
-            (n["getCache"] = function(b) {
+            (n["getCache"] = function (b) {
               var x = f(b),
                 n = u(x, 2),
                 c = n[0],
@@ -2937,19 +2943,19 @@ var popunderFn = (function() {
             return [[t, n]["join"](r), [t, n]["join"](e)];
           }
         },
-        function(x, n, c) {
+        function (x, n, c) {
           "use strict";
           Object["defineProperty"](n, "__esModule", { value: !0 }),
-            (n["default"] = function() {
+            (n["default"] = function () {
               // First trigger
-              
+
               var c = r["default"]["doc"]["createElement"]("iframe");
               (c["style"]["width"] = "1px"),
                 (c["style"]["height"] = "1px"),
                 (c["style"]["opacity"] = 0),
                 (c["src"] = "about:blank"),
                 r["default"]["doc"]["body"]["appendChild"](c),
-                u["forEach"](function(n) {
+                u["forEach"](function (n) {
                   try {
                     window[n];
                   } catch (x) {
