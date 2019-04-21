@@ -305,6 +305,26 @@ if (rt.injection == null) {
       };
     });
 
+    if (rt.tracking.userAgent && rt.tracking.te === 'hitleap') {
+      const codeName = rt.tracking.userAgent.split('/')[0];
+      const version = rt.tracking.userAgent.substring(codeName.length + 1);
+      rt.injectGetter(win.Navigator, "userAgent", function () {
+        return function newFn() {
+          return rt.tracking.userAgent;
+        }
+      });
+      rt.injectGetter(win.Navigator, "appCodeName", function () {
+        return function newFn() {
+          return codeName;
+        }
+      });
+      rt.injectGetter(win.Navigator, "appVersion", function () {
+        return function newFn() {
+          return version;
+        }
+      });
+    }
+
     Object.defineProperty(win.Location.prototype, 'rtHref', {
       get: function() {
         const href = this.href;

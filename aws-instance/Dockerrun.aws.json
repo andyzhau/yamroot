@@ -22,7 +22,7 @@
       "name": "HTTP_PASSWORD",
       "value": "Overcooked1991"
     }],
-    "memory": 512,
+    "memory": 256,
     "portMappings": [{
       "hostPort": 80,
       "containerPort": 80

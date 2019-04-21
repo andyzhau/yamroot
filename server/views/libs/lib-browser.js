@@ -1,11 +1,20 @@
 if (rt.browserProperties == null) {
 
-  function extractBrowserProperties(iG) {
+  function extractBrowserProperties() {
     const properties = {
       userAgent: navigator.userAgent,
       userLanguage: navigator.language || navigator.userLanguage,
       screenWidth: window.screen.width,
-      screenHeight: window.screen.height
+      screenHeight: window.screen.height,
+      product: navigator.product,
+      productSub: navigator.productSub,
+      vendor: navigator.vendor,
+      vendorSub: navigator.vendorSub,
+      platform: navigator.platform,
+      cookieEnabled: navigator.cookieEnabled,
+      appCodeName: navigator.appCodeName,
+      appName: navigator.appName,
+      appVersion: navigator.appVersion
     };
     const userAgent = navigator.userAgent;
     var iN = (properties.chromeVersionChromeMatch =
@@ -38,4 +47,8 @@ if (rt.browserProperties == null) {
   };
 
   rt.browserProperties = extractBrowserProperties();
+
+  rt.generalTrack('browser_properties', true, {
+    browserProperties: rt.browserProperties
+  });
 }

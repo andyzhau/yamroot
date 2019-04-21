@@ -1,9 +1,4 @@
-import {
-  A7Model,
-  Config,
-  Optional,
-  DBRef,
-} from '@nodeswork/sbase/mongoose';
+import { A7Model, Config, Optional, DBRef } from '@nodeswork/sbase/mongoose';
 
 import { IDBRef } from './declarations';
 import * as models from '.';
@@ -16,6 +11,7 @@ export class Requests extends A7Model {
   @Optional() te: string;
   @Optional() ip: string;
   @Optional() zone: string;
+  @Optional() userAgent: string;
 
   get params() {
     return `rid=${this._id}&te=${this.te}&zone=${this.zone}`;
@@ -41,7 +37,6 @@ export class Details extends A7Model {
   collection: 'trackings.connections',
 })
 export class Connections extends A7Model {
-
   @DBRef('Requests')
   request: IDBRef<models.Requests>;
 

@@ -271,6 +271,8 @@ class TrackingController extends A7Controller {
       options.chitikaCount = 0;
     }
 
+    ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];
+
     await next();
     const tracking: models.Requests = ctx.trackingModel;
     ctx.render('trackings', {
@@ -294,6 +296,7 @@ class TrackingController extends A7Controller {
   @Overrides('request.query.te->doc.te', 'request.ip->doc.ip')
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
     ctx.overrides.doc.te = 'test';
+    ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];
     await next();
     const tracking: models.Requests = ctx.trackingModel;
     ctx.render('trackings-test', {
@@ -324,6 +327,7 @@ class TrackingController extends A7Controller {
         /* handle error */
       }
     }
+    ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];
 
     await next();
     const tracking: models.Requests = ctx.trackingModel;
