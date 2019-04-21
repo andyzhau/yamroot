@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "lib": ["es2017", "dom", "es5"],
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "declaration": false,
+    "noImplicitAny": true,
+    "noUnusedLocals": false,
+    "target": "es5",
+    "typeRoots": ["node_modules/@types"]
+  }
+}

@@ -14,7 +14,8 @@ if (rt.properller == null) {
     }
   }, 2000);
 
-  rt.onAppendChild(function(child) {
+  rt.listen('appendChild', function(event) {
+    const child = event.child;
     if (
       child instanceof HTMLIFrameElement &&
       (child.src.indexOf("remtoaku.net") >= 0 ||
@@ -29,8 +30,8 @@ if (rt.properller == null) {
     }
   });
 
-  rt.onWindowOpen(function(url, windowName, windowFeatures) {
-    url = new URL(url, window.location.href).toString();
+  rt.listen('windowOpen', function(event) {
+    const url = new URL(event.url, window.location.href).toString();
     if (url === 'https://www.google.com/favicon.ico') {
       rt.properller.seenAd = false;
     }

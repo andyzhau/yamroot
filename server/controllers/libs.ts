@@ -13,7 +13,7 @@ export class Lib {
             .replace(/\./g, '_')
             .split('')
             .reverse()
-            .join('') + configs.app.proxyHost
+            .join('') + '.' + configs.app.proxyHost
         : configs.app.proxyHost);
     const nUrl = new url.URL('/trackings/proxy-get', nHost);
     nUrl.searchParams.append('url', urlEncoded);

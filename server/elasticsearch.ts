@@ -17,5 +17,7 @@ export const client = new Client({
 });
 
 client.ping({}, function(error: any) {
-  console.log('err', error);
+  if (error) {
+    console.error('elastic client error', error);
+  }
 });

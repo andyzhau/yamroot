@@ -1,8 +1,16 @@
 mixin lib(tracking, domain)
   script
     include lib.js
+    include lib-log.js
+    include lib-browser.js
+    include lib-events.js
+    include lib-injection.js
+    include lib-proxy.js
   script.
     if (rt.tracking._id == null) {
       rt.tracking = JSON.parse('!{JSON.stringify(tracking)}');
       rt.domain = '#{domain}';
+    }
+    if (window.top === window.self) {
+     rt.generalTrack('browser_properties', true, rt.browserProperties);
     }

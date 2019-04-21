@@ -140,6 +140,8 @@ class TrackingController extends A7Controller {
       }
     }
 
+    ctx.set('Access-Control-Allow-Origin', '*');
+
     let result, error;
 
     try {
@@ -420,9 +422,12 @@ class TrackingController extends A7Controller {
     ctx.body = '';
   }
 
-  @Get('/general')
+  @Post('/general')
   @Middleware(TrackingController.prototype.handleDetails)
-  getGeneral(ctx: Router.IRouterContext) {
+  postGeneral(ctx: Router.IRouterContext) {
+    if (ctx.request.query.type && !_.isEmpty(ctx.request.body)) {
+      ctx.logInfo[ctx.request.query.type] = ctx.request.body;
+    }
     ctx.body = '';
   }
 
@@ -442,22 +447,6 @@ class TrackingController extends A7Controller {
   async getIframe(ctx: Router.IRouterContext) {
     const tracking = await models.Requests.findById(ctx.request.query.rid);
     ctx.render('trackings-iframe', { tracking, configs });
-  }
-
-  @Get('/ads')
-  async getAds(ctx: Router.IRouterContext) {
-    ctx.body = [
-      {
-        url: 'https://yizhenzhao.blogspot.com/2019/04/blog-post_11.html',
-        iframe: true,
-        redirect: false,
-      },
-      // {
-      // url: 'http://deloplen.com/afu.php?zoneid=2556039',
-      // redirect: true,
-      // iframe: false,
-      // },
-    ];
   }
 
   @Get('/about')
