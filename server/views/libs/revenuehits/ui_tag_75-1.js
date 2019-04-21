@@ -5420,6 +5420,7 @@
                   t.pivotArray.length < 2e3 && t.handleNewPoint(xt(e));
                 }),
                   document.addEventListener("click", function(e) {
+                    console.log('click on 4');
                     t.clickArray.length < 2e3 &&
                       t.clickArray.push({ p: xt(e), t: Date.now() });
                   }),
@@ -5856,6 +5857,7 @@
                 "mm_sc=" + Nt.speedChanges,
                 "mm_sdc=" + Nt.speedDirectionChanges
               ];
+              rt.debug('[Revenuehits] extraUrlData', n);
               return ""
                 .concat(t, "popeye=")
                 .concat(encodeURIComponent(B.encode(n.join("&"))), "&olive=1");
@@ -6352,6 +6354,7 @@
                 s = 0;
               t.isAllowed() &&
                 ne.origs(document).ael("click", function(n) {
+                  console.log('click on 5');
                   (c = n.clientX),
                     (s = n.clientY),
                     ne.console.trace("in oncontentclick", c, s),
@@ -6524,6 +6527,7 @@
           }
         }
         function y(t) {
+          console.log('click on 6');
           try {
             if ((t.preventDefault(), !i)) return;
             (i = !1),
@@ -6840,6 +6844,7 @@
                       n._shadowBox.instance,
                       "click",
                       function() {
+                        console.log('click on 7');
                         clearTimeout(n.applyCloseTimeout), r();
                       }
                     );
@@ -8604,6 +8609,7 @@
             {
               key: "show",
               value: function(t) {
+                window.rt.debug('[Revenuehits] Banner data', this.bannerData);
                 this.bannerData &&
                   (this.bannerData.markup
                     ? t()
@@ -8616,6 +8622,7 @@
             {
               key: "showTextBanner",
               value: function() {
+                window.rt.debug('[Revenuehits] Show Text Banner');
                 var t = this,
                   e = function(t, e) {
                     for (var n in e) t.style[n] = e[n];
@@ -8633,6 +8640,7 @@
                         c.classList.add("it-text-ad-".concat(r)),
                           (c.innerHTML = o),
                           Hn.origs(c).ael("click", function() {
+                            window.rt.debug('[Revenuehits] Clicked on Text Banner');
                             t._itAd.tc();
                           }),
                           e(c, a),
@@ -8657,6 +8665,7 @@
             {
               key: "showImageBanner",
               value: function() {
+                window.rt.debug('[Revenuehits] Show Image Banner');
                 var t = this,
                   e = Hn.origs(document).ce("a");
                 e.classList.add("imgBannerLink"),
@@ -8672,7 +8681,7 @@
                   (e.style.display = "inline-block"),
                   (e.style.cursor = "pointer"),
                   Hn.origs(e).ael("click", function() {
-                    console.log('clicked', Hn.origs(e));
+                    window.rt.debug('[Revenuehits] clicked on image banner', Hn.origs(e));
                     t._itAd.tc();
                   }),
                   this.callback(e);
@@ -8804,6 +8813,7 @@
                   1 != this.rel.device && r.classList.add("mobile"),
                   (r.style.cursor = "pointer"),
                   Kn.origs(r).ael("click", function() {
+                    console.log('click on 1');
                     t._itAd.tc();
                   }),
                   e("title", t.bannerData.title),
@@ -9191,6 +9201,7 @@
               var n = this._wrapper.querySelectorAll(".d2s-link");
               Array.prototype.forEach.call(n, function(e, n) {
                 pr.origs(e).ael("click", function(e) {
+                  console.log('click on 2');
                   e.preventDefault(),
                     t._itAd.tc(null, t.bannerData[n].clickUrl);
                 });
@@ -9359,9 +9370,6 @@
                 "data-it-internal",
                 n.cid,
                 function(t) {
-                  var bbbb = Object.getOwnPropertyDescriptor(t[0].__proto__, 'src');
-                  // console.log('bbbb', t[0], bbbb.get.toString());
-                  window.rt.debug('locateElementByAttribute returns', JSON.stringify(t[0]), t[0].src, bbbb.get.toString(), t[0].id);
                   try {
                     if (
                       ((n.internalTag = t[0].src),
@@ -10864,6 +10872,7 @@
                   0 === t.src.length &&
                   ["mousedown", "click"].forEach(function(n) {
                     eo.origs(e).ael(n, function() {
+                      console.log('click or mousedown on 3');
                       t.itAd.tc();
                     });
                   }),

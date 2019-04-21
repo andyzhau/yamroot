@@ -1,6 +1,10 @@
 if (rt.isProxyUrl == null) {
 
   rt.constructUrl = function constructUrl(src) {
+    if (src === 'http://' || src === 'https://') {
+      return src;
+    }
+
     const protocol =
       document.location.protocol === "about:" ?
       "http:" :

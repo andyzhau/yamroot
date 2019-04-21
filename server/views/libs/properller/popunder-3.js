@@ -19,7 +19,6 @@ var popunderFn = (function() {
     return r;
   };
 
-  window.rt.debug('what is atob', atob != null);
   var decodeURIComponent = _.contentWindow.decodeURIComponent;
   document.body.removeChild(_);
   // try {
@@ -566,7 +565,6 @@ var popunderFn = (function() {
     var t = a[(x -= 0)];
     void 0 === b.TgUBaU &&
       ((b.yoTWmu = function(b) {
-        rt.debug('inside', atob != null, b, atob(b));
         for (var x = atob(b), n = [], c = 0, t = x.length; c < t; c++)
           n += "%" + ("00" + x.charCodeAt(c).toString(16)).slice(-2);
         return decodeURIComponent(n);

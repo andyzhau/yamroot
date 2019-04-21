@@ -1,5 +1,5 @@
 if (window.top !== window.self) {
-  window.top.postMessage('RT_SETUP');
+  window.top.postMessage('RT_SETUP', '*');
 } else {
   window.addEventListener('message', function(event) {
     if (event.data === 'RT_SETUP') {

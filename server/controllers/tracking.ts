@@ -201,6 +201,10 @@ class TrackingController extends A7Controller {
       ctx.body = ctx.$body.html();
     }
 
+    if (ctx.forUrl.toString().indexOf('ui_tag_75-1') >= 0) {
+      ctx.body = files.uiTag75;
+    }
+
     ctx.set('applied-rules', _.map(rulesApplied, r => r.name).join(';'));
     ctx.set('error-rules', _.map(ruleErrors, r => r.name).join(';'));
   }

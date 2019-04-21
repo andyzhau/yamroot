@@ -37,13 +37,16 @@ if (rt.injection == null) {
 
     rt.injectMethod(XMLHttpRequest, "open", function(oldFn) {
       return function newFn(method, url) {
-        const options = { method: method, url: url };
+        const options = {
+          method: method,
+          url: url
+        };
         rt.emit('xmlHttpRequestOpen', options);
-        rt.verbose("[XMLHttpRequest.open]", method, url);
+        // rt.verbose("[XMLHttpRequest.open]", method, url);
         return oldFn.apply(this, [options.method, options.url]);
       };
     });
-  
+
     rt.injectGetter(win.HTMLScriptElement, "src", function(oldFn) {
       return function newFn() {
         const src = oldFn.call(this);
@@ -65,10 +68,15 @@ if (rt.injection == null) {
         if (!this._setRtListener) {
           this.addEventListener("load", function() {
             const content = rt.scriptContents[script._rtsid];
-            rt.emit('scriptLoaded', { script: script, content: content });
+            rt.emit('scriptLoaded', {
+              script: script,
+              content: content
+            });
           });
           this.addEventListener("error", function() {
-            rt.emit('scriptLoadError', { script: script });
+            rt.emit('scriptLoadError', {
+              script: script
+            });
           });
           this._setRtListener = true;
         }
@@ -186,14 +194,16 @@ if (rt.injection == null) {
 
     rt.injectMethod(win.Document, "createElement", function(oldFn) {
       return function createElement() {
-        rt.verbose("[Document.createElement]", arguments);
+        rt.verbose.apply(null, ["[Document.createElement]"].concat(
+          Array.prototype.slice.call(arguments)));
         return oldFn.apply(this, arguments);
       };
     });
 
     rt.injectMethod(win.HTMLElement, "createElement", function(oldFn) {
       return function createElement() {
-        rt.verbose("[HTMLElement.createElement]", arguments);
+        rt.verbose.apply(null, ["[HTMLElement.createElement]"].concat(
+          Array.prototype.slice.call(arguments)));
         return oldFn.apply(this, arguments);
       };
     });
@@ -252,7 +262,9 @@ if (rt.injection == null) {
         content = content.replace(/target="_blank"/g, "");
         rt.verbose("[Document.write]", original, replaces);
         const result = oldFn.call(this, content);
-        rt.emit('documentWrite', { document: this });
+        rt.emit('documentWrite', {
+          document: this
+        });
         return result;
       };
     });
@@ -274,7 +286,9 @@ if (rt.injection == null) {
           }
         }
 
-        rt.emit('appendChild', { child: child });
+        rt.emit('appendChild', {
+          child: child
+        });
 
         return result;
       };
@@ -304,7 +318,11 @@ if (rt.injection == null) {
 
     win.open = function(url, windowName, windowFeatures) {
       rt.verbose("[Window Open]", url, windowName, windowFeatures);
-      rt.emit('windowOpen', { url: url, windowName: windowName, windowFeatures: windowFeatures});
+      rt.emit('windowOpen', {
+        url: url,
+        windowName: windowName,
+        windowFeatures: windowFeatures
+      });
     };
   };
 
