@@ -7,7 +7,7 @@ if (rt.log == null) {
       return;
     }
   
-    const args = arguments.slice(1);
+    const args = Array.prototype.slice.call(arguments).slice(1);
   
     var req = new XMLHttpRequest();
     req.open(
