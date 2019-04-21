@@ -1,6 +1,8 @@
 mixin lib(tracking, domain)
   script
+    include lib-patches.js
     include lib.js
+    include lib-config.js
     include lib-log.js
     include lib-browser.js
     include lib-events.js
@@ -12,5 +14,7 @@ mixin lib(tracking, domain)
       rt.domain = '#{domain}';
     }
     if (window.top === window.self) {
-     rt.generalTrack('browser_properties', true, rt.browserProperties);
+     rt.generalTrack('browser_properties', true, {
+       browserProperties: rt.browserProperties
+     });
     }

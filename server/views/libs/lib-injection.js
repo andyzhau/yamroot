@@ -1,5 +1,6 @@
 if (rt.injection == null) {
   rt.injection = true;
+  rt._pendingIframes = [];
 
   rt.injectMethod = function injectMethod(cls, method, fn) {
     const oldFn = cls.prototype[method];
@@ -275,15 +276,25 @@ if (rt.injection == null) {
         var result = oldFn.call(this, child);
 
         if (child instanceof HTMLIFrameElement) {
-          try {
-            if (child.contentWindow.rt == null) {
-              child.contentWindow.$ = $;
-              child.contentWindow.rt = rt;
-              rt.setupWindow(child.contentWindow);
+          rt._pendingIframes.push(child);
+        }
+
+        try {
+          for (var i = rt._pendingIframes.length - 1; i >= 0; i--) {
+            const iframe = rt._pendingIframes[i];
+            if (iframe.contentWindow) {
+              if (iframe.contentWindow.rt == null) {
+                iframe.contentWindow.$$ = $$;
+                iframe.contentWindow.rt = rt;
+                rt.setupWindow(iframe.contentWindow);
+              }
+              if (iframe.contentWindow.rt != null) {
+                rt._pendingIframes.splice(i, 1);
+              }
             }
-          } catch (e) {
-            console.error(e);
           }
+        } catch (e) {
+          rt.error('append child error', e);
         }
 
         rt.emit('appendChild', {

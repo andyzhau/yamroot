@@ -430,7 +430,7 @@ class TrackingController extends A7Controller {
   @Middleware(TrackingController.prototype.handleDetails)
   postGeneral(ctx: Router.IRouterContext) {
     if (ctx.request.query.type && !_.isEmpty(ctx.request.body)) {
-      ctx.logInfo[ctx.request.query.type] = ctx.request.body;
+      _.extend(ctx.logInfo, ctx.request.body);
     }
     ctx.body = '';
   }

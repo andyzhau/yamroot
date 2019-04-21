@@ -23,6 +23,7 @@ if (window.rt == null) {
   rt.tracking = {};
   rt.domain = "localhost:5001";
   rt.tracked = {};
+  rt.initTime = new Date();
 
   rt.generalTrack = function generalTrack(type, singleton, body) {
     if (singleton && rt.tracked[type]) {
@@ -49,7 +50,10 @@ if (window.rt == null) {
       }
     };
 
-    req.send(body != null ? JSON.stringify(body) : undefined);
+    body = body || {};
+    body._duration = new Date().getTime() - rt.initTime.getTime();
+
+    req.send(JSON.stringify(body));
   };
 
   rt.createScript = function createScript(src) {

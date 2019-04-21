@@ -1,5 +1,5 @@
 if (rt.log == null) {
-  rt.logLevel = new URL(location.href).searchParams.get('log') || 'warn';
+  rt.logLevel = rt.location.searchParams.get('log') || 'warn';
   rt.logLevels = ['verbose', 'info', 'warn', 'error', 'critical', 'debug'];
 
   rt.log = function log(level) {
