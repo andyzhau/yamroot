@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "Disable 10khits js",
+    "version": "1.0",
+    "description": "Disable 10khits content js",
+    "icons": {
+        "48": "icon/icon.svg"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://exc.10khits.com/*", "*://www.google.com/*"],
+            "js": ["iframe_modifier.js"]
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd firefox/10khits
+
+rm ../../packs/firefox-10khits.zip
+
+zip -r -FS ../../packs/firefox-10khits.zip .
