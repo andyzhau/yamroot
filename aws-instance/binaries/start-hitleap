@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd bin/HitLeap\ Viewer
+cd $(dirname $0)/HitLeap\ Viewer
 ./HitLeap-Viewer.desktop &

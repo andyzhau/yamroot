@@ -1,9 +1,9 @@
 {
   "AWSEBDockerrunVersion": "2",
   "volumes": [{
-      "name": "ubuntu-icewm-vnc",
+      "name": "ubuntu-xfce-vnc",
       "host": {
-        "sourcePath": "/var/local/ubuntu-icewm-vnc"
+        "sourcePath": "/var/local/ubuntu-xfce-vnc"
       }
     },
     {
@@ -14,8 +14,8 @@
     }
   ],
   "containerDefinitions": [{
-    "name": "ubuntu-icewm-vnc",
-    "image": "consol/ubuntu-icewm-vnc",
+    "name": "ubuntu-xfce-vnc",
+    "image": "consol/ubuntu-xfce-vnc",
     "essential": true,
     "cpu": 1024,
     "environment": [{
@@ -28,7 +28,7 @@
       "containerPort": 6901
     }],
     "mountPoints": [{
-      "sourceVolume": "ubuntu-icewm-vnc",
+      "sourceVolume": "ubuntu-xfce-vnc",
       "containerPath": "/root"
     }, {
       "sourceVolume": "binaries",

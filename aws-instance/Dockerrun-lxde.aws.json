@@ -1,9 +1,9 @@
 {
   "AWSEBDockerrunVersion": "2",
   "volumes": [{
-      "name": "ubuntu-icewm-vnc",
+      "name": "ubuntu-desktop-lxde-vnc",
       "host": {
-        "sourcePath": "/var/local/ubuntu-icewm-vnc"
+        "sourcePath": "/var/local/ubuntu-desktop-lxde-vnc"
       }
     },
     {
@@ -14,28 +14,31 @@
     }
   ],
   "containerDefinitions": [{
-    "name": "ubuntu-icewm-vnc",
-    "image": "consol/ubuntu-icewm-vnc",
+    "name": "ubuntu-desktop-lxde-vnc",
+    "image": "dorowu/ubuntu-desktop-lxde-vnc",
     "essential": true,
     "cpu": 1024,
     "environment": [{
-      "name": "VNC_PW",
+      "name": "HTTP_PASSWORD",
       "value": "Asdf1234"
+    }, {
+      "name": "RESOLUTION",
+      "value": "1920x1080"
     }],
-    "memory": 300,
+    "memory": 256,
     "portMappings": [{
       "hostPort": 80,
-      "containerPort": 6901
+      "containerPort": 80
     }],
     "mountPoints": [{
-      "sourceVolume": "ubuntu-icewm-vnc",
+      "sourceVolume": "ubuntu-desktop-lxde-vnc",
       "containerPath": "/root"
     }, {
       "sourceVolume": "binaries",
       "containerPath": "/root/bin"
     }],
     "linuxParameters": {
-      "sharedMemorySize": 128
+      "sharedMemorySize": 64
     }
   }]
 }
