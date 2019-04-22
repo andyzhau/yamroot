@@ -1,7 +1,13 @@
-mixin properller-popunder()
+mixin properller-popunder(tag)
   script(data-cfasync="false", type="text/javascript")
     include properller/properller.js
-    include properller/popunder-3.js
+
+    if tag === 'crazy-tag-anti-adblock'
+      include properller/popunder-crazy-tag-anti-adblock-decoded.js
+
+  if tag === 'crazy-tag'
+    script(type="text/javascript", src="//deloplen.com/apu.php?zoneid=2568532", async, data-cfasync="false")
+
 
 //- script(src="//deloplen.com/apu.php?zoneid=2568532", data-cfasync="false", async, onerror="_ioeydgo()", onload="_xdktud()")
 //- script(src="https://paibopse.com/js/jquery-easing/5.86.52/jquery-easing.min.js")

@@ -2,13 +2,14 @@ if (rt.properller == null) {
   rt.properller = {
     iframes: {},
     seenAd: false,
-    renderTriggered: false,
     clicks: 0
   };
 
   setInterval(function () {
+    console.log('seenAd', rt.properller.seenAd);
     if (rt.properller.seenAd && rt.properller.clicks++ < 20) {
       rt.generalTrack("properller_punder_click");
+      console.log('start lcick', rt.properller.clicks);
       rt.clickOnElement(document.body);
       rt.stopMouseMove();
     }
@@ -16,15 +17,15 @@ if (rt.properller == null) {
 
   rt.listen('appendChild', function(event) {
     const child = event.child;
+    if (child instanceof HTMLIFrameElement && child.src !== 'about:blank') {
+      rt.debug('[properller] child source', child.src);
+    }
     if (
       child instanceof HTMLIFrameElement &&
       (child.src.indexOf("remtoaku.net") >= 0 ||
         child.src.indexOf("wachipho.net") >= 0)
     ) {
-      if (rt.properller.renderTriggered === false) {
-        rt.generalTrack("properller_punder_rendered");
-        rt.properller.renderTriggered = true;
-      }
+      rt.generalTrack("properller_punder_rendered", true );
       rt.properller.iframes[child.src] = true;
       rt.properller.seenAd = true;
     }
@@ -34,13 +35,17 @@ if (rt.properller == null) {
     const url = new URL(event.url, window.location.href).toString();
     if (url === 'https://www.google.com/favicon.ico') {
       rt.properller.seenAd = false;
-    }
-    if (rt.properller.iframes[url]) {
+      rt.generalTrack("properller_punder_open_google_favicon");
+    } else if (rt.properller.iframes[url]) {
       rt.properller.seenAd = false;
       rt.generalTrack("properller_punder_open");
       setTimeout(function() {
         top.window.location.href = url;
       }, 600);
+    } else {
+      rt.generalTrack("properller_punder_open_unknown", false, {
+        url: event.url,
+      });
     }
   });
 }

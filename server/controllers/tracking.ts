@@ -262,7 +262,7 @@ class TrackingController extends A7Controller {
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
     const options = {
       chitika: ctx.request.query.chitika !== 'false',
-      revenuehits: ctx.request.query.revenuehits !== 'false',
+      revenuehits: false && ctx.request.query.revenuehits !== 'false',
       bidvertiser: false && ctx.request.query.bidvertiser !== 'false',
       properller: ctx.request.query.properller !== 'false',
       popads: false && ctx.request.query.popads !== 'false',
