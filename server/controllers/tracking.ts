@@ -255,6 +255,7 @@ class TrackingController extends A7Controller {
   @Overrides(
     'request.query.te->doc.te',
     'request.query.zone->doc.zone',
+    'request.query.channel->doc.channel',
     'request.ip->doc.ip',
   )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
@@ -293,7 +294,12 @@ class TrackingController extends A7Controller {
   });
 
   @Get('/test')
-  @Overrides('request.query.te->doc.te', 'request.ip->doc.ip')
+  @Overrides(
+    'request.query.te->doc.te',
+    'request.query.zone->doc.zone',
+    'request.ip->doc.ip',
+    'request.query.channel->doc.channel',
+  )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
     ctx.overrides.doc.te = 'test';
     ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];
@@ -313,6 +319,7 @@ class TrackingController extends A7Controller {
   @Overrides(
     'request.query.te->doc.te',
     'request.query.zone->doc.zone',
+    'request.query.channel->doc.channel',
     'request.ip->doc.ip',
   )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
@@ -357,7 +364,7 @@ class TrackingController extends A7Controller {
         rid: ctx.request.query.rid,
         params: `rid=${ctx.request.query.rid}&te=${ctx.request.query.te}&zone=${
           ctx.request.query.zone
-        }`,
+        }&channel=${ctx.request.query.channel}`,
       },
       configs,
     });

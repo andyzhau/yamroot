@@ -20,7 +20,7 @@
     "cpu": 1024,
     "environment": [{
       "name": "HTTP_PASSWORD",
-      "value": "Overcooked1991"
+      "value": "Asdf1234"
     }],
     "memory": 256,
     "portMappings": [{
@@ -35,7 +35,7 @@
       "containerPath": "/root/bin"
     }],
     "linuxParameters": {
-      "sharedMemorySize": 256
+      "sharedMemorySize": 128
     }
   }]
 }

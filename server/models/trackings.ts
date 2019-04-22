@@ -11,10 +11,13 @@ export class Requests extends A7Model {
   @Optional() te: string;
   @Optional() ip: string;
   @Optional() zone: string;
+  @Optional() channel: string;
   @Optional() userAgent: string;
 
   get params() {
-    return `rid=${this._id}&te=${this.te}&zone=${this.zone}`;
+    return `rid=${this._id}&te=${this.te}&zone=${this.zone}&channel=${
+      this.channel
+    }`;
   }
 }
 
