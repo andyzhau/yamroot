@@ -3,18 +3,14 @@ if (rt.properller == null) {
     iframes: {},
     seenAd: false,
     renderTriggered: false,
+    clicks: 0
   };
 
   setInterval(function () {
-    if (rt.properller.seenAd) {
+    if (rt.properller.seenAd && rt.properller.clicks++ < 20) {
       rt.generalTrack("properller_punder_click");
-      var mouseDownEvent = document.createEvent("MouseEvents");
-      mouseDownEvent.initEvent("mousedown", true, true);
-      window.document.body.dispatchEvent(mouseDownEvent);  
-  
-      var clickEvent = document.createEvent("MouseEvents");
-      clickEvent.initEvent("click", true, true);
-      window.document.body.dispatchEvent(clickEvent);  
+      rt.clickOnElement(document.body);
+      rt.stopMouseMove();
     }
   }, 2000);
 

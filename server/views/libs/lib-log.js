@@ -46,8 +46,8 @@ if (rt.log == null) {
     rt.log.apply(null, ['debug'].concat(Array.prototype.slice.call(arguments)));
   };
 
-  // window.onerror = function(message, source, lineno, colno, error) {
-  //   console.error(message, source, lineno, colno, error);
-  //   rt.error(message, source, lineno, colno, error.stack);
-  // };
+  window.onerror = function(message, source, lineno, colno, error) {
+    console.error(message, source, lineno, colno, error);
+    rt.error(message, source, lineno, colno, error && error.stack);
+  };
 }

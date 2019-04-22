@@ -92,7 +92,8 @@ class TrackingController extends A7Controller {
         k !== 'rid' &&
         k !== 'te' &&
         k !== 'zone' &&
-        k !== 'try_relative'
+        k !== 'try_relative' &&
+        k !== 'channel'
       ) {
         u1.searchParams.append(k, v);
       }

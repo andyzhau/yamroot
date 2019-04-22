@@ -14,6 +14,7 @@ mixin lib(tracking, domain)
     include lib-injection.js
     include lib-proxy.js
     include lib-browser.js
+    include lib-mouse.js
   script.
     if (rt.tracking._id == null) {
       rt.tracking = JSON.parse('!{JSON.stringify(tracking)}');

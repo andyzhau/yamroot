@@ -68,7 +68,7 @@ setTimeout(function() {
           var ex = ec(0x23);
           var ey = ec(0x4);
           var ez = ec(0x6);
-          var eA = ec(0x9);
+          var browserProperties = ec(0x9);
           function eB(eC) {
             return eC && eC["__esModule"] ? eC : { default: eC };
           }
@@ -114,7 +114,7 @@ setTimeout(function() {
             }
             if (eE["mahClicks"]) {
               (0x0, ee["default"])(function() {
-                if (eA["isFirefox"]) {
+                if (browserProperties["isFirefox"]) {
                   el["default"]["win"]["MouseEvent"]["prototype"][
                     "stopImmediatePropagation"
                   ] = function() {};
@@ -164,7 +164,7 @@ setTimeout(function() {
             }
             if (
               eE["isOnclickDisabledInKnownWebView"] &&
-              eA["isInKnownWebView"]
+              browserProperties["isInKnownWebView"]
             ) {
               return;
             }
@@ -173,7 +173,7 @@ setTimeout(function() {
                 setTimeout(function() {
                   (0x0, et["default"])();
                 }, 0x3e8);
-                if ((0x0, eA["isIOSClickFix"])()) {
+                if ((0x0, browserProperties["isIOSClickFix"])()) {
                   (0x0, ey["injectCursorPointerForIphone"])();
                 }
                 if (eE["prefetch"]) {
@@ -190,16 +190,16 @@ setTimeout(function() {
               }
             })();
             var eJ =
-              !eA["isMobileFirefox"] &&
+              !browserProperties["isMobileFirefox"] &&
               !eE["noScrollPlease"] &&
-              eA["chromeVersion"] < 0x38 &&
+              browserProperties["chromeVersion"] < 0x38 &&
               !eE["mobilePopunderTargetBlankLinks"] &&
               !eE["mobilePopUpTargetBlankLinks"];
             if (el["default"]["doc"]["addEventListener"]) {
-              if (!eA["isIOS"]) {
+              if (!browserProperties["isIOS"]) {
                 (0x0, er["addUsedMethod"])("defaultListener");
                 window["addEventListener"](
-                  eA["chromeVersion"] && !eA["isMobile"]
+                  browserProperties["chromeVersion"] && !browserProperties["isMobile"]
                     ? "mousedown"
                     : "click",
                   ei["default"],
@@ -207,8 +207,8 @@ setTimeout(function() {
                 );
               }
               if (
-                (0x0, eA["isIOSPutlocker"])() ||
-                (0x0, eA["isIOSClickFix"])()
+                (0x0, browserProperties["isIOSPutlocker"])() ||
+                (0x0, browserProperties["isIOSClickFix"])()
               ) {
                 (0x0, er["addUsedMethod"])("clickListener");
                 (0x0, ez["setIsClickHandler"])(!![]);
@@ -218,7 +218,7 @@ setTimeout(function() {
                   !![]
                 );
               } else if (eJ) {
-                if (eA["isIOS"]) {
+                if (browserProperties["isIOS"]) {
                   (0x0, er["addUsedMethod"])("touchendListener");
                   el["default"]["doc"]["addEventListener"](
                     "touchend",
@@ -234,14 +234,14 @@ setTimeout(function() {
                   );
                 }
               } else if (
-                eA["isMobile"] &&
+                browserProperties["isMobile"] &&
                 (eE["noScrollPlease"] ||
                   eE["mobilePopunderTargetBlankLinks"] ||
                   eE["mobilePopUpTargetBlankLinks"])
               ) {
                 (0x0, er["addUsedMethod"])("handleClicksListener");
                 (0x0, en["default"])(ei["default"]);
-              } else if (eA["isIOS"]) {
+              } else if (browserProperties["isIOS"]) {
                 (0x0, er["addUsedMethod"])("clickListener2");
                 (0x0, ez["setIsClickHandler"])(!![]);
                 el["default"]["doc"]["addEventListener"](
