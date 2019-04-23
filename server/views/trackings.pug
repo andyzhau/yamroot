@@ -2,17 +2,13 @@ include libs/lib
 include libs/properller-popunder
 include libs/revenuehits
 
-//- include libs/popcash
-//- include libs/chitika
-
-
 doctype html
 html(lang="en")
   head
     meta(charset="utf-8")
     link(rel="stylesheet", type="text/css", href!="/trackings/styles.css?type=styles&" + tracking.params)
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js")
-  
+
     +lib(tracking, configs.app.domain)
 
     // General performance tracking
@@ -24,21 +20,11 @@ html(lang="en")
     //-   include libs/propeller-native-subscription.js
     //- script(src="//propu.sh/ntfc.php?p=2556028", data-cfasync="false", async, onerror="_smtzzze()", onload="_ovhlr()")
 
-    //- if options.popads
-    //-   script
-    //-     include libs/pop-ads.js
-
-    //- if options.chitika
-    //-   +chitika()
-
     if options.properller
-      +properller-popunder('crazy-tag-anti-adblock')
+      +properller-popunder(options.properllerTag)
 
     script
       include libs/google-analytics.js
-
-    //- if options.popcash
-    //-   +popcash(10000, 485717)
 
     style
       include styles/styles.css
@@ -51,34 +37,3 @@ html(lang="en")
       div.banner
         if options.revenuehits
           +revenuehits('346864_677269_0')
-
-        //- if options.bidvertiser
-        //-   div#ntv_1991827
-        //-   script.
-        //-     (function(d) {
-        //-       var params =
-        //-       {
-        //-         bvwidgetid: "ntv_1991827",
-        //-         bvlinksownid: 1991827,
-        //-         rows: 2,
-        //-         cols: 1,
-        //-         textpos: "below",
-        //-         imagewidth: 250,
-        //-         mobilecols: 1,
-        //-         cb: (new Date()).getTime()
-        //-       };
-        //-       params.bvwidgetid = "ntv_1991827" + params.cb;
-        //-       d.getElementById("ntv_1991827").id = params.bvwidgetid;
-        //-       var qs = Object.keys(params).reduce(function(a, k){ a.push(k + '=' + encodeURIComponent(params[k])); return a},[]).join(String.fromCharCode(38));
-        //-       var s = d.createElement('script'); s.type='text/javascript';s.async=true;
-        //-       var p = 'https:' == document.location.protocol ? 'https' : 'http';
-        //-       s.src = p + "://bvadtgs.scdn1.secure.raxcdn.com/bidvertiser/tags/active/bdvws.js?" + qs;
-        //-       d.getElementById(params.bvwidgetid).appendChild(s);
-        //-     })(document);
-
-      div.chitAds
-        //- - var n = 0;
-        //- while n < options.chitikaCount
-        //-   - n++
-        //-   script.
-        //-     rt.chitika.renderChitika('chitika');

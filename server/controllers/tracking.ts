@@ -263,17 +263,12 @@ class TrackingController extends A7Controller {
   )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
     const options = {
-      chitika: ctx.request.query.chitika !== 'false',
-      revenuehits: false && ctx.request.query.revenuehits !== 'false',
-      bidvertiser: false && ctx.request.query.bidvertiser !== 'false',
+      // revenuehits: false && ctx.request.query.revenuehits !== 'false',
+      // bidvertiser: false && ctx.request.query.bidvertiser !== 'false',
       properller: ctx.request.query.properller !== 'false',
-      popads: false && ctx.request.query.popads !== 'false',
-      popcash: false && ctx.request.query.popcash !== 'false',
-      chitikaCount: Number.parseInt(ctx.request.query.chitikacount || '3', 10),
+      properllerTag:
+        ctx.request.query.properller_tag || 'crazy-tag-anti-adblock',
     };
-    if (!options.chitika) {
-      options.chitikaCount = 0;
-    }
 
     ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];
 
