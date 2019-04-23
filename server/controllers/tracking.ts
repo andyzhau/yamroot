@@ -74,7 +74,7 @@ class TrackingController extends A7Controller {
 
   @Post('/log')
   async log(ctx: Router.IRouterContext) {
-    ctx.logInfo.logBody = JSON.stringify(ctx.request.body);
+    _.extend(ctx.logInfo, ctx.request.body);
     ctx.status = 204;
   }
 
@@ -93,7 +93,8 @@ class TrackingController extends A7Controller {
         k !== 'te' &&
         k !== 'zone' &&
         k !== 'try_relative' &&
-        k !== 'channel'
+        k !== 'channel' &&
+        k !== 'seq'
       ) {
         u1.searchParams.append(k, v);
       }
@@ -257,6 +258,7 @@ class TrackingController extends A7Controller {
     'request.query.te->doc.te',
     'request.query.zone->doc.zone',
     'request.query.channel->doc.channel',
+    'request.query.seq->doc.seq',
     'request.ip->doc.ip',
   )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
@@ -300,6 +302,7 @@ class TrackingController extends A7Controller {
     'request.query.zone->doc.zone',
     'request.ip->doc.ip',
     'request.query.channel->doc.channel',
+    'request.query.seq->doc.seq',
   )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
     ctx.overrides.doc.te = 'test';
@@ -321,6 +324,7 @@ class TrackingController extends A7Controller {
     'request.query.te->doc.te',
     'request.query.zone->doc.zone',
     'request.query.channel->doc.channel',
+    'request.query.seq->doc.seq',
     'request.ip->doc.ip',
   )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
@@ -365,7 +369,7 @@ class TrackingController extends A7Controller {
         rid: ctx.request.query.rid,
         params: `rid=${ctx.request.query.rid}&te=${ctx.request.query.te}&zone=${
           ctx.request.query.zone
-        }&channel=${ctx.request.query.channel}`,
+        }&channel=${ctx.request.query.channel}&seq=${ctx.rquest.query.seq || '0'}`,
       },
       configs,
     });

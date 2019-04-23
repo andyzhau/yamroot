@@ -1,4 +1,4 @@
-import { A7Model, Config, Optional, DBRef } from '@nodeswork/sbase/mongoose';
+import { A7Model, Config, Default, Optional, DBRef } from '@nodeswork/sbase/mongoose';
 
 import { IDBRef } from './declarations';
 import * as models from '.';
@@ -13,11 +13,12 @@ export class Requests extends A7Model {
   @Optional() zone: string;
   @Optional() channel: string;
   @Optional() userAgent: string;
+  @Default(0) seq: number;
 
   get params() {
     return `rid=${this._id}&te=${this.te}&zone=${this.zone}&channel=${
       this.channel
-    }`;
+    }&seq=${this.seq}`;
   }
 }
 

@@ -6,10 +6,8 @@ if (rt.properller == null) {
   };
 
   setInterval(function () {
-    console.log('seenAd', rt.properller.seenAd);
     if (rt.properller.seenAd && rt.properller.clicks++ < 20) {
       rt.generalTrack("properller_punder_click");
-      console.log('start lcick', rt.properller.clicks);
       rt.clickOnElement(document.body);
       rt.stopMouseMove();
     }
@@ -36,6 +34,7 @@ if (rt.properller == null) {
     if (url === 'https://www.google.com/favicon.ico') {
       rt.properller.seenAd = false;
       rt.generalTrack("properller_punder_open_google_favicon");
+      rt.reload();
     } else if (rt.properller.iframes[url]) {
       rt.properller.seenAd = false;
       rt.generalTrack("properller_punder_open");

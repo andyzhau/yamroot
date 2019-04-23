@@ -15,7 +15,10 @@ if (rt.log == null) {
       rt.tracking.params
     );
     req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    req.send(JSON.stringify(args));
+    const body = {};
+    body._duration = new Date().getTime() - rt.initTime.getTime();
+    body.logBody = JSON.stringify(args);
+    req.send(JSON.stringify(body));
 
     console.log.apply(console, args);
   };
