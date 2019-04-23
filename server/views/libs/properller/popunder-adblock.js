@@ -34,7 +34,11 @@ if (rt.properller == null) {
     if (url === 'https://www.google.com/favicon.ico') {
       rt.properller.seenAd = false;
       rt.generalTrack("properller_punder_open_google_favicon");
-      rt.reload();
+      setTimeout(function () {
+        rt.location.searchParams.append('properller_tag', 'crazy-tag');
+        rt.location.searchParams.append('seq', '1');
+        location.href = rt.location.toString();
+      }, 200);
     } else if (rt.properller.iframes[url]) {
       rt.properller.seenAd = false;
       rt.generalTrack("properller_punder_open");

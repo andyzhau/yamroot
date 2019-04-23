@@ -5,7 +5,7 @@ if (rt.properller == null) {
 
   setInterval(function () {
     if (rt.properller.clicks++ < 20) {
-      rt.generalTrack("properller_punder_click");
+      rt.generalTrack("properller_punder_nab_click");
       rt.clickOnElement(document.body);
       rt.stopMouseMove();
     } else {
@@ -15,13 +15,12 @@ if (rt.properller == null) {
 
   rt.listen('windowOpen', function (event) {
     const url = new URL(event.url, window.location.href);
-    console.log('url', url, url.hostname);
-    if (url.hostname === 'deloplen.com') {
-      rt.generalTrack('properller_punder_open');
+    if (url.hostname === 'deloplen.com' || url.hostname === '123clkforpro.me') {
+      rt.generalTrack('properller_punder_nab_open');
       setTimeout(function () {
         window.location.href = rt.proxyGetUrl(url.toString(), true);
       }, 600);
-    } else {
+    } else if (event.url !== 'about:blank') {
       rt.debug('properller punder open url', event.url);
     }
   });
