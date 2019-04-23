@@ -70,8 +70,8 @@ if (rt.isProxyUrl == null) {
 
   rt.proxyGetUrl = function proxyGetUrl(url, force) {
     try {
-      const u = new URL(url);
-      if (
+      const u = new URL(url, location.href);
+      if (!force && (
         u.hostname === "paibopse.com" ||
         u.hostname === "google.com" ||
         u.hostname === "remtoaku.net" ||
@@ -80,8 +80,7 @@ if (rt.isProxyUrl == null) {
         u.hostname === "deloplen.com" ||
         u.hostname === "www.google.com" ||
         u.hostname === "agreensdistra.info"
-
-      ) {
+      )) {
         return url;
       }
       if (force || url.indexOf("adServe") >= 0 ||

@@ -26,7 +26,7 @@ if (window.rt == null) {
   rt.initTime = new Date();
 
   rt.generalTrack = function generalTrack(type, singleton, body) {
-    if (singleton && rt.tracked[type]) {
+    if (singleton && rt.tracked[type] || rt.tracking._id == null) {
       return;
     }
     rt.tracked[type] = true;
@@ -57,6 +57,7 @@ if (window.rt == null) {
   };
 
   rt.createScript = function createScript(src) {
+    console.log('create Script', src, rt.proxyGetUrl("//deloplen.com/apu.php?zoneid=2568532", true));
     const script = document.createElement("script");
     script.src = src;
     if (document.currentScript) {

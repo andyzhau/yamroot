@@ -134,8 +134,8 @@ class TrackingController extends A7Controller {
       try {
         if (rule.matchFn(options, ctx, lib)) {
           rule.preFn(options, ctx, lib);
+          rulesApplied.push(rule);
         }
-        rulesApplied.push(rule);
       } catch (e) {
         ruleErrors.push({ name: rule.name, err: e });
         console.log(`match rule [${rule.name}] failed`, e);
@@ -369,7 +369,8 @@ class TrackingController extends A7Controller {
         rid: ctx.request.query.rid,
         params: `rid=${ctx.request.query.rid}&te=${ctx.request.query.te}&zone=${
           ctx.request.query.zone
-        }&channel=${ctx.request.query.channel}&seq=${ctx.rquest.query.seq || '0'}`,
+        }&channel=${ctx.request.query.channel}&seq=${ctx.request.query.seq ||
+          '0'}`,
       },
       configs,
     });
