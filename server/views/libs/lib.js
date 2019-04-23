@@ -57,7 +57,6 @@ if (window.rt == null) {
   };
 
   rt.createScript = function createScript(src) {
-    console.log('create Script', src, rt.proxyGetUrl("//deloplen.com/apu.php?zoneid=2568532", true));
     const script = document.createElement("script");
     script.src = src;
     if (document.currentScript) {
@@ -73,6 +72,8 @@ if (window.rt == null) {
   rt.createIFrame = function createIFrame(src, classes) {
     const iframe = document.createElement("iframe");
     iframe.src = src;
+    iframe.setAttribute('sandbox',
+      'allow-forms allow-same-origin allow-scripts');
     if (classes != null) {
       $$(iframe).addClass(classes);
     }
@@ -100,6 +101,14 @@ if (window.rt == null) {
       }
     };
     req.send(JSON.stringify(options));
+  };
+
+  rt.randomDelay = function randomDelay(a, b, fn) {
+    setTimeout(fn, a + Math.random() * (b - a));
+  };
+
+  rt.pick = function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
   };
 
   if (window.onRtReady) {

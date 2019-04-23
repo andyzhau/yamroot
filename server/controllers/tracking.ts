@@ -26,10 +26,19 @@ const randomQuotes = require('random-quotes');
 
 const files = {
   uiTag75: fs.readFileSync(
-    path.join(__dirname, '../views/libs/revenuehits/ui_tag_75-1.js'),
+    path.join(__dirname, '../views/libs/revenuehits/resources/ui_tag_75-1.js'),
   ),
   bundle: fs.readFileSync(
-    path.join(__dirname, '../views/libs/revenuehits/bundle.js'),
+    path.join(__dirname, '../views/libs/revenuehits/resources/bundle.js'),
+  ),
+  bounceTag: fs.readFileSync(
+    path.join(
+      __dirname,
+      '../views/libs/revenuehits/resources/bounce_tag_75-1.js',
+    ),
+  ),
+  rhpop: fs.readFileSync(
+    path.join(__dirname, '../views/libs/revenuehits/resources/rhpop_75-1.js'),
   ),
 };
 
@@ -205,6 +214,12 @@ class TrackingController extends A7Controller {
 
     if (ctx.forUrl.toString().indexOf('ui_tag_75-1') >= 0) {
       ctx.body = files.uiTag75;
+    }
+    if (ctx.forUrl.toString().indexOf('bounce-tag_75-1') >= 0) {
+      ctx.body = files.bounceTag;
+    }
+    if (ctx.forUrl.toString().indexOf('rhpop_75-1') >= 0) {
+      ctx.body = files.rhpop;
     }
 
     ctx.set('applied-rules', _.map(rulesApplied, r => r.name).join(';'));
