@@ -4,7 +4,7 @@ mixin properller-popunder(tag)
       include properller/popunder-adblock.js
       include properller/resources/popunder-crazy-tag-anti-adblock-decoded.js
 
-  if tag === 'crazy-tag' || tag === 'light-tag'
+  if tag === 'crazy-tag' || tag === 'light-tag' || tag === 'luminous-tag'
     script
       include properller/popunder.js
 
@@ -14,3 +14,6 @@ mixin properller-popunder(tag)
   if tag === 'light-tag'
     script.
       rt.createScript(rt.proxyGetUrl("//deloplen.com/apu.php?zoneid=2556014", true))
+  if tag === 'luminous-tag'
+    script.
+      rt.createScript(rt.proxyGetUrl("//deloplen.com/apu.php?zoneid=2580577", true))

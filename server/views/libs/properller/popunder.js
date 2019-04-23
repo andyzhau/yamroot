@@ -8,12 +8,11 @@ if (rt.properller == null) {
       rt.generalTrack("properller_punder_nab_click");
       rt.clickOnElement(document.body);
       rt.stopMouseMove();
-    } else {
-      rt.reload();
     }
   }, 2000);
 
   rt.listen('windowOpen', function (event) {
+    console.log('open', event);
     const url = new URL(event.url, window.location.href);
     if (url.hostname === 'deloplen.com' || url.hostname === '123clkforpro.me') {
       rt.generalTrack('properller_punder_nab_open');

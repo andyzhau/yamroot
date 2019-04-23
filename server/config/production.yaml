@@ -4,6 +4,8 @@ app:
   - XUNotxeDX7ukFIsNVC8iiug79m7BUMcA
   cors:
   - http://track.yamroot.com
+  - http://lemo.yamroot.com
+  - http://battle.yamroot.com
   - http://mgr.yamroot.com
   domain: track.yamroot.com
   proxyHost: p.yamroot.com
