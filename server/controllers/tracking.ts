@@ -282,6 +282,7 @@ class TrackingController extends A7Controller {
       properller: ctx.request.query.properller === 'true',
       properllerTag:
         ctx.request.query.properller_tag || 'crazy-tag-anti-adblock',
+      popcash: ctx.request.query.popcash === 'true',
     };
 
     ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];

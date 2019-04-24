@@ -1,6 +1,7 @@
 include libs/lib
 include libs/properller-popunder
 include libs/revenuehits
+include libs/popcash
 
 doctype html
 html(lang="en")
@@ -37,3 +38,5 @@ html(lang="en")
       div.banner
         if options.revenuehits
           +revenuehits('346864_677269_0')
+        if options.popcash
+          +popcash()
