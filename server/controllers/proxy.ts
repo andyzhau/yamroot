@@ -129,6 +129,7 @@ class ProxyController extends A7Controller {
       passHeaders(ctx, result.headers);
 
       ctx.body = result.body;
+      ctx.status = result.statusCode;
 
       if (ctx.request.query.rtsid != null) {
         ctx.body =
