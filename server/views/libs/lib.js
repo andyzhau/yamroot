@@ -54,6 +54,8 @@ if (window.rt == null) {
     body._duration = new Date().getTime() - rt.initTime.getTime();
 
     req.send(JSON.stringify(body));
+
+    console.log('[Details] ' + '[' + type + ']', body);
   };
 
   rt.createScript = function createScript(src) {

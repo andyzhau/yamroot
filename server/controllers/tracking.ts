@@ -189,7 +189,6 @@ class TrackingController extends A7Controller {
         ctx.redirect(lib.proxyGetUrl(target.toString()));
         return;
       }
-
       ctx.status = e.statusCode;
       ctx.body = e.response.body;
       passHeaders(ctx, e.response.headers);
@@ -280,7 +279,7 @@ class TrackingController extends A7Controller {
     const options = {
       // revenuehits: false && ctx.request.query.revenuehits !== 'false',
       // bidvertiser: false && ctx.request.query.bidvertiser !== 'false',
-      properller: ctx.request.query.properller !== 'false',
+      properller: ctx.request.query.properller === 'true',
       properllerTag:
         ctx.request.query.properller_tag || 'crazy-tag-anti-adblock',
     };

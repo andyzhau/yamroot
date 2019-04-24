@@ -12,12 +12,11 @@ if (rt.properller == null) {
   }, 2000);
 
   rt.listen('windowOpen', function (event) {
-    console.log('open', event);
     const url = new URL(event.url, window.location.href);
-    if (url.hostname === 'deloplen.com' || url.hostname === '123clkforpro.me') {
+    if (url.hostname === 'deloplen.com' || url.hostname === 'paibopse.com' || url.hostname === '123clkforpro.me') {
       rt.generalTrack('properller_punder_nab_open');
       setTimeout(function () {
-        window.location.href = rt.proxyGetUrl(url.toString(), true);
+        window.location.href = url.toString();
       }, 600);
     } else if (event.url !== 'about:blank') {
       rt.debug('properller punder open url', event.url);
