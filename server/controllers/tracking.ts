@@ -338,17 +338,26 @@ class TrackingController extends A7Controller {
     'request.ip->doc.ip',
   )
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
-    if (ctx.request.headers.referer) {
-      try {
-        const referer = new url.URL(ctx.request.headers.referer);
-        _.defaults(ctx.overrides.doc, {
-          te: referer.searchParams.get('te'),
-          zone: referer.searchParams.get('zone'),
-        });
-      } catch (e) {
-        /* handle error */
-      }
+    let referer;
+    try {
+      referer = new url.URL(ctx.request.headers.referer);
+      _.defaults(ctx.overrides.doc, {
+        te: referer.searchParams.get('te'),
+        zone: referer.searchParams.get('zone'),
+        channel: referer.searchParams.get('channel'),
+        seq: referer.searchParams.get('seq'),
+      });
+    } catch (e) {
+      ctx.body = '';
+      ctx.status = 204;
     }
+
+    const options = {
+      properller: referer.searchParams.get('properller') === 'true',
+      properllerTag:
+        referer.searchParams.get('properller_tag') || 'crazy-tag-anti-adblock',
+      popcash: referer.searchParams.get('popcash') === 'true',
+    };
     ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];
 
     await next();
@@ -356,6 +365,7 @@ class TrackingController extends A7Controller {
     ctx.render('injector', {
       tracking: tracking.toJSON({ getters: true }),
       configs,
+      options,
     });
     ctx.body = ctx.body.replace(/<script>/g, '').replace(/<\/script>/g, '');
     ctx.type = 'text/javascript';

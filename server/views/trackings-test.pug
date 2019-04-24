@@ -13,31 +13,16 @@ html(lang="en")
     meta(charset="utf-8")
     style
       include styles/styles.css
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js")
 
-    +lib(tracking, configs.app.domain)
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js")
+    script(src="/trackings/injector.js")
+
+    //- +lib(tracking, configs.app.domain)
 
     //- +popcash(10000, 485717)
 
     //- +ad-maven()
   body
     p This is the track test page.2
-    +popcash()
+    //- +popcash()
     //- +properller-popunder('luminous-tag')
-
-    //- +revenuehits('346864_677269_0')
-    //- script.
-    //-   document.onmousedown = function (event) {
-    //-     console.log('mousedown', event);
-    //-   };
-    //-   document.onmouseup = function (event) {
-    //-     console.log('mouseup', event);
-    //-   };
-    //-   document.onclick = function (event) {
-    //-     console.log('click', event);
-    //-   };
-    //-   document.onmousemove = function (event) {
-    //-     console.log('mousemove', event);
-    //-   }
-    //-   rt.clickOnElement();
-    //-   rt.stopMouseMove();

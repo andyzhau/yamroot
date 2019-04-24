@@ -7,6 +7,7 @@ app:
   - http://lemo.yamroot.com
   - http://battle.yamroot.com
   - http://mgr.yamroot.com
+  - http://blog.coolocha.com
   domain: track.yamroot.com
   proxyHost: p.yamroot.com
 

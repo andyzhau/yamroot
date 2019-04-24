@@ -3,13 +3,8 @@ include libs/popcash
 
 +lib(tracking, configs.app.domain)
 
-script.
-  rt.generalTrack('execute');
-
-//- script
-  //- include libs/propeller-native-subscription.js
-
-+popcash(10, 485251)
+if options.popcash
+  +popcash()
 
 script
   include libs/google-analytics.js

@@ -22,7 +22,7 @@
       "name": "VNC_PW",
       "value": "Asdf1234"
     }],
-    "memory": 400,
+    "memory": 300,
     "portMappings": [{
       "hostPort": 80,
       "containerPort": 6901
@@ -35,7 +35,7 @@
       "containerPath": "/root/bin"
     }],
     "linuxParameters": {
-      "sharedMemorySize": 64
+      "sharedMemorySize": 168
     }
   }]
 }
