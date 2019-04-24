@@ -25,7 +25,7 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.10",
     "@elastic/elasticsearch": "^7.0.0-rc.1",
-    "@nodeswork/sbase": "^0.5.18",
+    "@nodeswork/sbase": "^0.5.20",
     "@types/aws-sdk": "^2.7.0",
     "@types/cheerio": "^0.22.11",
     "@types/config": "0.0.34",

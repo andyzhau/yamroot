@@ -1,0 +1,5 @@
+mixin properller-popunder(properllerId)
+  script
+    include properller/popunder.js
+  script.
+    rt.createScript("//deloplen.com/apu.php?_=" + new Date().getTime() + "&zoneid=" + !{properllerId});

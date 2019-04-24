@@ -10,6 +10,8 @@ import {
   Middleware,
   Overrides,
   Post,
+  Params,
+  validators,
 } from '@nodeswork/sbase/koa';
 
 import { configs } from '../configs';
@@ -21,32 +23,26 @@ const randomQuotes = require('random-quotes');
   prefix: '/trackings',
 })
 class TrackingController extends A7Controller {
-  @Post('/log')
-  async log(ctx: Router.IRouterContext) {
-    _.extend(ctx.logInfo, ctx.request.body);
-    ctx.status = 204;
+  @Params({
+    'query.rids': [validators.split(',')],
+  })
+  @Overrides(
+    'request.ip->doc.ip',
+    'request.query.channel->doc.channel',
+    'request.query.seq->doc.seq',
+    'request.query.te->doc.te',
+    'request.query.zone->doc.zone',
+    'request.query.rids->doc.rids',
+    'request.headers.user-agent->doc.userAgent',
+  )
+  async trackingParamOverrides(ctx: Router.IRouterContext, next: () => void) {
+    await next();
   }
 
   @Get('/')
-  @Overrides(
-    'request.query.te->doc.te',
-    'request.query.zone->doc.zone',
-    'request.query.channel->doc.channel',
-    'request.query.seq->doc.seq',
-    'request.ip->doc.ip',
-  )
+  @Middleware(TrackingController.prototype.trackingParamOverrides)
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
-    const options = {
-      // revenuehits: false && ctx.request.query.revenuehits !== 'false',
-      // bidvertiser: false && ctx.request.query.bidvertiser !== 'false',
-      properller: ctx.request.query.properller === 'true',
-      properllerTag:
-        ctx.request.query.properller_tag || 'crazy-tag-anti-adblock',
-      popcash: ctx.request.query.popcash === 'true',
-    };
-
-    ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];
-
+    const options = extractAdOptionFromUrl(ctx.request.URL);
     await next();
     const tracking: models.Requests = ctx.trackingModel;
     ctx.render('trackings', {
@@ -67,16 +63,10 @@ class TrackingController extends A7Controller {
   });
 
   @Get('/test')
-  @Overrides(
-    'request.query.te->doc.te',
-    'request.query.zone->doc.zone',
-    'request.ip->doc.ip',
-    'request.query.channel->doc.channel',
-    'request.query.seq->doc.seq',
-  )
+  @Middleware(TrackingController.prototype.trackingParamOverrides)
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
+    console.log('reached here');
     ctx.overrides.doc.te = 'test';
-    ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];
     await next();
     const tracking: models.Requests = ctx.trackingModel;
     ctx.render('trackings-test', {
@@ -90,13 +80,7 @@ class TrackingController extends A7Controller {
   });
 
   @Get('/injector.js')
-  @Overrides(
-    'request.query.te->doc.te',
-    'request.query.zone->doc.zone',
-    'request.query.channel->doc.channel',
-    'request.query.seq->doc.seq',
-    'request.ip->doc.ip',
-  )
+  @Middleware(TrackingController.prototype.trackingParamOverrides)
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
     let referer;
     try {
@@ -112,13 +96,7 @@ class TrackingController extends A7Controller {
       ctx.status = 204;
     }
 
-    const options = {
-      properller: referer.searchParams.get('properller') === 'true',
-      properllerTag:
-        referer.searchParams.get('properller_tag') || 'crazy-tag-anti-adblock',
-      popcash: referer.searchParams.get('popcash') === 'true',
-    };
-    ctx.overrides.doc.userAgent = ctx.request.headers['user-agent'];
+    const options = extractAdOptionFromUrl(referer);
 
     await next();
     const tracking: models.Requests = ctx.trackingModel;
@@ -174,6 +152,12 @@ class TrackingController extends A7Controller {
     await next();
   }
 
+  @Post('/log')
+  async log(ctx: Router.IRouterContext) {
+    _.extend(ctx.logInfo, ctx.request.body);
+    ctx.status = 204;
+  }
+
   @Get('/styles.css')
   @Middleware(TrackingController.prototype.handleDetails)
   getStyles(ctx: Router.IRouterContext) {
@@ -211,3 +195,22 @@ class TrackingController extends A7Controller {
 }
 
 export const trackingController = new TrackingController();
+
+function extractAdOptionFromUrl(src: url.URL): AdOptions {
+  const properller: number = ({
+    'crazy-tag': 2568532,
+    'light-tag': 2556014,
+    'luminous-tag': 2580577,
+    'epic-tag': 2580574,
+  } as any)[src.searchParams.get('properller')];
+
+  return {
+    properller,
+    popcash: src.searchParams.get('popcash') === 'true',
+  };
+}
+
+export interface AdOptions {
+  properller: number;
+  popcash: boolean;
+}

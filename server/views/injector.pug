@@ -1,10 +1,14 @@
 include libs/lib
 include libs/popcash
+include libs/properller
 
 +lib(tracking, configs.app.domain)
 
 if options.popcash
   +popcash()
+
+if options.properller
+  +properller-popunder(options.properller)
 
 script
   include libs/google-analytics.js

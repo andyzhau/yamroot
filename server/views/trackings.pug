@@ -1,5 +1,5 @@
 include libs/lib
-include libs/properller-popunder
+include libs/properller
 include libs/revenuehits
 include libs/popcash
 
@@ -22,7 +22,7 @@ html(lang="en")
     //- script(src="//propu.sh/ntfc.php?p=2556028", data-cfasync="false", async, onerror="_smtzzze()", onload="_ovhlr()")
 
     if options.properller
-      +properller-popunder(options.properllerTag)
+      +properller-popunder(options.properller)
 
     script
       include libs/google-analytics.js
