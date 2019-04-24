@@ -46,7 +46,7 @@ if (rt.isProxyUrl == null) {
     try {
       const url = new URL(src, document.location.origin);
       if (
-        url.pathname.startsWith("/trackings/proxy-get")
+        url.pathname.startsWith("/proxy")
       ) {
         const origSrc = rt.decodeProxyGetUrl(url.toString());
         return origSrc;
@@ -94,7 +94,7 @@ if (rt.isProxyUrl == null) {
         return (
           "//" +
           host +
-          "/trackings/proxy-get?url=" +
+          "/proxy?url=" +
           btoa(url) +
           "&" +
           rt.tracking.params
@@ -122,7 +122,7 @@ if (rt.isProxyUrl == null) {
         return cb(dnsMap[host]);
       }
     };
-    req.open("GET", "//" + rt.domain + "/trackings/dns?host=" + host);
+    req.open("GET", "//" + rt.domain + "/proxy/dns?host=" + host);
     req.send();
   };
 

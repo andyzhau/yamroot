@@ -15,7 +15,7 @@ export class Lib {
             .reverse()
             .join('') + '.' + configs.app.proxyHost
         : configs.app.proxyHost);
-    const nUrl = new url.URL('/trackings/proxy-get', nHost);
+    const nUrl = new url.URL('/proxy', nHost);
     nUrl.searchParams.append('url', urlEncoded);
     if (options.noRedirect) {
       nUrl.searchParams.append('noredirect', 'true');
@@ -35,7 +35,7 @@ export class Lib {
   isTrackingUrl(link: string) {
     try {
       const linkUrl = new url.URL(link);
-      return linkUrl.pathname === '/trackings/proxy-get';
+      return linkUrl.pathname === '/proxy';
     } catch (e) {
       return false;
     }
