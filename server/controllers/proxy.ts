@@ -71,7 +71,8 @@ class ProxyController extends A7Controller {
         k !== 'zone' &&
         k !== 'try_relative' &&
         k !== 'channel' &&
-        k !== 'seq'
+        k !== 'seq' &&
+        k !== 'visited'
       ) {
         u1.searchParams.append(k, v);
       }

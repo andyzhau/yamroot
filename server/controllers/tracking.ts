@@ -16,6 +16,7 @@ import {
 
 import { configs } from '../configs';
 import { logger } from '../logger';
+import { zones } from './zones';
 
 const randomQuotes = require('random-quotes');
 
@@ -23,8 +24,13 @@ const randomQuotes = require('random-quotes');
   prefix: '/trackings',
 })
 class TrackingController extends A7Controller {
+  @Middleware(async (ctx: any, next: any) => {
+    console.log('before1');
+    await next();
+    console.log('after1');
+  })
   @Params({
-    'query.rids': [validators.split(',')],
+    'query.visited': [validators.split(',')],
   })
   @Overrides(
     'request.ip->doc.ip',
@@ -32,15 +38,60 @@ class TrackingController extends A7Controller {
     'request.query.seq->doc.seq',
     'request.query.te->doc.te',
     'request.query.zone->doc.zone',
-    'request.query.rids->doc.rids',
+    'request.query.visited->doc.visited',
     'request.headers.user-agent->doc.userAgent',
   )
   async trackingParamOverrides(ctx: Router.IRouterContext, next: () => void) {
+    ctx.overrides.doc.visited = ctx.overrides.doc.visited || [];
+    console.log('visited', ctx.overrides.doc.visited, ctx.request.url);
+    if (ctx.request.query.zone) {
+      ctx.overrides.doc.visited.push(ctx.request.query.zone);
+    }
     await next();
   }
 
+  @Get('/hub')
+  async hub(ctx: Router.IRouterContext) {
+    const channel = ctx.request.query.channel;
+    const te = ctx.request.query.te;
+    const seq = Number.parseInt(ctx.request.query.seq || '0', 10) + 1;
+    const visited = _.filter(ctx.request.query.visited || [], x => !!x);
+    let candidates = _.filter(zones, z => visited.indexOf(z.zone) === -1);
+    if (_.isEmpty(candidates)) {
+      candidates = zones;
+    }
+
+    const targetZone =
+      candidates[Math.floor(Math.random() * candidates.length)];
+
+    const target = new url.URL(targetZone.baseLink);
+    target.searchParams.append('te', te);
+    target.searchParams.append('channel', channel);
+    target.searchParams.append('seq', seq.toString());
+    target.searchParams.append('zone', targetZone.zone);
+    target.searchParams.append(
+      'visited',
+      visited.concat(targetZone.zone).join(','),
+    );
+    ctx.logInfo.redirectTo = {
+      zone: targetZone.zone,
+      link: target.toString(),
+    };
+    ctx.redirect(target.toString());
+  }
+
   @Get('/')
+  @Middleware(async (ctx: any, next: any) => {
+    console.log('before');
+    await next();
+    console.log('after');
+  })
   @Middleware(TrackingController.prototype.trackingParamOverrides)
+  @Middleware(async (ctx: any, next: any) => {
+    console.log('before- inner');
+    await next();
+    console.log('after - inner');
+  })
   @Middleware(async (ctx: Router.IRouterContext, next: () => void) => {
     const options = extractAdOptionFromUrl(ctx.request.URL);
     await next();
@@ -128,7 +179,7 @@ class TrackingController extends A7Controller {
         params: `rid=${ctx.request.query.rid}&te=${ctx.request.query.te}&zone=${
           ctx.request.query.zone
         }&channel=${ctx.request.query.channel}&seq=${ctx.request.query.seq ||
-          '0'}`,
+          '0'}&visited=${ctx.request.query.visited}`,
       },
       configs,
     });

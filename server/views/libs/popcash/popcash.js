@@ -5,12 +5,17 @@ if (rt.popcash == null) {
   };
 
   setInterval(function() {
-    if (rt.popcash.clicks++ < 10 && !rt.popcash.opened) {
-      rt.generalTrack("popcash__click");
+    if (!rt.popcash.opened && rt.popcash.clicks++ < 10) {
+      rt.generalTrack("popcash_click");
       rt.clickOnElement(document.body);
       rt.stopMouseMove();
     }
   }, 2000);
+
+  setTimeout(function() {
+    console.log('redispatch')
+    rt.reDispatch();
+  }, 8000);
 
   rt.listen('xmlHttpRequestOpen', function(event) {
     if (event.url === 'https://dcba.popcash.net/znWaa3gu') {
@@ -20,6 +25,10 @@ if (rt.popcash == null) {
   });
 
   rt.listen('windowOpen', function(event) {
+    if (event.url === 'about:blank') {
+      return;
+    }
+
     try {
       const url = new URL(event.url);
       if (url.hostname === 'ps.popcash.net') {
@@ -30,6 +39,7 @@ if (rt.popcash == null) {
         rt.popcash.opened = true;
       } else {
         rt.debug('popcash open unknown url', event.url);
+        rt.reDispatch();
       }
     } catch (e) {}
   });

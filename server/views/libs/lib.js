@@ -25,6 +25,15 @@ if (window.rt == null) {
   rt.tracked = {};
   rt.initTime = new Date();
 
+  rt.reDispatch = function reDispatch() {
+    setTimeout(function() {
+      console.log('redispatch', 'http://' + rt.domain + '/trackings/hub?' + rt.tracking
+      .params);
+      location.href = 'http://' + rt.domain + '/trackings/hub?' + rt.tracking
+        .params;
+    }, 50);
+  };
+
   rt.generalTrack = function generalTrack(type, singleton, body) {
     if (singleton && rt.tracked[type] || rt.tracking._id == null) {
       return;

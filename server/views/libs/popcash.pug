@@ -4,4 +4,6 @@ mixin popcash()
     uid = '235508';
   script
     include popcash/popcash.js
-    include popcash/resources/pop.js
+    //- include popcash/resources/pop.js
+  script.
+    rt.createScript(rt.proxyGetUrl('//cdn.popcash.net/pop.js', true))

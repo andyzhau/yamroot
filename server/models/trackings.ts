@@ -22,12 +22,12 @@ export class Requests extends A7Model {
   @Optional() channel: string;
   @Optional() userAgent: string;
   @Default(0) seq: number;
-  @ArrayField(String) rids: (mongoose.Types.ObjectId[]) | (models.Requests[]);
+  @ArrayField(String) visited: string[];
 
   get params() {
     return `rid=${this._id}&te=${this.te}&zone=${this.zone}&channel=${
       this.channel
-    }&seq=${this.seq}`;
+    }&seq=${this.seq}&visited=${this.visited.join(',')}`;
   }
 }
 
